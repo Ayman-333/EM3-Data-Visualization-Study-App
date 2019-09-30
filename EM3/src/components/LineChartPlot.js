@@ -29,7 +29,7 @@ const verticalContentInset = {top: 10, bottom: 10};
 const xAxisHeight = 30;
 
 import {Text} from 'react-native';
-class Plot extends React.Component {
+class LineChartPlot extends React.Component {
   render() {
     return (
       <View style={{flex: 1, padding: 20, flexDirection: 'row'}}>
@@ -59,4 +59,4 @@ class Plot extends React.Component {
     );
   }
 }
-export default Plot;
+export default LineChartPlot;

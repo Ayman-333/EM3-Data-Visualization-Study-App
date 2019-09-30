@@ -5,7 +5,7 @@
  * @format
  * @flow
  */
-import Plot from './Plot';
+import LineChartPlot from './LineChartPlot';
 import Questionnaire from './Questionnaire';
 import React from 'react';
 import {
@@ -28,7 +28,7 @@ const App = () => {
         <View>
           <View style={styles.container}>
             <View style={styles.plotBody}>
-              <Plot />
+              <LineChartPlot />
             </View>
             <Questionnaire />
           </View>
