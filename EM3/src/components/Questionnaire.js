@@ -1,5 +1,13 @@
-import React, {Component} from 'react';
-import {StyleSheet, Button, Text, TextInput, View} from 'react-native';
+import React from 'react';
+import {
+  StyleSheet,
+  Button,
+  Text,
+  TextInput,
+  View,
+  Animated,
+  SafeAreaView,
+} from 'react-native';
 import {SimpleSurvey} from 'react-native-simple-survey';
 import SURVEY from '../../res/surveyInfo';
 
@@ -7,12 +15,11 @@ const GREEN = 'rgba(141,196,63,1)';
 const SKYBLUE = 'rgba(135,206,235 ,1 )';
 
 const survey = SURVEY.survey;
-
-class Questionnaire extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {backgroundColor: 'white'};
-  }
+class Questionnaire extends React.Component {
+  state = {
+    index: 0,
+    progress: new Animated.Value(0),
+  };
 
   onSurveyFinished(answers) {
     /**
@@ -70,6 +77,24 @@ class Questionnaire extends Component {
   }
 
   renderPreviousButton(onPress, enabled) {
+    onPress = (function() {
+      var cached_function = onPress;
+      return function() {
+        var result = cached_function.apply(this, arguments); // use .apply() to call it
+        // This is the functionality I wanted to add to the orginal function
+        Animated.timing(this.state.progress, {
+          toValue: this.state.index - 1,
+          duration: 400,
+        }).start(() => {
+          this.setState(prevState => {
+            return {index: prevState.index - 1};
+          });
+        });
+
+        return result;
+      };
+    })();
+    onPress = onPress.bind(this);
     return (
       <View
         style={{flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10}}>
@@ -85,6 +110,26 @@ class Questionnaire extends Component {
   }
 
   renderNextButton(onPress, enabled) {
+    onPress = (function() {
+      var cached_function = onPress;
+      return function() {
+        var result = cached_function.apply(this, arguments); // use .apply() to call it
+        // This is the functionality I wanted to add to the orginal function
+        Animated.timing(this.state.progress, {
+          toValue: this.state.index + 1,
+          duration: 400,
+        }).start(() => {
+          this.setState(prevState => {
+            return {index: prevState.index + 1};
+          });
+        });
+        // more of your code
+
+        return result;
+      };
+    })();
+    onPress = onPress.bind(this);
+
     return (
       <View
         style={{flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10}}>
@@ -100,6 +145,25 @@ class Questionnaire extends Component {
   }
 
   renderFinishedButton(onPress, enabled) {
+    onPress = (function() {
+      var cached_function = onPress;
+      return function() {
+        var result = cached_function.apply(this, arguments); // use .apply() to call it
+        // This is the functionality I wanted to add to the orginal function
+        Animated.timing(this.state.progress, {
+          toValue: this.state.index + 1,
+          duration: 400,
+        }).start(() => {
+          this.setState(prevState => {
+            return {index: prevState.index + 1};
+          });
+        });
+        // more of your code
+
+        return result;
+      };
+    })();
+    onPress = onPress.bind(this);
     return (
       <View
         style={{flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10}}>
@@ -188,13 +252,18 @@ class Questionnaire extends Component {
   }
 
   render() {
+    const progressInterpolate = this.state.progress.interpolate({
+      inputRange: [0, survey.length],
+      outputRange: ['0%', '100%'],
+    });
+
+    const progressStyle = {
+      width: progressInterpolate,
+    };
+
     return (
-      <View
-        style={[
-          styles.background,
-          {backgroundColor: this.state.backgroundColor},
-        ]}>
-        <View style={styles.container}>
+      <SafeAreaView>
+        <View style={styles.questionnaireContainer}>
           <SimpleSurvey
             survey={survey}
             renderSelector={this.renderButton.bind(this)}
@@ -214,8 +283,11 @@ class Questionnaire extends Component {
             renderNumericInput={this.renderNumericInput}
             renderInfo={this.renderInfoText}
           />
+          <View style={styles.progress}>
+            <Animated.View style={[styles.bar, progressStyle]} />
+          </View>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -229,7 +301,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  container: {
+  questionnaireContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -241,7 +313,9 @@ const styles = StyleSheet.create({
   },
   surveyContainer: {
     width: '100%',
+    height: '100%',
     alignSelf: 'center',
+    justifyContent: 'center',
     backgroundColor: 'white',
     alignContent: 'center',
     padding: 5,
@@ -270,14 +344,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  background: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   questionText: {
-    marginBottom: 20,
-    fontSize: 20,
+    marginBottom: 5,
+    fontSize: 15,
     alignSelf: 'center',
   },
   textBox: {
@@ -309,6 +378,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
     alignSelf: 'center',
+  },
+  progress: {
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    right: 0,
+    top: 0,
+    height: 20,
+  },
+  bar: {
+    height: '100%',
+    backgroundColor: 'rgba(141,196,63,1)',
   },
 });
 

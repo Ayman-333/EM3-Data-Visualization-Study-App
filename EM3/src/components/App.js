@@ -7,6 +7,8 @@
  */
 import LineChartPlot from './LineChartPlot';
 import Questionnaire from './Questionnaire';
+import SurveyHeader from './SurveyHeader';
+
 import React from 'react';
 import {
   SafeAreaView,
@@ -17,35 +19,37 @@ import {
   StatusBar,
 } from 'react-native';
 
-// TODO The first view for the plotting
-// TODO the second view is for the questionnaire
-
-const App = () => {
-  return (
-    <>
-      <StatusBar barStyle="light-content" />
-      <SafeAreaView style={styles.container}>
-        <View>
-          <View style={styles.container}>
+class App extends React.Component {
+  render() {
+    return (
+      <>
+        <SurveyHeader style={styles.header}/>
+        <SafeAreaView style={styles.container}>
+          <View>
             <View style={styles.plotBody}>
               <LineChartPlot />
             </View>
-            <Questionnaire />
+            <View style={styles.container}>
+              <Questionnaire />
+            </View>
           </View>
-        </View>
-      </SafeAreaView>
-    </>
-  );
-};
-
+        </SafeAreaView>
+      </>
+    );
+  }
+}
 const styles = StyleSheet.create({
+  header: {
+    flex: 0.5,
+  },
   container: {
-    flex: 1,
+    flex: 1.5,
     alignItems: 'center',
     justifyContent: 'space-around',
     backgroundColor: 'white',
   },
   plotBody: {
+    flex: 1,
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
