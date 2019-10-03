@@ -23,10 +23,7 @@ class SurveyHeader extends React.Component {
           <Title style={styles.titleCenter}>EM3</Title>
         </Body>
         <Right style={styles.centerStyle}>
-          <Button
-            transparent
-            onPress={() => this.props.navigation.navigate('DrawerOpen')}>
-            >
+          <Button transparent>
             <Icon name="menu" />
           </Button>
         </Right>

@@ -356,7 +356,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     padding: 10,
-    fontFamily: 'palanquin-light',
+    fontFamily: 'Arial',
     textAlignVertical: 'top',
     marginLeft: 10,
     marginRight: 10,
