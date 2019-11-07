@@ -1,105 +1,202 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-import LineChartPlot from './LineChartPlot';
-import { StackedBarChart } from 'react-native-svg-charts';
-import Questionnaire from './Questionnaire';
-import SurveyHeader from './SurveyHeader';
-
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
-class App extends React.Component {
+import React, { Component } from 'react';
+import { View, StyleSheet, Button } from 'react-native';
+import { Text } from 'react-native-svg';
+import moment from 'moment';
+import * as scale from 'd3-scale';
+import { StackedBarChart, StackedAreaChart, YAxis, XAxis, Grid } from 'react-native-svg-charts';
+    
+const Labels = (props) => {
+  const { x, y, data } = props;
+  return data.map((value, index) => {
+    const sum = value.travel + value.food + value.utility
+    const pX = x(index) + x.bandwidth() / 2
+    const pY = y(sum) - 10
+    return <Text
+              key={ index }
+              x={ pX }
+              y={ pY }
+              fontSize={ 13 }
+              fill='red'
+              alignmentBaseline={ 'middle' }
+              textAnchor={ 'middle' }
+            >
+              {sum}
+            </Text>
+  });
+}
+    
+const spacingInner = 0.5
+const spacingOuter = 0.5
+const contentInset = {top: 20}
+    
+export default class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      expenseData: [
+        {
+          date: moment('2018-06-01', 'YYYY-MM-DD'),
+          travel: 100,
+          food: 200,
+          utility: 50
+        },
+        {
+          date: moment('2018-07-01', 'YYYY-MM-DD'),
+          travel: 120,
+          food: 300,
+          utility: 40
+        },
+        {
+          date: moment('2018-08-01', 'YYYY-MM-DD'),
+          travel: 200,
+          food: 250,
+          utility: 80
+        }
+      ],
+      keys: ['travel', 'food', 'utility'],
+      colors: ['#B5E1F4', '#F8BDC2', '#FDF287']
+    }
+  }
+  
+  onPress1 = () => {
+    this.setState({
+      expenseData: [
+        {
+          date: moment('2018-06-01', 'YYYY-MM-DD'),
+          travel: 100,
+          food: 200,
+          utility: 50
+        }
+      ]
+    })
+  }
+  
+  onPress2 = () => {
+    this.setState({
+      expenseData: [
+        {
+          date: moment('2018-06-01', 'YYYY-MM-DD'),
+          travel: 100,
+          food: 200,
+          utility: 50
+        },
+        {
+          date: moment('2018-07-01', 'YYYY-MM-DD'),
+          travel: 120,
+          food: 300,
+          utility: 40
+        }
+      ]
+    })
+  }
+  
+  onPress3 = () => {
+    this.setState({
+      expenseData: [
+        {
+          date: moment('2018-06-01', 'YYYY-MM-DD'),
+          travel: 100,
+          food: 200,
+          utility: 50
+        },
+        {
+          date: moment('2018-07-01', 'YYYY-MM-DD'),
+          travel: 120,
+          food: 300,
+          utility: 40
+        },
+        {
+          date: moment('2018-08-01', 'YYYY-MM-DD'),
+          travel: 200,
+          food: 250,
+          utility: 80
+        }
+      ]
+    })
+  }
+  
   render() {
-
-    const data = [
-      {
-          month: new Date(2015, 0, 1),
-          apples: 3840,
-          bananas: 1920,
-          cherries: 960,
-          dates: 400,
-          oranges: 400,
-      },
-      {
-          month: new Date(2015, 1, 1),
-          apples: 1600,
-          bananas: 1440,
-          cherries: 960,
-          dates: 400,
-      },
-      {
-          month: new Date(2015, 2, 1),
-          apples: 640,
-          bananas: 960,
-          cherries: 3640,
-          dates: 400,
-      },
-      {
-          month: new Date(2015, 3, 1),
-          apples: 3320,
-          bananas: 480,
-          cherries: 640,
-          dates: 400,
-      },
-    ]
-    
-    const colors = ['#7b4173', '#a55194', '#ce6dbd', '#de9ed6']
-    const keys = ['apples', 'bananas', 'cherries', 'dates']
-    
-
     return (
-      <>
-        <SurveyHeader style={styles.header}/>
-        <SafeAreaView style={styles.container}>
-          <View>
-            <View >
-              <StackedBarChart
-                style={{ height: 200 }}
-                keys={keys}
-                colors={colors}
-                data={data}
-                showGrid={false}
-                contentInset={{ top: 30, bottom: 30 }}
+      <View style={styles.container}>
+        <View style={styles.chart}>
+          <StackedBarChart
+            style={ { flex: 1 } }
+            keys={ this.state.keys }
+            colors={ this.state.colors }
+            data={ this.state.expenseData }
+            spacingInner={spacingInner}
+            spacingOuter={spacingOuter}
+            contentInset={contentInset}
+          >
+            <Labels />
+          </StackedBarChart>
+          <View style={styles.line} />
+          <YAxis
+            style={ { position: 'absolute', left: -10, top: 0, bottom: 0 }}
+            data={ StackedAreaChart.extractDataPoints(this.state.expenseData, this.state.keys) }
+            contentInset={ { top: 10, bottom: 10 } }
+            svg={ {
+                fontSize: 10,
+                fill: 'black',
+                stroke: 'black',
+                strokeWidth: 0.1,
+                alignmentBaseline: 'baseline',
+                baselineShift: '3',
+            } }
+          />
+          <XAxis
+              style={{ marginTop: 10 }}
+              data={ this.state.expenseData }
+              formatLabel={ (value, index) => this.state.expenseData[index].date.format('MMM') }
+              scale={scale.scaleBand}
+              spacingInner={spacingInner}
+              spacingOuter={spacingOuter}
+              contentInset={contentInset}
+              svg={{ 
+                fontSize: 13, 
+                fill: 'black' }}
             />
-            </View>
-            <View style={styles.container}>
-              <Questionnaire />
-            </View>
-          </View>
-        </SafeAreaView>
-      </>
+            <XAxis
+              data={ this.state.expenseData }
+              formatLabel={ (value, index) => this.state.expenseData[index].date.format('YYYY') }
+              scale={scale.scaleBand}
+              spacingInner={spacingInner}
+              spacingOuter={spacingOuter}
+              contentInset={contentInset}
+              svg={{ 
+                fontSize: 13, 
+                fill: 'black' }}
+            />
+        </View>
+        <View style={styles.footer}>
+          <Button title='1' onPress={this.onPress1} />
+          <Button title='2' onPress={this.onPress2} />
+          <Button title='3' onPress={this.onPress3} />
+        </View>
+      </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  header: {
-    flex: 0.5,
-  },
-  container: {
-    flex: 1.5,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    backgroundColor: 'white',
-  },
-  plotBody: {
-    flex: 1,
-    color: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '50%',
-  },
-});
 
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  chart: {
+    marginTop: 100,
+    marginLeft: 20,
+    marginRight: 20,
+    height: 300,
+    width: '100%'
+  },
+  line: {
+    borderBottomWidth: 1,
+    borderColor: '#f48a92'
+  },
+  footer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
