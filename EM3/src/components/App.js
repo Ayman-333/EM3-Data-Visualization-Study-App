@@ -1,9 +1,11 @@
+/* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Button, FlatList, ScrollView } from 'react-native';
 import { Text } from 'react-native-svg';
 import moment from 'moment';
 import * as scale from 'd3-scale';
 import { StackedBarChart, StackedAreaChart, YAxis, XAxis, Grid } from 'react-native-svg-charts';
+import ListItem from './ListItem';
     
 const Labels = (props) => {
   const { x, y, data } = props;
@@ -28,6 +30,20 @@ const Labels = (props) => {
 const spacingInner = 0.5
 const spacingOuter = 0.5
 const contentInset = {top: 20}
+const DATA = [
+      {
+        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        title: 'First Item',
+      },
+      {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Second Item',
+      },
+      {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Third Item',
+      },
+    ];
     
 export default class App extends Component {
   constructor(props) {
@@ -118,61 +134,72 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.chart}>
-          <StackedBarChart
-            style={ { flex: 1 } }
-            keys={ this.state.keys }
-            colors={ this.state.colors }
-            data={ this.state.expenseData }
-            spacingInner={spacingInner}
-            spacingOuter={spacingOuter}
-            contentInset={contentInset}
-          >
-            <Labels />
-          </StackedBarChart>
-          <View style={styles.line} />
-          <YAxis
-            style={ { position: 'absolute', left: -10, top: 0, bottom: 0 }}
-            data={ StackedAreaChart.extractDataPoints(this.state.expenseData, this.state.keys) }
-            contentInset={ { top: 10, bottom: 10 } }
-            svg={ {
-                fontSize: 10,
-                fill: 'black',
-                stroke: 'black',
-                strokeWidth: 0.1,
-                alignmentBaseline: 'baseline',
-                baselineShift: '3',
-            } }
-          />
-          <XAxis
-              style={{ marginTop: 10 }}
+          <ScrollView style={styles.scrollView}>
+                <FlatList style={styles.list}
+                  style={styles.list}
+                  data={DATA}
+                  renderItem={({item}) => (
+                    <ListItem style={styles.listItem} id={item.id} title={item.title} onPress={this.onPress3} />
+                  )}
+                  keyExtractor={item => item.id}
+                />
+            </ScrollView>
+          <View style={styles.chart}>
+            <StackedBarChart
+              style={ { flex: 1 } }
+              keys={ this.state.keys }
+              colors={ this.state.colors }
               data={ this.state.expenseData }
-              formatLabel={ (value, index) => this.state.expenseData[index].date.format('MMM') }
-              scale={scale.scaleBand}
               spacingInner={spacingInner}
               spacingOuter={spacingOuter}
               contentInset={contentInset}
-              svg={{ 
-                fontSize: 13, 
-                fill: 'black' }}
+            >
+            <Labels/>
+            </StackedBarChart>
+            <YAxis
+              style={ {position: 'absolute', left: -10, top: 0, bottom: 0 }}
+              data={ StackedAreaChart.extractDataPoints(this.state.expenseData, this.state.keys) }
+              contentInset={ { top: 10, bottom: 10 } }
+              svg={ {
+                  fontSize: 10,
+                  fill: 'black',
+                  stroke: 'black',
+                  strokeWidth: 0.1,
+                  alignmentBaseline: 'baseline',
+                  baselineShift: '3',
+              } }
             />
             <XAxis
-              data={ this.state.expenseData }
-              formatLabel={ (value, index) => this.state.expenseData[index].date.format('YYYY') }
-              scale={scale.scaleBand}
-              spacingInner={spacingInner}
-              spacingOuter={spacingOuter}
-              contentInset={contentInset}
-              svg={{ 
-                fontSize: 13, 
-                fill: 'black' }}
-            />
-        </View>
-        <View style={styles.footer}>
-          <Button title='1' onPress={this.onPress1} />
-          <Button title='2' onPress={this.onPress2} />
-          <Button title='3' onPress={this.onPress3} />
-        </View>
+                style={{ marginTop: 10 }}
+                data={ this.state.expenseData }
+                formatLabel={ (value, index) => this.state.expenseData[index].date.format('MMM') }
+                scale={scale.scaleBand}
+                spacingInner={spacingInner}
+                spacingOuter={spacingOuter}
+                contentInset={contentInset}
+                svg={{ 
+                  fontSize: 13, 
+                  fill: 'black' }}
+              />
+              <XAxis
+                data={ this.state.expenseData }
+                formatLabel={ (value, index) => this.state.expenseData[index].date.format('YYYY') }
+                scale={scale.scaleBand}
+                spacingInner={spacingInner}
+                spacingOuter={spacingOuter}
+                contentInset={contentInset}
+                svg={{ 
+                  fontSize: 13, 
+                  fill: 'black' }}
+              />
+          </View>
+          { /*
+          <View style={styles.footer}>
+            <Button title='1' onPress={this.onPress1} />
+            <Button title='2' onPress={this.onPress2} />
+            <Button title='3' onPress={this.onPress3} />
+          </View>
+          */ } 
       </View>
     );
   }
@@ -180,23 +207,24 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    display:'flex',
+    flexDirection: 'row'
+  },
+  scrollView: {
+    marginTop: 100
+  },
+  list: {
+    borderColor: '#000',
+    borderWidth: 1,
+  },
+  listItem: {
+    fontSize: 20,
   },
   chart: {
     marginTop: 100,
     marginLeft: 20,
     marginRight: 20,
     height: 300,
-    width: '100%'
-  },
-  line: {
-    borderBottomWidth: 1,
-    borderColor: '#f48a92'
-  },
-  footer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
+    width: '70%'
+  }  
 });
