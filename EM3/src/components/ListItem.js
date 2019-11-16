@@ -5,22 +5,35 @@ import {image_directory} from '../../res/images_directory';
 
 class ListItem extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     onPressAction: PropTypes.func.isRequired,
+    selectedKey: PropTypes.string.isRequired,
+  };
+
+  onListItemPressed = () => {
+    this.props.onPressAction(this.props.id);
   };
 
   render() {
     return (
       <TouchableOpacity
-        style={styles.container}
-        onPress={this.props.onPressAction}>
-        <Image
-          style={styles.image}
+        style={[
+          styles.container,
+          this.props.selectedKey === this.props.id && styles.highlighted,
+        ]}
+        onPress={this.onListItemPressed}>
+        <Image style={styles.image}
           resizeMode="contain"
           source={image_directory[this.props.type]}
         />
+        <Text
+          style={[
+            styles.title,
+            this.props.selectedKey === this.props.id && styles.highlighted,
+          ]}>
+          {this.props.type.replace('_', ' ')}
+        </Text>
       </TouchableOpacity>
     );
   }
@@ -32,14 +45,22 @@ const styles = StyleSheet.create({
     marginRight: 5,
     alignItems: 'flex-start',
     width: 60,
-    // borderWidth: 0.5,
+    borderBottomWidth: 1,
   },
   image: {
     width: 60,
     height: 60,
   },
+  highlighted: {
+    backgroundColor: 'grey',
+    color: 'white',
+    fontWeight: 'bold',
+  },
   title: {
-    fontSize: 45,
+    fontSize: 12,
+    textTransform: 'capitalize',
+    alignSelf: 'center',
+    textAlign: 'center',
   },
 });
 export default ListItem;

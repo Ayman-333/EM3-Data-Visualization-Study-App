@@ -38,9 +38,68 @@ const Labels = props => {
 };
 
 class CustomStackedBarChart extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  state = {
+    selectedApplianceKey: '',
+    expenseData: [
+      {
+        date: moment('2018-06-01', 'YYYY-MM-DD'),
+        travel: 100,
+        food: 200,
+        utility: 50,
+      },
+      {
+        date: moment('2018-07-01', 'YYYY-MM-DD'),
+        travel: 120,
+        food: 300,
+        utility: 40,
+      },
+      {
+        date: moment('2018-08-01', 'YYYY-MM-DD'),
+        travel: 200,
+        food: 250,
+        utility: 80,
+      },
+    ],
+    keys: ['travel', 'food', 'utility'],
+    colors: ['#B5E1F4', '#F8BDC2', '#FDF287'],
+  };
+
+  onPress1 = key => {
+    this.setState({
+      expenseData: [
+        {
+          date: moment('2018-06-01', 'YYYY-MM-DD'),
+          travel: 100,
+          food: 200,
+          utility: 50,
+        },
+      ],
+      selectedApplianceKey: key,
+    });
+  };
+
+  onPress2 = key => {
+    this.setState({
+      expenseData: [
+        {
+          date: moment('2018-06-01', 'YYYY-MM-DD'),
+          travel: 100,
+          food: 200,
+          utility: 50,
+        },
+        {
+          date: moment('2018-07-01', 'YYYY-MM-DD'),
+          travel: 120,
+          food: 300,
+          utility: 40,
+        },
+      ],
+      selectedApplianceKey: key,
+    });
+  };
+
+  onPress3 = key => {
+    this.setState({
       expenseData: [
         {
           date: moment('2018-06-01', 'YYYY-MM-DD'),
@@ -61,107 +120,42 @@ class CustomStackedBarChart extends React.Component {
           utility: 80,
         },
       ],
-      keys: ['travel', 'food', 'utility'],
-      colors: ['#B5E1F4', '#F8BDC2', '#FDF287'],
-    };
-  }
-
-  onPress1 = () => {
-    this.setState({
-      expenseData: [
-        {
-          date: moment('2018-06-01', 'YYYY-MM-DD'),
-          travel: 100,
-          food: 200,
-          utility: 50,
-        },
-      ],
-    });
-  };
-
-  onPress2 = () => {
-    this.setState({
-      expenseData: [
-        {
-          date: moment('2018-06-01', 'YYYY-MM-DD'),
-          travel: 100,
-          food: 200,
-          utility: 50,
-        },
-        {
-          date: moment('2018-07-01', 'YYYY-MM-DD'),
-          travel: 120,
-          food: 300,
-          utility: 40,
-        },
-      ],
-    });
-  };
-
-  onPress3 = () => {
-    this.setState({
-      expenseData: [
-        {
-          date: moment('2018-06-01', 'YYYY-MM-DD'),
-          travel: 100,
-          food: 200,
-          utility: 50,
-        },
-        {
-          date: moment('2018-07-01', 'YYYY-MM-DD'),
-          travel: 120,
-          food: 300,
-          utility: 40,
-        },
-        {
-          date: moment('2018-08-01', 'YYYY-MM-DD'),
-          travel: 200,
-          food: 250,
-          utility: 80,
-        },
-      ],
+      selectedApplianceKey: key,
     });
   };
   DATA = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
       onPressAction: this.onPress1,
       type: 'lamp',
     },
     {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
+      id: '3ac68afc-c605-48d3a4f8-fbd91aa97f63',
       onPressAction: this.onPress2,
       type: 'television',
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
       onPressAction: this.onPress3,
       type: 'fan',
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e2972',
-      title: 'Third Item',
       onPressAction: this.onPress3,
       type: 'gaming_console',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-14551e29d72',
-      title: 'Third Item',
+      id: '58694a0f-3da1-471-bd96-14551e29d2',
       onPressAction: this.onPress3,
       type: 'oven',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-14551e29d72',
-      title: 'Third Item',
+      id: '58694a0f-3da1-471f-bd96-1455129d72',
       onPressAction: this.onPress3,
       type: 'boiler',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-14551e29d72',
-      title: 'Third Item',
+      id: '58694a0f-3da1-471f-bd96-145519d72',
       onPressAction: this.onPress3,
       type: 'computer',
     },
@@ -169,26 +163,23 @@ class CustomStackedBarChart extends React.Component {
   render() {
     return (
       <View style={styles.stackedBarChartContainer}>
-        <ScrollView
-          style={styles.scrollView}
-          scrollEnabled={this.state.enableScrollViewScroll}>
-          <View>
-            <FlatList
-              style={styles.list}
-              data={this.DATA}
-              renderItem={({item}) => (
-                <ListItem
-                  style={styles.listItem}
-                  id={item.id}
-                  title={item.title}
-                  type={item.type}
-                  onPressAction={item.onPressAction}
-                />
-              )}
-              keyExtractor={item => item.id}
-            />
-          </View>
-        </ScrollView>
+        <View>
+          <FlatList
+            style={styles.list}
+            data={this.DATA}
+            renderItem={({item}) => (
+              <ListItem
+                style={styles.listItem}
+                id={item.id}
+                title={item.title}
+                type={item.type}
+                selectedKey={this.state.selectedApplianceKey}
+                onPressAction={item.onPressAction}
+              />
+            )}
+            keyExtractor={item => item.id}
+          />
+        </View>
         <View style={styles.chart}>
           <StackedBarChart
             style={{flex: 1}}
@@ -248,13 +239,6 @@ class CustomStackedBarChart extends React.Component {
         </View>
       </View>
     );
-    /*
-    <View style={styles.footer}>
-      <Button title='1' onPress={this.onPress1} />
-      <Button title='2' onPress={this.onPress2} />
-      <Button title='3' onPress={this.onPress3} />
-    </View>
-    */
   }
 }
 
@@ -263,14 +247,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
-  scrollView: {
+  list: {
     marginTop: 10,
     marginLeft: 10,
     marginBottom: 10,
-  },
-  list: {
-    borderColor: '#000',
-    borderWidth: 1,
+    //   borderColor: '#000',
+    //   borderWidth: 0.5,
   },
   listItem: {
     fontSize: 10,
