@@ -127,26 +127,43 @@ class CustomStackedBarChart extends React.Component {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'First Item',
       onPressAction: this.onPress1,
+      type: 'lamp',
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
       title: 'Second Item',
       onPressAction: this.onPress2,
+      type: 'television',
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
       title: 'Third Item',
       onPressAction: this.onPress3,
+      type: 'fan',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      id: '58694a0f-3da1-471f-bd96-145571e2972',
       title: 'Third Item',
       onPressAction: this.onPress3,
+      type: 'gaming_console',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      id: '58694a0f-3da1-471f-bd96-14551e29d72',
       title: 'Third Item',
       onPressAction: this.onPress3,
+      type: 'oven',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-14551e29d72',
+      title: 'Third Item',
+      onPressAction: this.onPress3,
+      type: 'boiler',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-14551e29d72',
+      title: 'Third Item',
+      onPressAction: this.onPress3,
+      type: 'computer',
     },
   ];
   render() {
@@ -164,6 +181,7 @@ class CustomStackedBarChart extends React.Component {
                   style={styles.listItem}
                   id={item.id}
                   title={item.title}
+                  type={item.type}
                   onPressAction={item.onPressAction}
                 />
               )}

@@ -1,11 +1,13 @@
 import React from 'react';
 import {Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
+import {image_directory} from '../../res/images_directory';
 
 class ListItem extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     onPressAction: PropTypes.func.isRequired,
   };
 
@@ -17,7 +19,7 @@ class ListItem extends React.Component {
         <Image
           style={styles.image}
           resizeMode="contain"
-          source={require('../../res/icons/lamp.png')}
+          source={image_directory[this.props.type]}
         />
       </TouchableOpacity>
     );

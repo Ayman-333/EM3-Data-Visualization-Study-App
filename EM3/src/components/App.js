@@ -5,7 +5,6 @@ import CustomStackedBarChart from './CustomStackedBarChart';
 import Questionnaire from './Questionnaire';
 import SurveyHeader from './SurveyHeader';
 
-
 export default class App extends Component {
 
   render() {

@@ -9,12 +9,11 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {SimpleSurvey} from 'react-native-simple-survey';
-import SURVEY from '../../res/surveyInfo';
+import {survey} from '../../res/surveyInfo';
 
 const GREEN = 'rgba(141,196,63,1)';
 const SKYBLUE = 'rgba(135,206,235 ,1 )';
 
-const survey = SURVEY.survey;
 class Questionnaire extends React.Component {
   state = {
     index: 0,
