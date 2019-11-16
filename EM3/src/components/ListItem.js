@@ -6,11 +6,14 @@ class ListItem extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
+    onPressAction: PropTypes.func.isRequired,
   };
 
   render() {
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={this.props.onPressAction}>
         <Image
           style={styles.image}
           resizeMode="contain"
