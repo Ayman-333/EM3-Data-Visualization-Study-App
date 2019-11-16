@@ -7,6 +7,7 @@ class ListItem extends React.Component {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   };
+
   render() {
     return (
       <TouchableOpacity style={styles.container}>

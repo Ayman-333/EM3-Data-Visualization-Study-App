@@ -20,16 +20,23 @@ const Labels = (props) => {
               fontSize={ 13 }
               fill='red'
               alignmentBaseline={ 'middle' }
-              textAnchor={ 'middle' }
-            >
+              textAnchor={ 'middle' }>
               {sum}
             </Text>
   });
+<<<<<<< Updated upstream
 }
 
 const spacingInner = 0.5
 const spacingOuter = 0.5
 const contentInset = {top: 20}
+=======
+};
+
+const spacingInner = 0.5;
+const spacingOuter = 0.5;
+const contentInset = {top: 20};
+>>>>>>> Stashed changes
 const DATA = [
       {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -136,7 +143,6 @@ export default class App extends Component {
       <View style={styles.container}>
           <ScrollView style={styles.scrollView}>
                 <FlatList style={styles.list}
-                  style={styles.list}
                   data={DATA}
                   renderItem={({item}) => (
                     <ListItem style={styles.listItem} id={item.id} title={item.title} onPress={this.onPress3} />
