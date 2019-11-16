@@ -17,7 +17,7 @@ class ListItem extends React.Component {
         <Image
           style={styles.image}
           resizeMode="contain"
-          source={require('../../res/appliancesIcons/Lamp.png')}
+          source={require('../../res/icons/lamp.png')}
         />
       </TouchableOpacity>
     );
@@ -26,7 +26,8 @@ class ListItem extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 10,
+    marginLeft: 5,
+    marginRight: 5,
     alignItems: 'flex-start',
     width: 60,
     // borderWidth: 0.5,
