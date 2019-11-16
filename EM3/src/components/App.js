@@ -6,7 +6,7 @@ import moment from 'moment';
 import * as scale from 'd3-scale';
 import { StackedBarChart, StackedAreaChart, YAxis, XAxis, Grid } from 'react-native-svg-charts';
 import ListItem from './ListItem';
-    
+
 const Labels = (props) => {
   const { x, y, data } = props;
   return data.map((value, index) => {
@@ -26,7 +26,7 @@ const Labels = (props) => {
             </Text>
   });
 }
-    
+
 const spacingInner = 0.5
 const spacingOuter = 0.5
 const contentInset = {top: 20}
@@ -44,7 +44,7 @@ const DATA = [
         title: 'Third Item',
       },
     ];
-    
+
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -73,7 +73,7 @@ export default class App extends Component {
       colors: ['#B5E1F4', '#F8BDC2', '#FDF287']
     }
   }
-  
+
   onPress1 = () => {
     this.setState({
       expenseData: [
@@ -86,7 +86,7 @@ export default class App extends Component {
       ]
     })
   }
-  
+
   onPress2 = () => {
     this.setState({
       expenseData: [
@@ -105,7 +105,7 @@ export default class App extends Component {
       ]
     })
   }
-  
+
   onPress3 = () => {
     this.setState({
       expenseData: [
@@ -130,7 +130,7 @@ export default class App extends Component {
       ]
     })
   }
-  
+
   render() {
     return (
       <View style={styles.container}>
@@ -177,8 +177,8 @@ export default class App extends Component {
                 spacingInner={spacingInner}
                 spacingOuter={spacingOuter}
                 contentInset={contentInset}
-                svg={{ 
-                  fontSize: 13, 
+                svg={{
+                  fontSize: 13,
                   fill: 'black' }}
               />
               <XAxis
@@ -188,8 +188,8 @@ export default class App extends Component {
                 spacingInner={spacingInner}
                 spacingOuter={spacingOuter}
                 contentInset={contentInset}
-                svg={{ 
-                  fontSize: 13, 
+                svg={{
+                  fontSize: 13,
                   fill: 'black' }}
               />
           </View>
@@ -199,9 +199,12 @@ export default class App extends Component {
             <Button title='2' onPress={this.onPress2} />
             <Button title='3' onPress={this.onPress3} />
           </View>
-          */ } 
+          */ }
       </View>
     );
+    // <View style={styles.container}>
+    //   <Questionnaire />
+    // </View>
   }
 }
 
@@ -226,5 +229,5 @@ const styles = StyleSheet.create({
     marginRight: 20,
     height: 300,
     width: '70%'
-  }  
+  }
 });
