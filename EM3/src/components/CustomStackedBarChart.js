@@ -6,7 +6,7 @@ import {
   XAxis,
   Grid,
 } from 'react-native-svg-charts';
-import {View, StyleSheet, Button, FlatList, ScrollView} from 'react-native';
+import {View, StyleSheet, FlatList} from 'react-native';
 import ListItem from './ListItem';
 import {Text} from 'react-native-svg';
 import * as scale from 'd3-scale';
@@ -155,7 +155,7 @@ class CustomStackedBarChart extends React.Component {
       type: 'boiler',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145519d72',
+      id: '58694a0f-3da1-471f-bd96-145e519d72',
       onPressAction: this.onPress3,
       type: 'computer',
     },

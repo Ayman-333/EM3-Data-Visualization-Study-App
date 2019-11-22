@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import {View, StyleSheet, Button, FlatList, ScrollView, SafeAreaView} from 'react-native';
+import {View, StyleSheet, SafeAreaView} from 'react-native';
 import CustomStackedBarChart from './CustomStackedBarChart';
 import Questionnaire from './Questionnaire';
 import SurveyHeader from './SurveyHeader';

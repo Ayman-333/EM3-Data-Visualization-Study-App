@@ -23,7 +23,8 @@ class ListItem extends React.Component {
           this.props.selectedKey === this.props.id && styles.highlighted,
         ]}
         onPress={this.onListItemPressed}>
-        <Image style={styles.image}
+        <Image
+          style={styles.image}
           resizeMode="contain"
           source={image_directory[this.props.type]}
         />
