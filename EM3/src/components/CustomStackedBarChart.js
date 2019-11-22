@@ -6,11 +6,12 @@ import {
   XAxis,
   Grid,
 } from 'react-native-svg-charts';
-import {View, StyleSheet, FlatList} from 'react-native';
+import {View, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
 import ListItem from './ListItem';
 import {Text} from 'react-native-svg';
 import * as scale from 'd3-scale';
 import moment from 'moment';
+import {Icon} from 'react-native-elements';
 
 const spacingInner = 0.5;
 const spacingOuter = 0.5;
@@ -163,9 +164,26 @@ class CustomStackedBarChart extends React.Component {
   render() {
     return (
       <View style={styles.stackedBarChartContainer}>
-        <View>
+        <View style={styles.list}>
+          <TouchableOpacity style={styles.caret}>
+            <Icon
+              name="caret-up"
+              type="font-awesome"
+              color="#000"
+              size={15}
+              onPress={() =>
+                this.flatListRef.scrollToIndex({
+                  index: 0,
+                  animated: true,
+                })
+              }
+            />
+          </TouchableOpacity>
           <FlatList
-            style={styles.list}
+            ref={ref => {
+              this.flatListRef = ref;
+            }}
+            initialScrollIndex={0}
             data={this.DATA}
             renderItem={({item}) => (
               <ListItem
@@ -179,6 +197,20 @@ class CustomStackedBarChart extends React.Component {
             )}
             keyExtractor={item => item.id}
           />
+          <TouchableOpacity style={styles.caret}>
+            <Icon
+              name="caret-down"
+              type="font-awesome"
+              color="#000"
+              size={15}
+              onPress={() =>
+                this.flatListRef.scrollToIndex({
+                  index: this.DATA.length - 1,
+                  animated: true,
+                })
+              }
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.chart}>
           <StackedBarChart
@@ -246,6 +278,10 @@ const styles = StyleSheet.create({
   stackedBarChartContainer: {
     flex: 1,
     flexDirection: 'row',
+  },
+  caret: {
+    height: '6%',
+    borderWidth: 0.5,
   },
   list: {
     marginTop: 10,
