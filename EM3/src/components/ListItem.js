@@ -6,7 +6,7 @@ import {image_directory} from '../../res/images_directory';
 class ListItem extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     onPressAction: PropTypes.func.isRequired,
     selectedKey: PropTypes.string.isRequired,
   };
@@ -33,7 +33,7 @@ class ListItem extends React.Component {
             styles.title,
             this.props.selectedKey === this.props.id && styles.highlighted,
           ]}>
-          {this.props.title.replace('_', ' ')}
+          {this.props.title}
         </Text>
       </TouchableOpacity>
     );

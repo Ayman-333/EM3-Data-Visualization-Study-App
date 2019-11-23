@@ -1,15 +1,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {
-  Container,
-  Header,
-  Left,
-  Body,
-  Right,
-  Button,
-  Icon,
-  Title,
-} from 'native-base';
+import {Header, Left, Body, Right, Button, Icon, Title} from 'native-base';
 class SurveyHeader extends React.Component {
   render() {
     return (

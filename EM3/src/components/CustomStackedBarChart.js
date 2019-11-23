@@ -16,9 +16,9 @@ import {
 import ListItem from './ListItem';
 import {Text} from 'react-native-svg';
 import * as scale from 'd3-scale';
-import moment from 'moment';
 import {Icon} from 'react-native-elements';
 import * as data from './EnergyData';
+import Legends from './Legends';
 
 const spacingInner = 0.5;
 const spacingOuter = 0.5;
@@ -46,13 +46,17 @@ const Labels = props => {
 };
 
 class CustomStackedBarChart extends React.Component {
-  state = data.data1;
+  state = {
+    appliance: data.lamp,
+    selectedApplianceId: 'lamp',
+  };
   onPress = id => {
-    console.warn(data[id]);
+    // console.warn(data[id]);
     this.setState({
-      expenseData: data[id].expenseData,
-      selectedApplianceKey: id,
+      appliance: data[id],
+      selectedApplianceId: id,
     });
+    this.scrollViewRef.scrollTo({x: 0, animated: false});
   };
 
   DATA = [
@@ -122,7 +126,6 @@ class CustomStackedBarChart extends React.Component {
             ref={ref => {
               this.flatListRef = ref;
             }}
-            initialScrollIndex={0}
             data={this.DATA}
             renderItem={({item}) => (
               <ListItem
@@ -131,7 +134,7 @@ class CustomStackedBarChart extends React.Component {
                 title={item.title}
                 type={item.type}
                 imageName={item.imageName}
-                selectedKey={this.state.selectedApplianceKey}
+                selectedKey={this.state.selectedApplianceId}
                 onPressAction={item.onPressAction}
               />
             )}
@@ -152,63 +155,78 @@ class CustomStackedBarChart extends React.Component {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.chart}>
-          <StackedBarChart
-            style={{flex: 1}}
-            keys={this.state.keys}
-            colors={this.state.colors}
-            data={this.state.expenseData}
-            spacingInner={spacingInner}
-            spacingOuter={spacingOuter}
-            contentInset={contentInset}>
-            <Labels />
-          </StackedBarChart>
-          <YAxis
-            style={{position: 'absolute', left: -10, top: 0, bottom: 0}}
-            data={StackedAreaChart.extractDataPoints(
-              this.state.expenseData,
-              this.state.keys,
-            )}
-            contentInset={{top: 10, bottom: 10}}
-            svg={{
-              fontSize: 10,
-              fill: 'black',
-              stroke: 'black',
-              strokeWidth: 0.1,
-              alignmentBaseline: 'baseline',
-              baselineShift: '3',
-            }}
-          />
-          <XAxis
-            style={{marginTop: 10}}
-            data={this.state.expenseData}
-            formatLabel={(value, index) =>
-              this.state.expenseData[index].date.format('HH:mm')
-            }
-            scale={scale.scaleBand}
-            spacingInner={spacingInner}
-            spacingOuter={spacingOuter}
-            contentInset={contentInset}
-            svg={{
-              fontSize: 13,
-              fill: 'black',
-            }}
-          />
-          <XAxis
-            data={this.state.expenseData}
-            formatLabel={(value, index) =>
-              this.state.expenseData[index].date.format('D/M')
-            }
-            scale={scale.scaleBand}
-            spacingInner={spacingInner}
-            spacingOuter={spacingOuter}
-            contentInset={contentInset}
-            svg={{
-              fontSize: 13,
-              fill: 'black',
-            }}
-          />
-        </View>
+        <ScrollView
+          persistentScrollbar={true}
+          horizontal={true}
+          ref={ref => {
+            this.scrollViewRef = ref;
+          }}>
+          <View style={styles.chart}>
+            <StackedBarChart
+              style={{
+                flex: 1,
+                width: 100 * this.state.appliance.expenseData.length,
+              }}
+              keys={this.state.appliance.keys}
+              colors={this.state.appliance.colors}
+              data={this.state.appliance.expenseData}
+              spacingInner={spacingInner}
+              spacingOuter={spacingOuter}
+              contentInset={contentInset}>
+              <Labels />
+            </StackedBarChart>
+            <YAxis
+              style={{position: 'absolute', left: -10, top: 0, bottom: 0}}
+              data={StackedAreaChart.extractDataPoints(
+                this.state.appliance.expenseData,
+                this.state.appliance.keys,
+              )}
+              contentInset={{top: 10, bottom: 10}}
+              svg={{
+                fontSize: 10,
+                fill: 'black',
+                stroke: 'black',
+                strokeWidth: 0.1,
+                alignmentBaseline: 'baseline',
+                baselineShift: '3',
+              }}
+            />
+            <XAxis
+              style={{
+                marginTop: 10,
+                width: 100 * this.state.appliance.expenseData.length,
+              }}
+              data={this.state.appliance.expenseData}
+              formatLabel={(value, index) =>
+                this.state.appliance.expenseData[index].date.format('HH:mm')
+              }
+              scale={scale.scaleBand}
+              spacingInner={spacingInner}
+              spacingOuter={spacingOuter}
+              contentInset={contentInset}
+              svg={{
+                fontSize: 13,
+                fill: 'black',
+              }}
+            />
+            <XAxis
+              style={{width: 100 * this.state.appliance.expenseData.length}}
+              data={this.state.appliance.expenseData}
+              formatLabel={(value, index) =>
+                this.state.appliance.expenseData[index].date.format('D/M')
+              }
+              scale={scale.scaleBand}
+              spacingInner={spacingInner}
+              spacingOuter={spacingOuter}
+              contentInset={contentInset}
+              svg={{
+                fontSize: 13,
+                fill: 'black',
+              }}
+            />
+          </View>
+        </ScrollView>
+        <Legends data={data[this.state.selectedApplianceId]} />
       </View>
     );
   }

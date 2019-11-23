@@ -12,10 +12,12 @@ export default class App extends Component {
       <>
         <SurveyHeader style={styles.header}/>
         <SafeAreaView style={styles.container}>
-          <CustomStackedBarChart style={styles.plotBody}/>
-            <View style={styles.container}>
-              <Questionnaire />
-            </View>
+          <View  style={styles.plotBody}>
+            <CustomStackedBarChart />
+          </View>
+          <View style={styles.container}>
+            <Questionnaire />
+          </View>
         </SafeAreaView>
       </>
     );
@@ -33,6 +35,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   plotBody: {
+    flex: 1,
     color: 'white',
     alignItems: 'center',
     height: '50%',

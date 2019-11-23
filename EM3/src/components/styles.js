@@ -16,6 +16,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '50%',
   },
-})
+});
 
-export { styles }
+export {styles};
