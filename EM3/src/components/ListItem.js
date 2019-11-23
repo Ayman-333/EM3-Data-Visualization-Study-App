@@ -26,14 +26,14 @@ class ListItem extends React.Component {
         <Image
           style={styles.image}
           resizeMode="contain"
-          source={image_directory[this.props.type]}
+          source={image_directory[this.props.imageName]}
         />
         <Text
           style={[
             styles.title,
             this.props.selectedKey === this.props.id && styles.highlighted,
           ]}>
-          {this.props.type.replace('_', ' ')}
+          {this.props.title.replace('_', ' ')}
         </Text>
       </TouchableOpacity>
     );

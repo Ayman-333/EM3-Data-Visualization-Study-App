@@ -6,12 +6,19 @@ import {
   XAxis,
   Grid,
 } from 'react-native-svg-charts';
-import {View, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+  ScrollView,
+} from 'react-native';
 import ListItem from './ListItem';
 import {Text} from 'react-native-svg';
 import * as scale from 'd3-scale';
 import moment from 'moment';
 import {Icon} from 'react-native-elements';
+import * as data from './EnergyData';
 
 const spacingInner = 0.5;
 const spacingOuter = 0.5;
@@ -20,7 +27,7 @@ const contentInset = {top: 20};
 const Labels = props => {
   const {x, y, data} = props;
   return data.map((value, index) => {
-    const sum = value.travel + value.food + value.utility;
+    const sum = value.Nespresso + value.Supermatik + value.Krups;
     const pX = x(index) + x.bandwidth() / 2;
     const pY = y(sum) - 10;
     return (
@@ -39,128 +46,60 @@ const Labels = props => {
 };
 
 class CustomStackedBarChart extends React.Component {
-  state = {
-    selectedApplianceKey: '',
-    expenseData: [
-      {
-        date: moment('2018-06-01', 'YYYY-MM-DD'),
-        travel: 100,
-        food: 200,
-        utility: 50,
-      },
-      {
-        date: moment('2018-07-01', 'YYYY-MM-DD'),
-        travel: 120,
-        food: 300,
-        utility: 40,
-      },
-      {
-        date: moment('2018-08-01', 'YYYY-MM-DD'),
-        travel: 200,
-        food: 250,
-        utility: 80,
-      },
-    ],
-    keys: ['travel', 'food', 'utility'],
-    colors: ['#B5E1F4', '#F8BDC2', '#FDF287'],
-  };
-
-  onPress1 = key => {
+  state = data.data1;
+  onPress = id => {
+    console.warn(data[id]);
     this.setState({
-      expenseData: [
-        {
-          date: moment('2018-06-01', 'YYYY-MM-DD'),
-          travel: 100,
-          food: 200,
-          utility: 50,
-        },
-      ],
-      selectedApplianceKey: key,
+      expenseData: data[id].expenseData,
+      selectedApplianceKey: id,
     });
   };
 
-  onPress2 = key => {
-    this.setState({
-      expenseData: [
-        {
-          date: moment('2018-06-01', 'YYYY-MM-DD'),
-          travel: 100,
-          food: 200,
-          utility: 50,
-        },
-        {
-          date: moment('2018-07-01', 'YYYY-MM-DD'),
-          travel: 120,
-          food: 300,
-          utility: 40,
-        },
-      ],
-      selectedApplianceKey: key,
-    });
-  };
-
-  onPress3 = key => {
-    this.setState({
-      expenseData: [
-        {
-          date: moment('2018-06-01', 'YYYY-MM-DD'),
-          travel: 100,
-          food: 200,
-          utility: 50,
-        },
-        {
-          date: moment('2018-07-01', 'YYYY-MM-DD'),
-          travel: 120,
-          food: 300,
-          utility: 40,
-        },
-        {
-          date: moment('2018-08-01', 'YYYY-MM-DD'),
-          travel: 200,
-          food: 250,
-          utility: 80,
-        },
-      ],
-      selectedApplianceKey: key,
-    });
-  };
   DATA = [
     {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      onPressAction: this.onPress1,
-      type: 'lamp',
+      id: 'lamp',
+      onPressAction: this.onPress,
+      title: 'Lamp',
+      imageName: 'lamp',
     },
     {
-      id: '3ac68afc-c605-48d3a4f8-fbd91aa97f63',
-      onPressAction: this.onPress2,
-      type: 'television',
+      id: 'television',
+      onPressAction: this.onPress,
+      title: 'Television',
+      imageName: 'television',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      onPressAction: this.onPress3,
-      type: 'fan',
+      id: 'fan',
+      onPressAction: this.onPress,
+      title: 'Fan',
+      imageName: 'fan',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145571e2972',
-      onPressAction: this.onPress3,
-      type: 'gaming_console',
+      id: 'gaming_console',
+      onPressAction: this.onPress,
+      title: 'Gaming Console',
+      imageName: 'gaming_console',
     },
     {
-      id: '58694a0f-3da1-471-bd96-14551e29d2',
-      onPressAction: this.onPress3,
-      type: 'oven',
+      id: 'oven',
+      onPressAction: this.onPress,
+      title: 'Oven',
+      imageName: 'oven',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-1455129d72',
-      onPressAction: this.onPress3,
-      type: 'boiler',
+      id: 'boiler',
+      onPressAction: this.onPress,
+      title: 'Boiler',
+      imageName: 'boiler',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145e519d72',
-      onPressAction: this.onPress3,
-      type: 'computer',
+      id: 'computer',
+      onPressAction: this.onPress,
+      title: 'Computer',
+      imageName: 'computer',
     },
   ];
+
   render() {
     return (
       <View style={styles.stackedBarChartContainer}>
@@ -191,6 +130,7 @@ class CustomStackedBarChart extends React.Component {
                 id={item.id}
                 title={item.title}
                 type={item.type}
+                imageName={item.imageName}
                 selectedKey={this.state.selectedApplianceKey}
                 onPressAction={item.onPressAction}
               />
@@ -243,7 +183,7 @@ class CustomStackedBarChart extends React.Component {
             style={{marginTop: 10}}
             data={this.state.expenseData}
             formatLabel={(value, index) =>
-              this.state.expenseData[index].date.format('MMM')
+              this.state.expenseData[index].date.format('HH:mm')
             }
             scale={scale.scaleBand}
             spacingInner={spacingInner}
@@ -257,7 +197,7 @@ class CustomStackedBarChart extends React.Component {
           <XAxis
             data={this.state.expenseData}
             formatLabel={(value, index) =>
-              this.state.expenseData[index].date.format('YYYY')
+              this.state.expenseData[index].date.format('D/M')
             }
             scale={scale.scaleBand}
             spacingInner={spacingInner}
