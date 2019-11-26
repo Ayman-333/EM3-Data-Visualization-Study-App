@@ -4,6 +4,7 @@ import {View, StyleSheet, SafeAreaView} from 'react-native';
 import CustomStackedBarChart from './CustomStackedBarChart';
 import Questionnaire from './Questionnaire';
 import SurveyHeader from './SurveyHeader';
+import LineChartPlot from './LineChartPlot';
 
 export default class App extends Component {
 

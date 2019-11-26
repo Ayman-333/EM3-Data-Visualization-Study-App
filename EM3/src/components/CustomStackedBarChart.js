@@ -27,7 +27,12 @@ const contentInset = {top: 20};
 const Labels = props => {
   const {x, y, data} = props;
   return data.map((value, index) => {
-    const sum = value.Nespresso + value.Supermatik + value.Krups;
+    let sum = 0;
+    for (var key in value) {
+      if (key !== 'date') {
+        sum += value[key];
+      }
+    }
     const pX = x(index) + x.bandwidth() / 2;
     const pY = y(sum) - 10;
     return (
