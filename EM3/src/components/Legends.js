@@ -20,7 +20,7 @@ class Legends extends React.Component {
         <ScrollView>
           {legendData.map(legendObj => {
             return (
-              <View style={styles.legendItem}>
+              <View style={styles.legendItem} key={legendObj.key}>
                 <View
                   style={[styles.symbol, {backgroundColor: legendObj.color}]}
                 />
