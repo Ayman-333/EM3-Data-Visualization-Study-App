@@ -3,14 +3,16 @@ import React, { Component } from 'react';
 import {View, StyleSheet, SafeAreaView} from 'react-native';
 import CustomStackedBarChart from './CustomStackedBarChart';
 import Questionnaire from './Questionnaire';
-import Sprial from './Spiral';
+import Spiral from './Spiral';
 import SurveyHeader from './SurveyHeader';
-import LineChartPlot from './LineChartPlot';
 import BarChart from './BarChart';
+import Test from './Test';
+import ExtrasExample from './ExtrasExample';
+import Heatmap from './HeatMap';
 
 export default class App extends Component {
 
- 
+
 
   render() {
     const data = [
@@ -25,7 +27,7 @@ export default class App extends Component {
       { label: 'Sep', value: 123 },
       { label: 'Oct', value: 186 },
       { label: 'Nov', value: 689 },
-      { label: 'Dec', value: 643 }
+      { label: 'Dec', value: 643 },
     ]
     return (
       <>
@@ -35,13 +37,17 @@ export default class App extends Component {
             <CustomStackedBarChart />
           </View>
           <View style={styles.container}>
-            <BarChart data={data} round={100} unit="€"/>
+            <Heatmap />
           </View>
         </SafeAreaView>
       </>
     );
   }
 }
+
+{/* <View style={styles.container}>
+<BarChart data={data} round={100} unit="€"/>
+</View> */}
 
 const styles = StyleSheet.create({
   header: {
