@@ -7,12 +7,14 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "parcel build  --no-cache ./build/index.html -d ./dist --public-url ."
   },
   "dependencies": {
     "art": "^0.10.3",
     "d3": "^5.14.2",
     "d3-tip": "^0.9.1",
+    "expo-asset-utils": "^1.2.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "native-base": "^2.13.8",
@@ -24,7 +26,8 @@
     "react-native-simple-survey": "^1.2.0",
     "react-native-svg": "^9.9.9",
     "react-native-svg-charts": "^5.3.0",
-    "react-native-vector-icons": "^6.6.0"
+    "react-native-vector-icons": "^6.6.0",
+    "react-native-webview": "^7.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
