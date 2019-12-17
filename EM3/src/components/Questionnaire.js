@@ -11,6 +11,7 @@ import {
 import {SimpleSurvey} from 'react-native-simple-survey';
 import PropTypes from 'prop-types';
 import { StackActions, NavigationActions } from 'react-navigation';
+// import firestore from '@react-native-firebase/app';
 
 const GREEN = 'rgba(141,196,63,1)';
 const SKYBLUE = 'rgba(135,206,235 ,1)';
@@ -61,7 +62,7 @@ class Questionnaire extends React.Component {
       answersAsObj[elem.questionId] = elem.value;
     }
     //Here we have the data from the survey ready to be used.
-    console.warn(answers);
+    // console.warn(answers);
     if (this.props.nextDestination !== '') {
       const resetAction = StackActions.reset({
         index: 0,
