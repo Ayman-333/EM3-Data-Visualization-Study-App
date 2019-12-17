@@ -9,12 +9,18 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {SimpleSurvey} from 'react-native-simple-survey';
-import {survey} from '../../res/surveyInfo';
+import PropTypes from 'prop-types';
 
 const GREEN = 'rgba(141,196,63,1)';
-const SKYBLUE = 'rgba(135,206,235 ,1 )';
+const SKYBLUE = 'rgba(135,206,235 ,1)';
 
 class Questionnaire extends React.Component {
+  static propTypes = {
+    surveyQs: PropTypes.array.isRequired,
+    nextDestination: PropTypes.string.isRequired,
+    navigate: PropTypes.func.isRequired,
+  };
+
   state = {
     index: 0,
     progress: new Animated.Value(0),
@@ -54,8 +60,10 @@ class Questionnaire extends React.Component {
       answersAsObj[elem.questionId] = elem.value;
     }
     //Here we have the data from the survey ready to be used.
-
     console.warn(answers);
+    
+    if (this.props.nextDestination !== '')
+      this.props.navigate(this.props.nextDestination);
     // console.warn(answersAsObj);
     // this.props.navigation.navigate('SurveyCompleted', {
     //   surveyAnswers: answersAsObj,
@@ -252,7 +260,7 @@ class Questionnaire extends React.Component {
 
   render() {
     const progressInterpolate = this.state.progress.interpolate({
-      inputRange: [0, survey.length],
+      inputRange: [0, this.props.surveyQs.length],
       outputRange: ['0%', '100%'],
     });
 
@@ -264,7 +272,7 @@ class Questionnaire extends React.Component {
       <SafeAreaView>
         <View style={styles.questionnaireContainer}>
           <SimpleSurvey
-            survey={survey}
+            survey={this.props.surveyQs}
             renderSelector={this.renderButton.bind(this)}
             containerStyle={styles.surveyContainer}
             selectionGroupContainerStyle={styles.selectionGroupContainer}
@@ -307,8 +315,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     // elevation: 20,
     // borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(204,204,204,1)',
+    // borderWidth: 1,
+    // borderColor: 'rgba(204,204,204,1)',
   },
   surveyContainer: {
     width: '100%',
@@ -379,12 +387,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   progress: {
+    marginTop: 10,
     position: 'absolute',
     left: 0,
     bottom: 0,
     right: 0,
-    top: 0,
-    height: 20,
+    height: 10,
   },
   bar: {
     height: '100%',

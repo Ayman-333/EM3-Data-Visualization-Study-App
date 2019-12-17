@@ -1,5 +1,5 @@
 module.exports = {
-  survey: [
+  personalQs: [
     {
       questionType: 'Info',
       questionText: 'Part 1 Questions:',
@@ -88,6 +88,8 @@ module.exports = {
         },
       ],
     },
+  ],
+  figsQs: [
     {
       questionType: 'Info',
       questionText: 'Part 2 Questions:',

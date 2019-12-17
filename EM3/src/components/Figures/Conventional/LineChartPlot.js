@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {SvgUri} from 'react-native-svg';
 import {Grid, LineChart, XAxis, YAxis} from 'react-native-svg-charts';
-import CONSTANTS from '../../res/constants';
+import CONSTANTS from '../../../../res/constants';
 
 const data = [
   50,

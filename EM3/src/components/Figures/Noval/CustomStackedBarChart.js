@@ -17,7 +17,7 @@ import ListItem from './ListItem';
 import {Text} from 'react-native-svg';
 import * as scale from 'd3-scale';
 import {Icon} from 'react-native-elements';
-import * as data from './EnergyData';
+import * as data from '../../../../res/EnergyData';
 import Legends from './Legends';
 
 const spacingInner = 0.5;
