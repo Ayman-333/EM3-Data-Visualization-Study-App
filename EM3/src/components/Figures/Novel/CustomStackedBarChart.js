@@ -12,6 +12,7 @@ import {
   StyleSheet,
   FlatList,
   ScrollView,
+  YellowBox
 } from 'react-native';
 import ListItem from './ListItem';
 import {Text} from 'react-native-svg';
@@ -19,6 +20,10 @@ import * as scale from 'd3-scale';
 import {Icon} from 'react-native-elements';
 import * as data from '../../../../res/EnergyData';
 import Legends from './Legends';
+
+// TODO needs to be removed later
+YellowBox.ignoreWarnings(['VirtualizedLists should never be nested inside plain ScrollViews with the same orientation']);
+
 
 const spacingInner = 0.5;
 const spacingOuter = 0.5;
@@ -131,7 +136,9 @@ class CustomStackedBarChart extends React.Component {
             ref={ref => {
               this.flatListRef = ref;
             }}
+            style={styles.appliancesList}
             data={this.DATA}
+            keyExtractor={item => item.id}
             renderItem={({item}) => (
               <ListItem
                 style={styles.listItem}
@@ -143,7 +150,6 @@ class CustomStackedBarChart extends React.Component {
                 onPressAction={item.onPressAction}
               />
             )}
-            keyExtractor={item => item.id}
           />
           <TouchableOpacity style={styles.caret}>
             <Icon
@@ -241,15 +247,17 @@ const styles = StyleSheet.create({
   stackedBarChartContainer: {
     flex: 1,
     flexDirection: 'row',
+    height: 400,
   },
   caret: {
-    height: '6%',
+    height: 14,
     borderWidth: 0.5,
   },
   list: {
     marginTop: 10,
     marginLeft: 10,
     marginBottom: 10,
+    height:'95%',
     //   borderColor: '#000',
     //   borderWidth: 0.5,
   },
@@ -260,7 +268,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 20,
     marginRight: 20,
-    height: '90%',
     width: '70%',
   },
 });

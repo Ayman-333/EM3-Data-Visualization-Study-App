@@ -232,9 +232,5 @@ module.exports = {
       questionId: 'suggestion',
       placeholderText: 'Tell us so we can become better!',
     },
-    {
-      questionType: 'Info',
-      questionText: 'Thank you!',
-    },
   ],
 };

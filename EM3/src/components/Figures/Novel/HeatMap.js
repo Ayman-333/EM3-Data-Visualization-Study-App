@@ -29,7 +29,6 @@ class HeatMap extends Component {
       .domain([minEnergy, (minEnergy + maxEnergy) / 2, maxEnergy])
       .interpolate(d3.interpolateHcl)
       .range([d3.rgb('#d73027'), d3.rgb('#fff200'), d3.rgb('#1a9850')]);
-    console.log(color(40));
     //                 Green              Yellow              Red
     // const screenWidth = Dimensions.get('window').width;
 

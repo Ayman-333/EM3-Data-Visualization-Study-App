@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {SimpleSurvey} from 'react-native-simple-survey';
 import PropTypes from 'prop-types';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 const GREEN = 'rgba(141,196,63,1)';
 const SKYBLUE = 'rgba(135,206,235 ,1)';
@@ -18,7 +19,7 @@ class Questionnaire extends React.Component {
   static propTypes = {
     surveyQs: PropTypes.array.isRequired,
     nextDestination: PropTypes.string.isRequired,
-    navigate: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired,
   };
 
   state = {
@@ -61,9 +62,17 @@ class Questionnaire extends React.Component {
     }
     //Here we have the data from the survey ready to be used.
     console.warn(answers);
-    
-    if (this.props.nextDestination !== '')
-      this.props.navigate(this.props.nextDestination);
+    if (this.props.nextDestination !== '') {
+      const resetAction = StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: this.props.nextDestination })],
+      });
+      this.props.navigation.dispatch(resetAction);
+      // this.props.navigate(this.props.nextDestination);
+      /*Above line can be used if we want the stack.*/
+    } else {
+      this.props.nextChart(this.props.chartNumber);
+    }
     // console.warn(answersAsObj);
     // this.props.navigation.navigate('SurveyCompleted', {
     //   surveyAnswers: answersAsObj,

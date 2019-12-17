@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Svg, G, Line, Rect, Text, Path} from 'react-native-svg';
+import {Svg, G, Line, Rect, Text} from 'react-native-svg';
 import * as d3 from 'd3';
 
 const GRAPH_MARGIN = 20;

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import HomeScreen from './Screens/HomeScreen';
-import FiguresScreen from './Screens/FiguresScreen';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+
+import HomeScreen from './Screens/HomeScreen';
+import FiguresScreen from './Screens/FiguresScreen';
 import ThankYouScreen from './Screens/ThankYouScreen';
 
 const RootStack = createStackNavigator(

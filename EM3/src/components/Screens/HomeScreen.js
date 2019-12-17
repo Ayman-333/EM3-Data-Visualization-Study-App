@@ -1,24 +1,17 @@
 import React, {Component} from 'react';
 import {Text, View, Button, StyleSheet} from 'react-native';
 import SurveyHeader from '../SurveyHeader';
-import Questionnaire from '../Figures/Questionnaire';
+import Questionnaire from '../Questionnaire';
 import {personalQs} from '../../../res/surveyInfo';
 
 class HomeScreen extends Component {
   static navigationOptions = {
-    // title: 'EM3',
-    // headerStyle: {
-    //   backgroundColor: 'green',
-    //   textAlign: 'center',
-    // },
-    // headerTintColor: '#fff',
-    // headerTitleStyle: {
-    //   fontWeight: 'bold',
-    // },
     header: null,
   };
   render() {
-    const {navigate} = this.props.navigation;
+    // const {navigate} = ;
+    // console.log(navigate);
+    console.log(this.props.navigation);
     return (
       <>
         <SurveyHeader style={styles.SurveyHeader}/>
@@ -32,7 +25,7 @@ class HomeScreen extends Component {
             <Questionnaire
               surveyQs={personalQs}
               nextDestination={'Figures'}
-              navigate={navigate}
+              navigation={this.props.navigation}
             />
           </View>
         </View>
@@ -58,9 +51,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 50,
-  },
-  surveyContainer: {
-    justifyContent: 'center',
   },
 });
 
