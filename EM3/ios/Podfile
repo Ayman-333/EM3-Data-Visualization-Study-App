@@ -33,6 +33,7 @@ target 'EM3' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
 
   target 'EM3Tests' do
     inherit! :search_paths
