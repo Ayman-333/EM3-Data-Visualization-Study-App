@@ -11,16 +11,16 @@ import {
 import {SimpleSurvey} from 'react-native-simple-survey';
 import PropTypes from 'prop-types';
 import { StackActions, NavigationActions } from 'react-navigation';
-// import firestore from '@react-native-firebase/app';
 
 const GREEN = 'rgba(141,196,63,1)';
-const SKYBLUE = 'rgba(135,206,235 ,1)';
+const SKYBLUE = 'rgba(135,206,235,1)';
 
 class Questionnaire extends React.Component {
   static propTypes = {
     surveyQs: PropTypes.array.isRequired,
     nextDestination: PropTypes.string.isRequired,
     navigation: PropTypes.object.isRequired,
+    firestoreRef: PropTypes.object.isRequired,
   };
 
   state = {
@@ -56,13 +56,18 @@ class Questionnaire extends React.Component {
      */
     const infoQuestionsRemoved = [...answers];
 
+    // console.log(this.props.firestoreRef);
     // Convert from an array to a proper object. This won't work if you have duplicate questionIds
     const answersAsObj = {};
+    const cloudObj = {};
+    // Answers Object preparation for each part of the survey.
+    let part = this.props.chartName !== undefined? this.props.chartName: 'personalInfo';
     for (const elem of infoQuestionsRemoved) {
-      answersAsObj[elem.questionId] = elem.value;
+      answersAsObj[elem.questionId] = elem.questionId !== 'suggestion'? elem.value.value: elem.value;
     }
-    //Here we have the data from the survey ready to be used.
-    // console.warn(answers);
+    cloudObj[part] = answersAsObj;
+    this.props.firestoreRef.update(cloudObj);
+
     if (this.props.nextDestination !== '') {
       const resetAction = StackActions.reset({
         index: 0,
@@ -74,10 +79,6 @@ class Questionnaire extends React.Component {
     } else {
       this.props.nextChart(this.props.chartNumber);
     }
-    // console.warn(answersAsObj);
-    // this.props.navigation.navigate('SurveyCompleted', {
-    //   surveyAnswers: answersAsObj,
-    // });
   }
 
   /**

@@ -3,15 +3,22 @@ import {Text, View, Button, StyleSheet} from 'react-native';
 import SurveyHeader from '../SurveyHeader';
 import Questionnaire from '../Questionnaire';
 import {personalQs} from '../../../res/surveyInfo';
+import firestore from '@react-native-firebase/firestore';
+import DeviceInfo from 'react-native-device-info';
+
 
 class HomeScreen extends Component {
   static navigationOptions = {
     header: null,
   };
   render() {
-    // const {navigate} = ;
-    // console.log(navigate);
-    console.log(this.props.navigation);
+    const firestoreRef = firestore().collection('completed-surveys').doc(DeviceInfo.getUniqueId());
+    firestoreRef.set({});
+    // console.log(userRef);
+    // firestore().collection('completed-surveys').doc(DeviceInfo.getUniqueId()).set({
+    //   title: 'finally I worked',
+    //   complete: true,
+    // })
     return (
       <>
         <SurveyHeader style={styles.SurveyHeader}/>
@@ -26,6 +33,7 @@ class HomeScreen extends Component {
               surveyQs={personalQs}
               nextDestination={'Figures'}
               navigation={this.props.navigation}
+              firestoreRef={firestoreRef}
             />
           </View>
         </View>

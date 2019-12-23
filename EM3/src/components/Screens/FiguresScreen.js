@@ -9,6 +9,8 @@ import Questionnaire from '../Questionnaire';
 import SurveyHeader from '../SurveyHeader';
 import {figsQs} from '../../../res/surveyInfo';
 import { ScrollView } from 'react-native-gesture-handler';
+import firestore from '@react-native-firebase/firestore';
+import DeviceInfo from 'react-native-device-info';
 
 class FiguresScreen extends Component {
   static navigationOptions = {
@@ -24,27 +26,24 @@ class FiguresScreen extends Component {
   }
   render() {
     // const {navigate} = this.props.navigation;
+    const firestoreRef = firestore().collection('completed-surveys').doc(DeviceInfo.getUniqueId());
 
     const figures = {heatmap: <Heatmap />, spiral: <Spiral />, stackedBarChart: <CustomStackedBarChart />};
     const figuresNames = Object.keys(figures);
     const surveys = [];
-    for (let s = 0; s < 2; s++) {
+    for (let s = 0; s < 3; s++) {
       surveys.push(
         <Questionnaire
-          key={figuresNames[s]}
+          key={s}
+          chartName={figuresNames[s]}
           surveyQs={figsQs}
-          nextDestination={''}
-          navigation={this.props.navigation}
+          nextDestination={s == 2? 'Thanks': ''}
+          navigation={s == 2? this.props.navigation:{}}
           chartNumber={this.state.chartNumber}
           nextChart={this.nextChart}
+          firestoreRef={firestoreRef}
         />);
     }
-    surveys.push(<Questionnaire
-        key={figuresNames[2]}
-        surveyQs={figsQs}
-        nextDestination={'Thanks'}
-        navigation={this.props.navigation}
-    />);
       return (
       <>
         <SurveyHeader style={styles.header} />

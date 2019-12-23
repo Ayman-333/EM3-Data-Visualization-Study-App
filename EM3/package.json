@@ -11,7 +11,9 @@
     "build": "parcel build  --no-cache ./build/index.html -d ./dist --public-url ."
   },
   "dependencies": {
+    "@react-native-community/netinfo": "^5.0.1",
     "@react-native-firebase/app": "^6.2.0",
+    "@react-native-firebase/firestore": "^6.2.0",
     "art": "^0.10.3",
     "d3": "^5.14.2",
     "d3-tip": "^0.9.1",
@@ -30,7 +32,7 @@
     "react-native-svg": "^9.9.9",
     "react-native-svg-charts": "^5.3.0",
     "react-native-vector-icons": "^6.6.0",
-    "react-native-webview": "^7.6.0",
+    "react-native-webview": "^8.0.1",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.10.3"
   },
