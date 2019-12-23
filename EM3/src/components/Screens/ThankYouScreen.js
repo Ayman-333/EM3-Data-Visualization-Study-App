@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, Button, View, StyleSheet } from 'react-native';
 import SurveyHeader from '../SurveyHeader';
 import firestore from '@react-native-firebase/firestore';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 class ThankYouScreen extends Component {
   static navigationOptions = {
@@ -20,7 +21,15 @@ class ThankYouScreen extends Component {
           </Text>
         </View>
         <View style={styles.button}>
-          <Button title="Do it again?" onPress={() => this.props.navigation.navigate('Home')} />
+          <Button title="Do it again?" onPress={() => {
+            const resetAction = StackActions.reset({
+              index: 0,
+              actions: [
+                NavigationActions.navigate({ routeName: 'Home' }),
+              ],
+            });
+            this.props.navigation.dispatch(resetAction);
+          }} />
         </View>
       </View>
     );
