@@ -8,7 +8,7 @@ import {
   Animated,
   SafeAreaView,
 } from 'react-native';
-import {SimpleSurvey} from 'react-native-simple-survey';
+import { SimpleSurvey } from 'react-native-simple-survey';
 import PropTypes from 'prop-types';
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -20,7 +20,7 @@ class Questionnaire extends React.Component {
     surveyQs: PropTypes.array.isRequired,
     nextDestination: PropTypes.string.isRequired,
     navigation: PropTypes.object.isRequired,
-    firestoreRef: PropTypes.object.isRequired,
+    startTime: PropTypes.number.isRequired,
   };
 
   state = {
@@ -56,22 +56,31 @@ class Questionnaire extends React.Component {
      */
     const infoQuestionsRemoved = [...answers];
 
-    // console.log(this.props.firestoreRef);
     // Convert from an array to a proper object. This won't work if you have duplicate questionIds
     const answersAsObj = {};
-    const cloudObj = {};
     // Answers Object preparation for each part of the survey.
-    let part = this.props.chartName !== undefined? this.props.chartName: 'personalInfo';
+    let part =
+      this.props.chartName !== undefined
+        ? this.props.chartName
+        : 'personalInfo';
     for (const elem of infoQuestionsRemoved) {
-      answersAsObj[elem.questionId] = elem.questionId !== 'suggestion'? elem.value.value: elem.value;
+      answersAsObj[elem.questionId] =
+        elem.questionId !== 'suggestion' ? elem.value.value : elem.value;
     }
-    cloudObj[part] = answersAsObj;
-    this.props.firestoreRef.update(cloudObj);
+    // Adding Timestamps for each part of the questionnaire.
+    answersAsObj['startTime'] = this.props.startTime;
+    answersAsObj['endTime'] = Math.floor(Date.now() / 1000);
+
+    global.surveyAnswers[part] = answersAsObj;
+    // this.props.firestoreRef.update(cloudObj);
+    console.log(global.surveyAnswers)
 
     if (this.props.nextDestination !== '') {
       const resetAction = StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: this.props.nextDestination })],
+        actions: [
+          NavigationActions.navigate({ routeName: this.props.nextDestination }),
+        ],
       });
       this.props.navigation.dispatch(resetAction);
       // this.props.navigate(this.props.nextDestination);
@@ -95,9 +104,9 @@ class Questionnaire extends React.Component {
   }
 
   renderPreviousButton(onPress, enabled) {
-    onPress = (function() {
+    onPress = (function () {
       var cached_function = onPress;
-      return function() {
+      return function () {
         var result = cached_function.apply(this, arguments); // use .apply() to call it
         // This is the functionality I wanted to add to the orginal function
         Animated.timing(this.state.progress, {
@@ -105,7 +114,7 @@ class Questionnaire extends React.Component {
           duration: 400,
         }).start(() => {
           this.setState(prevState => {
-            return {index: prevState.index - 1};
+            return { index: prevState.index - 1 };
           });
         });
 
@@ -115,7 +124,7 @@ class Questionnaire extends React.Component {
     onPress = onPress.bind(this);
     return (
       <View
-        style={{flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10}}>
+        style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
         <Button
           color={GREEN}
           onPress={onPress}
@@ -128,9 +137,9 @@ class Questionnaire extends React.Component {
   }
 
   renderNextButton(onPress, enabled) {
-    onPress = (function() {
+    onPress = (function () {
       var cached_function = onPress;
-      return function() {
+      return function () {
         var result = cached_function.apply(this, arguments); // use .apply() to call it
         // This is the functionality I wanted to add to the orginal function
         Animated.timing(this.state.progress, {
@@ -138,7 +147,7 @@ class Questionnaire extends React.Component {
           duration: 400,
         }).start(() => {
           this.setState(prevState => {
-            return {index: prevState.index + 1};
+            return { index: prevState.index + 1 };
           });
         });
         // more of your code
@@ -150,7 +159,7 @@ class Questionnaire extends React.Component {
 
     return (
       <View
-        style={{flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10}}>
+        style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
         <Button
           color={GREEN}
           onPress={onPress}
@@ -163,9 +172,9 @@ class Questionnaire extends React.Component {
   }
 
   renderFinishedButton(onPress, enabled) {
-    onPress = (function() {
+    onPress = (function () {
       var cached_function = onPress;
-      return function() {
+      return function () {
         var result = cached_function.apply(this, arguments); // use .apply() to call it
         // This is the functionality I wanted to add to the orginal function
         Animated.timing(this.state.progress, {
@@ -173,7 +182,7 @@ class Questionnaire extends React.Component {
           duration: 400,
         }).start(() => {
           this.setState(prevState => {
-            return {index: prevState.index + 1};
+            return { index: prevState.index + 1 };
           });
         });
         // more of your code
@@ -184,7 +193,7 @@ class Questionnaire extends React.Component {
     onPress = onPress.bind(this);
     return (
       <View
-        style={{flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10}}>
+        style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
         <Button
           title={'finished'}
           onPress={onPress}
@@ -218,7 +227,7 @@ class Questionnaire extends React.Component {
 
   renderQuestionText(questionText) {
     return (
-      <View style={{marginLeft: 10, marginRight: 10}}>
+      <View style={{ marginLeft: 10, marginRight: 10 }}>
         <Text numLines={1} style={styles.questionText}>
           {questionText}
         </Text>
@@ -263,7 +272,7 @@ class Questionnaire extends React.Component {
 
   renderInfoText(infoText) {
     return (
-      <View style={{marginLeft: 10, marginRight: 10}}>
+      <View style={{ marginLeft: 10, marginRight: 10 }}>
         <Text style={styles.infoText}>{infoText}</Text>
       </View>
     );

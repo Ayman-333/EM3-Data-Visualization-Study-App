@@ -16,7 +16,6 @@
     "@react-native-firebase/firestore": "^6.2.0",
     "art": "^0.10.3",
     "d3": "^5.14.2",
-    "d3-tip": "^0.9.1",
     "expo-asset-utils": "^1.2.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
