@@ -1,35 +1,42 @@
 {
   "project_info": {
-    "project_number": "207490230896",
-    "firebase_url": "https://survey-c8cb9.firebaseio.com",
-    "project_id": "survey-c8cb9",
-    "storage_bucket": "survey-c8cb9.appspot.com"
+    "project_number": "646821340570",
+    "firebase_url": "https://survey-274da.firebaseio.com",
+    "project_id": "survey-274da",
+    "storage_bucket": "survey-274da.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:207490230896:android:98f92a8afa0456275f62b5",
+        "mobilesdk_app_id": "1:646821340570:android:f5c0915eb7869649c78623",
         "android_client_info": {
           "package_name": "com.em3"
         }
       },
       "oauth_client": [
         {
-          "client_id": "207490230896-subhhrehe3gatt2o6bfsvrm6070l551h.apps.googleusercontent.com",
+          "client_id": "646821340570-9nsqchfprho0an2pf4cbrganae334pis.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC6EPtHUIM520ZfkibBwtU64-DMC2nuLz4"
+          "current_key": "AIzaSyCD9OpYyTWvNrip_APr6g66-ofkB6QzeZE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "207490230896-subhhrehe3gatt2o6bfsvrm6070l551h.apps.googleusercontent.com",
+              "client_id": "646821340570-9nsqchfprho0an2pf4cbrganae334pis.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "646821340570-c5g24j1l3funhd12h3ebrc3nu8i3rhft.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.EM3"
+              }
             }
           ]
         }
