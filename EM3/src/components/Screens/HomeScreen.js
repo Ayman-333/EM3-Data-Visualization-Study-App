@@ -42,14 +42,18 @@ class HomeScreen extends Component {
       <>
         <SurveyHeader style={styles.SurveyHeader} />
         <View style={styles.container}>
-          <Image
-            style={styles.logo}
-            source={require('../../../res/icons/lamp.png')}
-          />
-          <Text style={styles.greetingText}>
-            Welcome to EM3 data visualization study. We aim to find the best visulizations for demonstrating energy consumption at homes. Your input is needed through this interactive questionnaire.{'\n'}{'\n'}
-            To start, please introduce yourself by
-            answering the following questions. Following, we will present three different visualizations for your rating. 
+          <View style={styles.left}>
+            <Image
+              style={styles.logo}
+              source={require('../../../res/app_logo.png')}
+            />
+          </View>
+          <Text style={styles.greetingTextHeader}>
+            Welcome to EM3 Data Visualization Study
+          </Text>
+          <Text style={styles.greetingTextHeader2}>
+            We aim to find the best visulizations for demonstrating energy consumption at homes. Your input is appreciated through this interactive questionnaire. {'\n\n'}
+            To start, please introduce yourself by answering the following questions. Following, we will present three different visualizations for your rating. Your responses will be treated anonymously.
           </Text>
         </View>
         <View style={styles.surveyContainer}>
@@ -70,17 +74,34 @@ const styles = StyleSheet.create({
     flex: 0.2,
   },
   container: {
-    flex: 0.5,
+    flex: 1,
+    marginLeft: 20,
+    marginRight: 25,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  greetingText: {
-    marginTop: 100,
+  greetingTextHeader: {
+    marginBottom: 10,
+    marginLeft: -55,
+    textAlign: 'left',
+    fontFamily: 'Helvetica',
+    fontSize: 25,
+    fontWeight: '200',
+  },
+  greetingTextHeader2: {
+    marginBottom: 10,
+    textAlign: 'left',
+    fontFamily: 'Helvetica',
+    fontSize: 15,
+    fontWeight: 'normal',
+  },
+  greetingTextHeader3: {
+    marginBottom: 10,
     textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 50,
+    fontFamily: 'Helvetica',
+    fontSize: 16,
+    fontWeight: '200',
   },
   surveyContainer: {
     flex: 1,
@@ -88,8 +109,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 50,
-    height: 50
+    padding: 10,
+    width: 130,
+    height: 130
+  },
+  left: {
+    textAlign: 'left',
+    alignItems: 'flex-start',
+    alignSelf: 'flex-start'
   }
 });
 
