@@ -6,13 +6,14 @@ import HomeScreen from './Screens/HomeScreen';
 import FiguresScreen from './Screens/FiguresScreen';
 import ThankYouScreen from './Screens/ThankYouScreen';
 import EmptyScreen from './Screens/EmptyScreen';
+import HeatMap from './Figures/Novel/HeatMap';
 
 export default class App extends Component {
   render() {
 
     const RootStack = createStackNavigator(
       {
-        Home: HomeScreen,
+        Home: HeatMap,
         Figures: FiguresScreen,
         Thanks: ThankYouScreen,
         Empty: EmptyScreen

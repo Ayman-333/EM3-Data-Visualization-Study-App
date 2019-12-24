@@ -99,7 +99,8 @@ class HeatMap extends Component {
               return (
                 <Svg
                   key={'label' + num.toString()}
-                  height={rectWidth + innerPadding}
+                  // height={rectWidth + innerPadding}
+                  height={(rectWidth + innerPadding)*rows}
                   width={20}>
                   <Text
                     fill="black"
@@ -122,19 +123,22 @@ class HeatMap extends Component {
               {rects}
             </Svg>
             {/* XAxis Numbers Generation */}
-            <Svg style={{flex: 1, flexDirection: 'row'}}>
+            <Svg style={{flex: 1, flexDirection: 'row'}}
+              width={(rectWidth + innerPadding) * cols}
+              height={20}>
               {xAxisLabels.map(num => {
                 return (
                   <Svg
                     key={num + 1}
-                    height={'5'}
-                    width={rectWidth + innerPadding}>
+                    height={20}
+                    // width={rectWidth + innerPadding}>
+                    width={(rectWidth + innerPadding)*cols}>
                     <Text
                       fill="black"
                       stroke="black"
                       fontSize="15"
                       x={(rectWidth + innerPadding) * num + rectWidth / 2}
-                      y={15}
+                      y={12}
                       textAnchor="middle">
                       {((num + 1) * 60) / cols}
                     </Text>
