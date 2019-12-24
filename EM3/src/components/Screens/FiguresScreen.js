@@ -11,6 +11,9 @@ import {figsQs} from '../../../res/surveyInfo';
 import { ScrollView } from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
 import DeviceInfo from 'react-native-device-info';
+import Line from '../Figures/Conventional/Line';
+import Bar from '../Figures/Conventional/Bar';
+
 
 class FiguresScreen extends Component {
   static navigationOptions = {
@@ -28,7 +31,7 @@ class FiguresScreen extends Component {
     // const {navigate} = this.props.navigation;
     const firestoreRef = firestore().collection('completed-surveys').doc(DeviceInfo.getUniqueId());
 
-    const figures = {heatmap: <Heatmap />, spiral: <Spiral />, stackedBarChart: <CustomStackedBarChart />};
+    const figures = {heatmap: <Bar />, spiral: <Line />, stackedBarChart: <CustomStackedBarChart />};
     const figuresNames = Object.keys(figures);
     const surveys = [];
     for (let s = 0; s < 3; s++) {
