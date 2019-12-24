@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Image } from 'react-native';
 import SurveyHeader from '../SurveyHeader';
 import Questionnaire from '../Questionnaire';
 import { personalQs } from '../../../res/surveyInfo';
@@ -42,10 +42,15 @@ class HomeScreen extends Component {
       <>
         <SurveyHeader style={styles.SurveyHeader} />
         <View style={styles.container}>
+          <Image
+            style={styles.logo}
+            source={require('../../../res/icons/lamp.png')}
+          />
           <Text style={styles.greetingText}>
-            Welcome to our EM3 survey{'\n'}Please introduce yourself by
-            answering these questions.
-            </Text>
+            Welcome to EM3 data visualization study. We aim to find the best visulizations for demonstrating energy consumption at homes. Your input is needed through this interactive questionnaire.{'\n'}{'\n'}
+            To start, please introduce yourself by
+            answering the following questions. Following, we will present three different visualizations for your rating. 
+          </Text>
         </View>
         <View style={styles.surveyContainer}>
           <Questionnaire
@@ -81,6 +86,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  logo: {
+    width: 50,
+    height: 50
   }
 });
 

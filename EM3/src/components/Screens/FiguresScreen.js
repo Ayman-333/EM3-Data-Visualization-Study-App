@@ -4,7 +4,8 @@ import Heatmap from '../Figures/Novel/HeatMap';
 import Spiral from '../Figures/Novel/Spiral';
 import CustomStackedBarChart from '../Figures/Novel/CustomStackedBarChart';
 
-import LineChartPlot from '../Figures/LineChartPlot';
+import Bar from '../Figures/Conventional/Bar';
+import Line from '../Figures/Conventional/Line';
 import Questionnaire from '../Questionnaire';
 import SurveyHeader from '../SurveyHeader';
 import { figsQs } from '../../../res/surveyInfo';
@@ -34,7 +35,8 @@ class FiguresScreen extends Component {
       };
     else
       figures = {
-        lineChart: <LineChartPlot />,
+        bar: <Bar />,
+        line: <Line />,
       };
     const figuresNames = Object.keys(figures);
     const surveys = [];

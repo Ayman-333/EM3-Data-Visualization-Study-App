@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import SurveyHeader from '../SurveyHeader';
 
 class EmptyScreen extends Component {

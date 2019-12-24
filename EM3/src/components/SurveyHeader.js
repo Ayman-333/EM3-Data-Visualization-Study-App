@@ -5,19 +5,19 @@ class SurveyHeader extends React.Component {
   render() {
     return (
       <Header>
-        <Left style={styles.centerStyle}>
+        {/* <Left style={styles.centerStyle}>
           <Button transparent>
             <Icon name="arrow-back" />
           </Button>
-        </Left>
+        </Left> */}
         <Body style={styles.centerStyle}>
           <Title style={styles.titleCenter}>EM3</Title>
         </Body>
-        <Right style={styles.centerStyle}>
+        {/* <Right style={styles.centerStyle}>
           <Button transparent>
             <Icon name="menu" />
           </Button>
-        </Right>
+        </Right> */}
       </Header>
     );
   }

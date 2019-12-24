@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>Condegram Spiral Plot</title>
+      <style type="text/css" media="screen">
+        body {
+          font-family: 'Arial', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+          text-align: center;
+          margin: 0;
+          padding: 0;
+        }
+        p {
+          padding: 0;
+          margin: 0;
+          font-size: 170%;
+        }
+        .axis path {
+          fill: none;
+          stroke: #999;
+          stroke-dasharray: 2 3;
+        }
+        .axis text {
+          font-size: 13px;
+          stroke: #000;
+        }
+        text.title {
+          font-size: 24px;
+        }
+        circle.tick {
+          fill: #f3f3f3;
+          stroke: #999;
+          stroke-dasharray: 2 3;
+        }
+        path.spiral {
+          fill: none;
+          stroke: #ee8d18;
+          stroke-width: 3px;
+        }
+
+        .tooltip {
+        background: #eee;
+        box-shadow: 0 0 5px #999999;
+        color: #333;
+        font-size: 13px;
+        left: 130px;
+        padding: 10px;
+        position: absolute;
+        text-align: center;
+        top: 95px;
+        z-index: 10;
+        display: block;
+        opacity: 0;
+        }      
+      </style>
+      <script data-require="d3@4.0.0" data-semver="4.0.0" src="https://d3js.org/d3.v4.js"></script>
+      <p>Touch bars for consumption information</p>
+  </head>
+  <body>
+	<div id="chart"></div>
+    <script type="text/javascript">
+      var width = 600,
+      height = 600,
+      start = 0,
+      end = 2.25,
+      numSpirals = 3,
+      margin = {top:0,bottom:0,left:0,right:0},
+      padding = {top:0,bottom:0,left:0,right:0};
+
+      var theta = function(r) {
+      return numSpirals * Math.PI * r;
+      };
+
+      // used to assign nodes color by group
+      // var color = d3.scaleOrdinal(d3.schemeCategory10);
+      var defaultColors = [`#2ba84a`, `#51B76A`, `#248A3D`, `#1C6B30`, `#185C29`, `#1C6B30`, `#248A3D`, `#51B76A`, `#2ba84a`];
+      var color = d3.scaleOrdinal(defaultColors);
+      console.log(color);
+
+      var r = d3.min([width, height]) / 2 - 40;
+
+      var radius = d3.scaleLinear()
+      .domain([start, end])
+      .range([40, r]);
+
+      var svg = d3.select("#chart").append("svg")
+      .attr("width", width + margin.right + margin.left)
+      .attr("height", height + margin.left + margin.right)
+      .append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+      var points = d3.range(start, end + 0.001, (end - start) / 1000);
+
+      var spiral = d3.radialLine()
+      .curve(d3.curveCardinal)
+      .angle(theta)
+      .radius(radius);
+
+      var path = svg.append("path")
+      .datum(points)
+      .attr("id", "spiral")
+      .attr("d", spiral)
+      .style("fill", "none")
+      .style("stroke", "steelblue");
+
+      var data0 = [3.0535,    2.3545,    1.5304,    1.1571 ,   1.5457 ,   1.1936,    1.6259 ,   3.3149  ,  1.7708,    1.9049  ,  2.7320,    1.0616,    1.4393,    2.2044 ,   1.9385,    2.4265 ,   1.9090,    0.8814,    0.7042  ,  2.2635 ,   1.8843,    1.0475,    1.6997,    1.5565 ,   1.2980,    1.4964 ,   1.5661 ,   1.0148,    2.2131 ,   2.0895 ,   1.4921,    1.1711,    1.9776,    1.2649  ,  1.0281   , 2.1762 ,   2.3662  ,  1.5142 ,   1.2345  ,  2.0749 ,   1.1086,    1.1236,    1.4195,    2.1467,    1.3769,    1.1860 ,   1.6415,    1.2672 ,   1.1581   , 2.7984,    2.4972,    1.1426,    0.8844,    1.6167  ,  1.2510  ,  1.1251 ,   1.9648 ,   2.4800 ,   1.3039,    0.9823, 1.7352,    1.3787,    1.1823,    1.4423  ,  2.6596  ,  1.5185,    2.1875  ,  1.4395 ,   2.3414   , 0.9121   , 0.4965,    0.3484,    0.3948,    0.3598 ,   0.3616 ,   0.3594 ,   0.3581 ,   0.5688,    1.4519  ,  1.8475 ,   0.8656,    1.6494,    1.0918 ,   0.8838 ,   1.7255 ,   2.4171 ,   1.3546 ,   0.8959 ,   1.2454 ,   1.3089  ,  1.1820,    1.4084,    1.6466,    1.4948  ,  1.4488 ,   1.4876 ,   1.0104 ,   0.9090 ,   2.0614 ,   2.3175,    0.9834,    0.7675,    1.6208,    1.1044 ,   0.9739  ,  2.4372 ,   1.9347  ,  1.3617  ,  1.1408  ,  1.4249 ,   1.2806,    1.1119,    1.0791,    1.1172,    0.6951 ,   0.5398  ,  0.6163,    0.3734 ,   0.3827  ,  0.3849,
+      0.5043,    0.6614,    0.8498,    0.6932 ,   0.7143 ,   0.5712 ,   1.1623 ,   1.5512,    0.7323  ,  0.7167  ,  0.8779,    0.8857,    0.7600,    1.0915  ,  1.0916  ,  0.9472,    1.1555,    0.6969,    0.7571,    0.6931 ,   1.0855,    1.4598,    1.1414,    1.2426  ,  1.1568   , 0.4916 ,   0.6800,    1.0011,    1.1352,    1.0193,    0.6280,    1.1757,    0.8554,    1.1330 ,   0.9927 ,   1.3669 ,   0.7778 ,   0.7867,    1.0173  ,  0.8017  ,  1.1210,    1.0502,    1.4957,    1.1371  ,  0.7370 ,   1.1180 ,   0.6518 ,   0.7264,    1.0308  ,  1.4639 ,   0.6331,    1.0131,    1.1769,    0.6840   , 1.4917,    0.7648,    0.9311,    0.5518  ,  0.6380,    0.6439,
+      0.8744,    0.6872,    1.4012,    1.3521   , 0.4712 ,   0.5865  ,  0.7460,    0.5604 ,   0.3933,    0.3316   , 0.4963,    0.7446,    0.6562,    1.0284    ,0.8996 ,   0.9065 ,   0.9273 ,   0.7130 ,   0.6715,    0.7360  ,  0.6968,    0.7342,    0.7427,    0.9432    ,0.7563 ,   0.8196 ,   0.6308 ,   0.5016,    0.7428,    0.5517 ,   0.8946,    0.7354,    0.5928,    0.4997    ,0.5258  ,  0.4708  ,  0.7711 ,   0.7363  ,  0.9562 ,   0.6882,    0.5731,    0.3282,    0.6420,    0.8351    ,1.1263,    0.2230 ,   0.3242,    0.5641 ,   0.7523  ,  0.7079  ,  0.7384,    0.7951,    0.5466,    0.7567    ,1.0303 ,   0.7816  ,  0.7442 ,   0.7139 ,   0.7581  ,  0.8624,
+      0.8007,    0.6536,    0.8277,    0.6656 ,   0.7013 ,   0.2416,    0.9877,    0.9298   , 0.4462   , 0.8401 ,   0.7724,    1.1509,    0.7992,    0.9131  ,  0.8415,    0.6924 ,   0.5194 ,   0.8350 ,   0.8888 ,   1.1816,    1.1545,    0.7215,    1.1007,    0.8587   , 0.6260,    0.9281,    1.0207 ,   1.1663 ,   0.7760 ,   0.6830,    0.8943,    0.7961,    0.7885,    0.7606  ,  1.1474  ,  1.0147 ,   0.8108 ,   0.9019  ,  0.8719 ,   0.8603   , 0.8168,    0.9847,    0.9406,    1.2252 ,   1.2670 ,   0.9671 ,   1.1670   , 1.5948,    1.0530,    1.1951  ,  1.5270,    0.8892,    1.0545,    0.9681 ,   1.2196  ,  1.4626  ,  0.7606  ,  1.1721 ,   0.8104,    1.2031,
+      1.3295,    1.3380,    1.4314,    0.8794,    1.3642,    1.0951 ,   1.0545,    1.4484,    1.1529,    1.3486 ,   1.1478,    1.3589,    1.2956,    1.2874 ,   0.9983 ,   1.2401 ,   0.3557   , 0.3788 ,   0.5632 ,   0.8911,    0.3446,    1.0025,    0.3420,    1.0317  ,  1.0421  ,  1.4461 ,   1.2811 ,   1.0424,    1.5078,    1.8136 ,   1.3105,    1.4973,    1.5378,    1.4222 ,   1.0361 ,   1.6040  ,  1.8126 ,   1.5166 ,   1.1970 ,   1.4555  ,  1.2173,    1.3419,    1.7518,    1.3188 ,   0.9692 ,   1.0901  ,  1.9451   , 1.1423,
+      1.1947,    1.6193,    2.1770,    2.0460,    1.2237  ,  1.4359  ,  1.4952 ,   1.7277,    1.2285,    1.5371  ,  1.5796,    1.2214,    1.6008,    1.1028 ,   1.2832 ,   1.3714  ,  1.9006];
+      ;
+
+      var spiralLength = path.node().getTotalLength(),
+        N = 365,
+        barWidth = (spiralLength / N) - 1;
+      var someData = [];
+      for (var i = 0; i < N; i++) {
+      var currentDate = new Date('January 1, 2006 00:15:30');
+      currentDate.setDate(currentDate.getDate() + i);
+      someData.push({
+        date: currentDate,
+        value: data0[i],
+        //value: Math.random(),
+        group: currentDate.getMonth()
+      });
+      }
+
+      var timeScale = d3.scaleTime()
+      .domain(d3.extent(someData, function(d){
+        return d.date;
+      }))
+      .range([0, spiralLength]);
+
+      // yScale for the bar height
+      var yScale = d3.scaleLinear()
+      .domain([0, d3.max(someData, function(d){
+        return d.value;
+      })])
+      .range([0, (r / numSpirals) - 30]);
+
+      // svg.selectAll("text")
+      // .data(someData)
+      // .enter()
+      // .append("text")
+      // .attr("x", function(d,i){
+        
+      //   var linePer = timeScale(d.date),
+      //       posOnLine = path.node().getPointAtLength(linePer),
+      //       angleOnLine = path.node().getPointAtLength(linePer - barWidth);
+
+      //   d.linePer = linePer; // % distance are on the spiral
+      //   d.x = posOnLine.x;  // x postion on the spiral
+      //   d.y = posOnLine.y; // y position on the spiral
+        
+      //   d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 180 / Math.PI) - 90; //angle at the spiral position
+
+      //   return d.x;
+      // })
+      // .attr("y", function(d){
+      //   return d.y;
+      // })
+      // .attr("transform", function(d){
+      //   return "rotate(" + d.a + "," + d.x  + "," + d.y + ")"; // rotate the bar
+      // })
+      // .text("1.1")
+      // .style("font", "7px Arial")
+
+      ////
+      svg.selectAll("rect")
+      .data(someData)
+      .enter()
+      .append("rect")
+      .attr("x", function(d,i){
+        
+        var linePer = timeScale(d.date),
+            posOnLine = path.node().getPointAtLength(linePer),
+            angleOnLine = path.node().getPointAtLength(linePer - barWidth);
+
+        d.linePer = linePer; // % distance are on the spiral
+        d.x = posOnLine.x;  // x postion on the spiral
+        d.y = posOnLine.y; // y position on the spiral
+        
+        d.a = (Math.atan2(angleOnLine.y, angleOnLine.x) * 180 / Math.PI) - 90; //angle at the spiral position
+
+        return d.x;
+      })
+      .attr("y", function(d){
+        return d.y;
+      })
+      .attr("width", function(d){
+        return barWidth;
+      })
+      .attr("height", function(d){
+        return yScale(d.value);
+      })
+      .style("fill", function(d){return color(d.group);})
+      .style("stroke", "none")
+      .attr("transform", function(d){
+        return "rotate(" + d.a + "," + d.x  + "," + d.y + ")"; // rotate the bar
+      })
+     
+
+      // add date labels
+      var tF = d3.timeFormat("%b %Y"),
+        firstInMonth = {};
+        svg.selectAll("text")
+        .data(someData)
+        .enter()
+        .append("text")
+        .attr("dy", 14)
+        .style("text-anchor", "start")
+        .style("font", "18px Arial")
+        .append("textPath")
+        // only add for the first of each month
+        .filter(function(d){
+          var sd = tF(d.date);
+          if (!firstInMonth[sd]){
+            firstInMonth[sd] = 1;
+            return true;
+          }
+          return false;
+        })
+        .text(function(d){
+          return tF(d.date);
+        })
+        // place text along spiral
+        .attr("xlink:href", "#spiral")
+        .style("fill", "black")
+        .attr("startOffset", function(d){
+          return ((d.linePer / spiralLength) * 100) + "%";
+        })
+
+        var tooltip = d3.select("#chart")
+        .append('div')
+        .attr('class', 'tooltip');
+
+        tooltip.append('div')
+        .attr('class', 'date');
+        tooltip.append('div')
+        .attr('class', 'value');
+
+        svg.selectAll("rect")
+        .on('mouseover', function(d) {
+
+          tooltip.select('.date').html("Date: <b>" + d.date.toDateString() + "</b>");
+          tooltip.select('.value').html("Value: <b>" + Math.round(d.value*100)/100 + "<b>");
+
+          d3.select(this)
+          .style("fill","#FFFFFF")
+          .style("stroke","#000000")
+          .style("stroke-width","2px");
+
+          tooltip.style('display', 'block');
+          tooltip.style('opacity',2);
+
+        })
+        .on('mousemove', function(d) {
+          tooltip.style('top', (d3.event.layerY + 10) + 'px')
+          .style('left', (d3.event.layerX - 25) + 'px');
+        })
+        .on('mouseout', function(d) {
+          d3.selectAll("rect")
+          .style("fill", function(d){return color(d.group);})
+          .style("stroke", "none")
+
+          tooltip.style('display', 'none');
+          tooltip.style('opacity',0);
+        });
+    </script>
+  </body>
+</html>
