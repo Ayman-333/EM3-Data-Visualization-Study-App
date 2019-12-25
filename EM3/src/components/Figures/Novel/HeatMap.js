@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Dimensions, ScrollView, View } from 'react-native';
+import { Dimensions, ScrollView, View, StyleSheet } from 'react-native';
 import { Svg, G, Rect, Text } from 'react-native-svg';
+// import { PieChart } from 'react-native-chart-kit';
 import { ProgressChart } from 'react-native-chart-kit';
 import * as d3 from 'd3';
 import { franceDataSet } from '../../../../res/18-12-2006';
@@ -187,16 +188,20 @@ class HeatMap extends Component {
         </ScrollView>
       );
 
-    if (this.state.selectedPeriod  >= 0) {
-      // If keeps crashing, the problem is definitely in this area. need to figure it out!
-      // -----------------------------------------------------------------------------
+    if (this.state.selectedPeriod >= 0) {
+
       const periodRooms = seperateRoomsPeriodsConsumption[this.state.selectedPeriod];
       const periodSum = periodRooms[0] + periodRooms[1] + periodRooms[2]
-      periodRooms[0] /= periodSum;
-      periodRooms[1] /= periodSum;
-      periodRooms[2] /= periodSum;
-      console.log(periodRooms[0])
-      const chartConfig = {
+      if (periodSum != 0) {
+        periodRooms[0] /= periodSum;
+        periodRooms[1] /= periodSum;
+        periodRooms[2] /= periodSum;
+      }
+      // console.log(periodRooms[0])
+      // console.log(periodRooms);
+      // console.log(this.state.selectedPeriod);
+      // console.log(progressChartData.data);
+      const chartConfigProgress = {
         backgroundGradientFrom: "#fff",
         backgroundGradientFromOpacity: 0,
         backgroundGradientTo: "#fff",
@@ -209,11 +214,39 @@ class HeatMap extends Component {
         labels: ['Room I', "Room II", "Room III"], // optional
         data: [periodRooms[0], periodRooms[1], periodRooms[2]]
       }
-      console.log(periodRooms);
-      
-      console.log(this.state.selectedPeriod);
-      console.log(progressChartData.data);
-      // ---------------------------------------------------------------------------------------------------------------------
+
+      // const pieChartData = [
+      //   {
+      //     name: 'Room I',
+      //     power: periodRooms[0],
+      //     color: color(periodRooms[0]),
+      //     legendFontColor: '#7F7F7F',
+      //     legendFontSize: 15,
+      //   },
+      //   {
+      //     name: 'Room II',
+      //     power: periodRooms[1],
+      //     color: color(periodRooms[1]),
+      //     legendFontColor: '#7F7F7F',
+      //     legendFontSize: 15,
+      //   },
+      //   {
+      //     name: 'Room III',
+      //     power: periodRooms[2],
+      //     color: color(periodRooms[2]),
+      //     legendFontColor: '#7F7F7F',
+      //     legendFontSize: 15,
+      //   },
+      // ]
+      // const chartConfigPie = {
+      //   backgroundColor: '#fff',
+      //   decimalPlaces: 2,
+      //   color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+      //   style: {
+      //     borderRadius: 16,
+      //   },
+      // }
+
       return (
         <ScrollView horizontal={false}
           ref={ref => this.scrollView = ref}
@@ -311,13 +344,38 @@ class HeatMap extends Component {
               </Svg>
             </View>
           </View>
+          <Svg key={'total'}
+            height={40}
+            width={screenWidth}>
+            <Text
+              fill="black"
+              stroke="black"
+              fontSize="20"
+              x={200}
+              y={20}
+              textAnchor="middle">
+              {`Total Consumption: ${periodSum} W`} 
+          </Text></Svg>
           <ProgressChart
             data={progressChartData}
             width={screenWidth}
             height={220}
-            chartConfig={chartConfig}
+            chartConfig={chartConfigProgress}
             hideLegend={false}
           />
+          {/* <PieChart
+            data={pieChartData}
+            width={screenWidth}
+            height={220}
+            chartConfig={chartConfigPie}
+            style={{
+              marginVertical: 8,
+              borderRadius: 16,
+            }}
+            accessor="power"
+            backgroundColor="transparent"
+            paddingLeft="15"
+          /> */}
         </ScrollView>
       );
     }

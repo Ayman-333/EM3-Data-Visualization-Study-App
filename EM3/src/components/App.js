@@ -13,7 +13,7 @@ export default class App extends Component {
 
     const RootStack = createStackNavigator(
       {
-        Home: HeatMap,
+        Home: HomeScreen,
         Figures: FiguresScreen,
         Thanks: ThankYouScreen,
         Empty: EmptyScreen
