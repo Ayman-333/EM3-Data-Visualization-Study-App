@@ -354,11 +354,12 @@ class HeatMap extends Component {
               x={200}
               y={20}
               textAnchor="middle">
-              {`Total Consumption: ${periodSum} W`} 
-          </Text></Svg>
+              {`Total Consumption: ${periodSum} W`}
+            </Text>
+          </Svg>
           <ProgressChart
             data={progressChartData}
-            width={screenWidth}
+            width={screenWidth - 50}
             height={220}
             chartConfig={chartConfigProgress}
             hideLegend={false}

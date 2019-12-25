@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image, Platform } from 'react-native';
 import SurveyHeader from '../SurveyHeader';
 import Questionnaire from '../Questionnaire';
 import { personalQs } from '../../../res/surveyInfo';
 import firestore from '@react-native-firebase/firestore';
 import DeviceInfo from 'react-native-device-info';
 import NetInfo from '@react-native-community/netinfo';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 class HomeScreen extends Component {
@@ -41,11 +42,12 @@ class HomeScreen extends Component {
     return (
       <>
         <SurveyHeader style={styles.SurveyHeader} />
+        <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <View style={styles.left}>
             <Image
               style={styles.logo}
-              source={require('../../../res/app_logo.png')}
+              source={require('../../../res/complete_logo.jpeg')}
             />
           </View>
           <Text style={styles.greetingTextHeader}>
@@ -64,6 +66,7 @@ class HomeScreen extends Component {
             startTime={this.state.startTime}
           />
         </View>
+        </ScrollView>
       </>
     );
   }
@@ -74,7 +77,7 @@ const styles = StyleSheet.create({
     flex: 0.2,
   },
   container: {
-    flex: 1,
+    flex: Platform.OS === 'ios'? 1 : 1.3,
     marginLeft: 20,
     marginRight: 25,
     flexDirection: 'column',
@@ -83,7 +86,7 @@ const styles = StyleSheet.create({
   },
   greetingTextHeader: {
     marginBottom: 10,
-    marginLeft: -55,
+    marginLeft: Platform.OS === 'ios'? -55: 0,
     textAlign: 'left',
     fontFamily: 'Helvetica',
     fontSize: 25,
@@ -107,11 +110,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    height: 350,
   },
   logo: {
     padding: 10,
-    width: 130,
-    height: 130
+    width: 220,
+    height: 130,
   },
   left: {
     textAlign: 'left',
