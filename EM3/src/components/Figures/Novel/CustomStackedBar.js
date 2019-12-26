@@ -18,7 +18,7 @@ import ListItem from './ListItem';
 import { Text } from 'react-native-svg';
 import * as scale from 'd3-scale';
 import { Icon } from 'react-native-elements';
-import * as data from '../../../../res/EnergyData';
+import * as data from '../../../../res/energy_data';
 import Legends from './Legends';
 
 // TODO needs to be removed later
@@ -49,7 +49,7 @@ const Labels = props => {
         fill="red"
         alignmentBaseline={'middle'}
         textAnchor={'middle'}>
-        {sum}
+        {sum.toString() + 'Wh'}
       </Text>
     );
   });

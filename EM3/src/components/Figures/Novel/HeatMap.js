@@ -331,7 +331,7 @@ class HeatMap extends Component {
             <PieChart
               style={[{ height: 200, width: screenWidth / 2, }, styles.pieContainer]}
               outerRadius={'90%'}
-              innerRadius={10}
+              innerRadius={5}
               data={data}
             />
             <View style={styles.legendsContainer}>

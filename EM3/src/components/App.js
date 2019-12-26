@@ -15,7 +15,7 @@ export default class App extends Component {
         Home: HomeScreen,
         Figures: FiguresScreen,
         Thanks: ThankYouScreen,
-        Empty: EmptyScreen
+        Empty: EmptyScreen,
       },
       {
         initialRouteName: 'Home',

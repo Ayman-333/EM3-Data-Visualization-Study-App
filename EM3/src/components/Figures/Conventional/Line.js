@@ -1,11 +1,8 @@
 /* eslint-disable prettier/prettier */
-import React, {Component} from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
-import {Svg, G, Rect, Text} from 'react-native-svg';
-
-import {
-    LineChart, BarChart
-  } from "react-native-chart-kit"; 
+import React, { Component } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import { Svg, G, Text } from 'react-native-svg';
+import { LineChart } from "react-native-chart-kit";
 import { ScrollView } from 'react-native-gesture-handler';
 class Line extends Component {
   render() {
@@ -13,7 +10,7 @@ class Line extends Component {
       <View style={styles.container}>
         <ScrollView persistentScrollbar={true}
           horizontal={true}>
-       <Svg
+          <Svg
             key={'ylabelTitle'}
             height={(250) / 2}
             width={'20'}>
@@ -25,46 +22,44 @@ class Line extends Component {
                 x={0}
                 y={20}
                 textAnchor="start">
-                {"Power (kW)"}
+                {"Energy (kWh)"}
               </Text>
             </G>
           </Svg>
-        <LineChart
-        data={{
-                    labels: ["Jan", 
-                              "Feb", 
-                              "Mar", 
-                              "Apr", 
-                              "May", 
-                              "Jun", 
-                              "Jul", 
-                              "Aug", 
-                              "Sep", 
-                              "Oct", 
-                              "Nov", 
-                              "Dec"],
-                    datasets: [
-                      {
-                        data: [3.05    , 1.17, 0.98, 1.18, 0.5, 1.18, 0.69, 0.59, 0.67 ,0.76, 1.36, 1.04]
-                      }
-            ]
-          }}
-          width={Dimensions.get("window").width * 2} // from react-native
-          height={250}
-          formatYLabel={value => `$ ${value}`}
-          chartConfig={{
-            backgroundColor: "#000",
-            backgroundGradientFrom: "#fff",
-            backgroundGradientTo: "#eee",
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`
-          }}
-          bezier
-/>
+          <LineChart
+            data={{
+              labels: ["Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"],
+              datasets: [
+                {
+                  data: [3.05, 1.17, 0.98, 1.18, 0.5, 1.18, 0.69, 0.59, 0.67, 0.76, 1.36, 1.04]
+                }
+              ]
+            }}
+            width={Dimensions.get("window").width * 2} // from react-native
+            height={250}
+            formatYLabel={value => `$ ${value}`}
+            chartConfig={{
+              backgroundColor: "#000",
+              backgroundGradientFrom: "#fff",
+              backgroundGradientTo: "#eee",
+              decimalPlaces: 2, // optional, defaults to 2dp
+              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`
+            }}
+            bezier
+          />
         </ScrollView>
-
-        
       </View>
     );
   }

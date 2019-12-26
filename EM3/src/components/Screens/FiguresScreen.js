@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { Text,  View, StyleSheet, ScrollView } from 'react-native';
 
 import Heatmap from '../Figures/Novel/HeatMap';
 import Spiral from '../Figures/Novel/Spiral';
@@ -11,7 +11,8 @@ import StackedArea from '../Figures/Conventional/StackedArea';
 
 import Questionnaire from '../Questionnaire';
 import SurveyHeader from '../SurveyHeader';
-import { figsQs } from '../../../res/surveyInfo';
+import { figsQs } from '../../../res/survey_info';
+import { descriptions } from '../../../res/figures_description';
 
 class FiguresScreen extends Component {
   static navigationOptions = {
@@ -28,6 +29,8 @@ class FiguresScreen extends Component {
     });
   };
   render() {
+    console.log(descriptions);
+
     let figures;
     if (global.isNovel)
       figures = {
@@ -61,12 +64,17 @@ class FiguresScreen extends Component {
       <>
         <SurveyHeader style={styles.header} />
         <ScrollView showsVerticalScrollIndicator={false}
-                  ref={ref => this.scrollView = ref}
-                  onContentSizeChange={() => {
-                    this.scrollView.scrollToEnd({ animated: true });
-                  }}>
-          <View style={styles.container}>{figures[figuresNames[this.state.chartNumber]]}</View>
-          <View style={[styles.surveyContainer, { height: !isNovel? 380: 'auto' }]}>
+          ref={ref => this.scrollView = ref}
+          onContentSizeChange={() => {
+            this.scrollView.scrollToEnd({ animated: true });
+          }}>
+          <View style={styles.container}>
+            {figures[figuresNames[this.state.chartNumber]]}
+          </View>
+          <Text style={styles.tip}>
+            Tip: {descriptions[figuresNames[this.state.chartNumber]]}
+          </Text>
+          <View style={[styles.surveyContainer, { height: !isNovel ? 380 : 'auto' }]}>
             {surveys[this.state.chartNumber]}
           </View>
         </ScrollView>
@@ -97,6 +105,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  tip: {
+    fontWeight: 'bold',
+    fontSize: 15,
+    marginLeft: 20,
+    marginRight: 15,
+  }
 });
 
 export default FiguresScreen;

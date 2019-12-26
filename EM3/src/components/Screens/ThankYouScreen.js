@@ -24,7 +24,7 @@ class ThankYouScreen extends Component {
             Thank you for completing the survey, please let someone else do it!
           </Text>
           <Text style={styles.greetingTextHeader2}>
-            Please let us know if you have any ideas or if you faced any bugs during the survey through the following emails: {'\n\n'}
+            Let us know through the following emails if you have any cool ideas or if you faced any bugs during the survey: {'\n\n'}
             a.alsalemi@qu.edu.qa -> Abdullah Alsalemi {'\n'}
             aa1405810@qu.edu.qa -> Ayman Al-Kababji {'\n'}
           </Text>
