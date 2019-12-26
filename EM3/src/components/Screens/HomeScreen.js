@@ -44,12 +44,10 @@ class HomeScreen extends Component {
         <SurveyHeader style={styles.SurveyHeader} />
         <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
-          <View style={styles.left}>
             <Image
               style={styles.logo}
               source={require('../../../res/complete_logo.jpeg')}
             />
-          </View>
           <Text style={styles.greetingTextHeader}>
             Welcome to EM3 Data Visualization Study
           </Text>
@@ -80,31 +78,17 @@ const styles = StyleSheet.create({
     flex: Platform.OS === 'ios'? 1 : 1.3,
     marginLeft: 22,
     marginRight: 25,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontFamily: 'Helvetica',
+    textAlign: 'left',
   },
   greetingTextHeader: {
     marginBottom: 20,
     marginLeft: Platform.OS === 'ios'? -65.5: 0,
-    textAlign: 'left',
-    fontFamily: 'Helvetica',
     fontSize: 25,
-    fontWeight: '200',
   },
   greetingTextHeader2: {
     marginBottom: 15,
-    textAlign: 'left',
-    fontFamily: 'Helvetica',
     fontSize: 15,
-    fontWeight: 'normal',
-  },
-  greetingTextHeader3: {
-    marginBottom: 15,
-    textAlign: 'center',
-    fontFamily: 'Helvetica',
-    fontSize: 16,
-    fontWeight: '200',
   },
   surveyContainer: {
     flex: 1,
@@ -114,16 +98,10 @@ const styles = StyleSheet.create({
   },
   logo: {
     marginTop: 20,
-    marginLeft: 7,
     marginBottom: 20,
     width: 190,
     height: 90,
   },
-  left: {
-    textAlign: 'left',
-    alignItems: 'flex-start',
-    alignSelf: 'flex-start'
-  }
 });
 
 export default HomeScreen;

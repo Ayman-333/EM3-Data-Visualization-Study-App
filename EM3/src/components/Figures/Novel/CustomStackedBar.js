@@ -55,7 +55,7 @@ const Labels = props => {
   });
 };
 
-class CustomStackedBarChart extends React.Component {
+class CustomStackedBar extends React.Component {
   state = {
     appliance: data.lamp,
     selectedApplianceId: 'lamp',
@@ -280,4 +280,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomStackedBarChart;
+export default CustomStackedBar;

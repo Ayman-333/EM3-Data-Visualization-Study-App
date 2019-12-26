@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 
 import Heatmap from '../Figures/Novel/HeatMap';
 import Spiral from '../Figures/Novel/Spiral';
-import CustomStackedBarChart from '../Figures/Novel/CustomStackedBarChart';
+import CustomStackedBar from '../Figures/Novel/CustomStackedBar';
 
 import Bar from '../Figures/Conventional/Bar';
 import Line from '../Figures/Conventional/Line';
@@ -33,7 +33,7 @@ class FiguresScreen extends Component {
       figures = {
         heatmap: <Heatmap />,
         spiral: <Spiral />,
-        stackedBarChart: <CustomStackedBarChart />,
+        stackedBar: <CustomStackedBar />,
       };
     else
       figures = {
