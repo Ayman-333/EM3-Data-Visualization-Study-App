@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, Platform } from 'react-native';
 import SurveyHeader from '../SurveyHeader';
 import Questionnaire from '../Questionnaire';
-import { personalQs } from '../../../res/surveyInfo';
+import { personalQs } from '../../../res/survey_info';
 import firestore from '@react-native-firebase/firestore';
 import DeviceInfo from 'react-native-device-info';
 import NetInfo from '@react-native-community/netinfo';
@@ -35,9 +35,11 @@ class HomeScreen extends Component {
       .collection('completed-surveys')
       .doc(DeviceInfo.getUniqueId());
     global.surveysDBRef.get().then(snapshot => {
-      snapshot.exists == false
-        ? global.surveysDBRef.set({ completions: [], Novel: Math.random() >= 0.5 })
-        : global.isNovel = snapshot.data().Novel
+      if(snapshot.exists == false) {
+        global.isNovel = Math.random() >= 0.5;
+        global.surveysDBRef.set({ completions: [], Novel: global.isNovel })
+      } else
+        global.isNovel = snapshot.data().Novel
     });
     return (
       <>
