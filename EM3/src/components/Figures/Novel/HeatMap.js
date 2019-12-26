@@ -346,12 +346,12 @@ class HeatMap extends Component {
           </View>
           <Svg key={'total'}
             height={40}
-            width={screenWidth}>
+            width={screenWidth - 40}>
             <Text
               fill="black"
               stroke="black"
               fontSize="20"
-              x={200}
+              x={180}
               y={20}
               textAnchor="middle">
               {`Total Consumption: ${periodSum} W`}

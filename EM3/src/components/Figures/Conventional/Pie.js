@@ -2,11 +2,8 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Svg, G, Rect, Text } from 'react-native-svg';
+import { PieChart } from "react-native-chart-kit";
 
-import {
-    PieChart
-} from "react-native-chart-kit";
-import { ScrollView } from 'react-native-gesture-handler';
 class Pie extends Component {
     render() {
 
@@ -37,22 +34,22 @@ class Pie extends Component {
 
         return (
             <View style={styles.container}>
-            <Svg
-            key={'ylabelTitle'}
-            height={22}
-            width={'300'}>
-            <G y={0}>
-              <Text
-                fill="black"
-                stroke="black"
-                fontSize="13"
-                x={0}
-                y={20}
-                textAnchor="start">
-                {"Household Power Consumption by Room"}
-              </Text>
-            </G>
-          </Svg>
+                <Svg
+                    key={'ylabelTitle'}
+                    height={22}
+                    width={330}>
+                    <G y={0}>
+                        <Text
+                            fill="black"
+                            stroke="black"
+                            fontSize="15"
+                            x={170}
+                            y={15}
+                            textAnchor="middle">
+                            {"Household Power Consumption by Room"}
+                        </Text>
+                    </G>
+                </Svg>
                 <PieChart
                     data={data}
                     width={Dimensions.get("window").width * 0.85} // from react-native

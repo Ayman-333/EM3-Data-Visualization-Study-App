@@ -7,6 +7,7 @@ import CustomStackedBarChart from '../Figures/Novel/CustomStackedBarChart';
 import Bar from '../Figures/Conventional/Bar';
 import Line from '../Figures/Conventional/Line';
 import Pie from '../Figures/Conventional/Pie';
+import StackedArea from '../Figures/Conventional/StackedArea';
 import Questionnaire from '../Questionnaire';
 import SurveyHeader from '../SurveyHeader';
 import { figsQs } from '../../../res/surveyInfo';
@@ -37,6 +38,7 @@ class FiguresScreen extends Component {
     else
       figures = {
         pie: <Pie />,
+        // stackedArea: <StackedArea />,
         bar: <Bar />,
         line: <Line />,
       };
