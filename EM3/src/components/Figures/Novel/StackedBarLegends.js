@@ -1,14 +1,16 @@
 import React from 'react';
-import {Text, View, StyleSheet, ScrollView} from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
-class Legends extends React.Component {
+
+class StackedBarLegends extends React.Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
   };
 
   render() {
-    let {keys, colors} = this.props.data;
+    let { keys, colors } = this.props.data;
     let legendData = [];
+
     for (let i = 0; i < colors.length; i++) {
       legendData[i] = {
         key: keys[i],
@@ -22,7 +24,7 @@ class Legends extends React.Component {
             return (
               <View style={styles.legendItem} key={legendObj.key}>
                 <View
-                  style={[styles.symbol, {backgroundColor: legendObj.color}]}
+                  style={[styles.symbol, { backgroundColor: legendObj.color }]}
                 />
                 <Text>{legendObj.key}</Text>
               </View>
@@ -54,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Legends;
+export default StackedBarLegends;

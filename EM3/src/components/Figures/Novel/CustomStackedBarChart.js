@@ -19,7 +19,7 @@ import {Text} from 'react-native-svg';
 import * as scale from 'd3-scale';
 import {Icon} from 'react-native-elements';
 import * as data from '../../../../res/EnergyData';
-import Legends from './Legends';
+import StackedBarLegends from './StackedBarLegends';
 
 // TODO needs to be removed later
 YellowBox.ignoreWarnings(['VirtualizedLists should never be nested inside plain ScrollViews with the same orientation']);
@@ -237,7 +237,9 @@ class CustomStackedBarChart extends React.Component {
             />
           </View>
         </ScrollView>
-        <Legends data={data[this.state.selectedApplianceId]} />
+        <View styles={styles.legendsContainer}>
+        <StackedBarLegends data={data[this.state.selectedApplianceId]} />
+        </View>
       </View>
     );
   }
@@ -269,6 +271,12 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     width: '70%',
+  },
+  legendsContainer: {
+    fontSize: 50,
+    position: 'absolute',
+    right: 5,
+    top: 5,
   },
 });
 

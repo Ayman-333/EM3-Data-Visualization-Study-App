@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Dimensions, ScrollView, View, StyleSheet } from 'react-native';
-import { Svg, G, Rect, Text } from 'react-native-svg';
+import { Svg, G, Rect, Text, Circle, Line } from 'react-native-svg';
+import { PieChart } from 'react-native-svg-charts';
 // import { PieChart } from 'react-native-chart-kit';
 import { ProgressChart } from 'react-native-chart-kit';
 import * as d3 from 'd3';
 import { franceDataSet } from '../../../../res/18-12-2006';
+import PieChartLegends from './PieChartLegends';
 
 class HeatMap extends Component {
   state = {
@@ -45,7 +47,7 @@ class HeatMap extends Component {
       xAxisLabels = Array.from(Array(cols).keys()),
       yAxisLabels = Array.from(Array(rows).keys());
 
-    const color = d3
+    const heatmapColor = d3
       .scaleLinear()
       .domain([minEnergy, (minEnergy + maxEnergy) / 2, maxEnergy])
       .interpolate(d3.interpolateHcl)
@@ -66,7 +68,7 @@ class HeatMap extends Component {
             width={rectWidth}
             strokeWidth={4}
             stroke={this.state.selectedPeriod === cols * i + j ? 'black' : ''}
-            fill={color(seperateRoomsPeriodsConsumption[cols * i + j].reduce((pre, curr) => pre + curr))}
+            fill={heatmapColor(seperateRoomsPeriodsConsumption[cols * i + j].reduce((pre, curr) => pre + curr))}
             // fill={color(
             //   Math.floor(Math.random() * (maxEnergy - minEnergy + 1)) +
             //   minEnergy,
@@ -87,6 +89,7 @@ class HeatMap extends Component {
         );
       }
     }
+
     if (this.state.selectedPeriod === -1)
       return (
         <ScrollView horizontal={false}
@@ -191,61 +194,28 @@ class HeatMap extends Component {
     if (this.state.selectedPeriod >= 0) {
 
       const periodRooms = seperateRoomsPeriodsConsumption[this.state.selectedPeriod];
-      const periodSum = periodRooms[0] + periodRooms[1] + periodRooms[2]
-      if (periodSum != 0) {
-        periodRooms[0] /= periodSum;
-        periodRooms[1] /= periodSum;
-        periodRooms[2] /= periodSum;
-      }
-      // console.log(periodRooms[0])
-      // console.log(periodRooms);
-      // console.log(this.state.selectedPeriod);
-      // console.log(progressChartData.data);
-      const chartConfigProgress = {
-        backgroundGradientFrom: "#fff",
-        backgroundGradientFromOpacity: 0,
-        backgroundGradientTo: "#fff",
-        backgroundGradientToOpacity: 0.5,
-        color: (opacity = 1) => color(periodSum).replace(')', `, ${opacity})`).replace('rgb', 'rgba'),
-        strokeWidth: 2, // optional, default 3
-        barPercentage: 0.5,
-      };
-      const progressChartData = {
-        labels: ['Room I', "Room II", "Room III"], // optional
-        data: [periodRooms[0], periodRooms[1], periodRooms[2]]
-      }
+      const periodSum = periodRooms.reduce((pre, curr) => pre + curr);
+      for (let i = 0; i < periodRooms.length && periodSum != 0; i++)
+        periodRooms[i] /= periodSum;
 
-      // const pieChartData = [
-      //   {
-      //     name: 'Room I',
-      //     power: periodRooms[0],
-      //     color: color(periodRooms[0]),
-      //     legendFontColor: '#7F7F7F',
-      //     legendFontSize: 15,
-      //   },
-      //   {
-      //     name: 'Room II',
-      //     power: periodRooms[1],
-      //     color: color(periodRooms[1]),
-      //     legendFontColor: '#7F7F7F',
-      //     legendFontSize: 15,
-      //   },
-      //   {
-      //     name: 'Room III',
-      //     power: periodRooms[2],
-      //     color: color(periodRooms[2]),
-      //     legendFontColor: '#7F7F7F',
-      //     legendFontSize: 15,
-      //   },
-      // ]
-      // const chartConfigPie = {
-      //   backgroundColor: '#fff',
-      //   decimalPlaces: 2,
-      //   color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-      //   style: {
-      //     borderRadius: 16,
-      //   },
-      // }
+      const minPeriodEnergy = Math.min(...periodRooms);
+      const maxPeriodEnergy = Math.max(...periodRooms);
+
+      const piechartColor = d3
+        .scaleLinear()
+        .domain([minPeriodEnergy, (minPeriodEnergy + maxPeriodEnergy) / 2, maxPeriodEnergy])
+        .interpolate(d3.interpolateHcl)
+        .range(['rgba(26,152,80,1)', 'rgba(255,242,0,1)', 'rgba(215,48,39,1)']);
+      const data = periodRooms.map((value, index) => {
+        return (
+          {
+            key: `Room ${index + 1}`,
+            value: value,
+            svg: { fill: piechartColor(periodRooms[index]) }
+            // arc: { outerRadius: '100%', cornerRadius: 2, }
+          })
+      })
+
 
       return (
         <ScrollView horizontal={false}
@@ -253,7 +223,7 @@ class HeatMap extends Component {
           onContentSizeChange={() => {
             this.scrollView.scrollToEnd({ animated: true });
           }}>
-          <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 1, flexDirection: 'row', }}>
             {/* YAxis Label */}
             <Svg
               key={'ylabelTitle'}
@@ -357,30 +327,40 @@ class HeatMap extends Component {
               {`Total Consumption: ${periodSum} W`}
             </Text>
           </Svg>
-          <ProgressChart
-            data={progressChartData}
-            width={screenWidth - 50}
-            height={220}
-            chartConfig={chartConfigProgress}
-            hideLegend={false}
-          />
-          {/* <PieChart
-            data={pieChartData}
-            width={screenWidth}
-            height={220}
-            chartConfig={chartConfigPie}
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
-            }}
-            accessor="power"
-            backgroundColor="transparent"
-            paddingLeft="15"
-          /> */}
+          <View style={styles.piechartContainer}>
+            <PieChart
+              style={[{ height: 200, width: screenWidth / 2, }, styles.pieContainer]}
+              outerRadius={'90%'}
+              innerRadius={10}
+              data={data}
+            />
+            <View style={styles.legendsContainer}>
+              <PieChartLegends data={data} />
+            </View>
+          </View>
         </ScrollView>
       );
     }
   }
 }
+
+const styles = StyleSheet.create({
+  piechartContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems:'center',
+  },
+  pieContainer: {
+    flex: 1,
+    marginLeft: 50,
+    padding: 0,
+  },
+  legendsContainer: {
+    fontSize: 50,
+    flex: 1,
+    alignItems: 'center', 
+    height: 100,
+  },
+})
 
 export default HeatMap;

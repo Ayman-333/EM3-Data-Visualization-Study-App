@@ -61,7 +61,11 @@ class FiguresScreen extends Component {
     return (
       <>
         <SurveyHeader style={styles.header} />
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false}
+                  ref={ref => this.scrollView = ref}
+                  onContentSizeChange={() => {
+                    this.scrollView.scrollToEnd({ animated: true });
+                  }}>
           <View style={styles.container}>{figures[figuresNames[this.state.chartNumber]]}</View>
           <View style={styles.surveyContainer}>
             {surveys[this.state.chartNumber]}
@@ -81,6 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     backgroundColor: 'white',
+    marginTop: 15,
   },
   plotBody: {
     flex: 1,
