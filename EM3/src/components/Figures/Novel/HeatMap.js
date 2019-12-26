@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Dimensions, ScrollView, View, StyleSheet } from 'react-native';
 import { Svg, G, Rect, Text } from 'react-native-svg';
-// import { PieChart } from 'react-native-chart-kit';
-import { ProgressChart } from 'react-native-chart-kit';
+import { PieChart } from 'react-native-chart-kit';
+// import { ProgressChart } from 'react-native-chart-kit';
 import * as d3 from 'd3';
 import { franceDataSet } from '../../../../res/18-12-2006';
 
@@ -201,51 +201,51 @@ class HeatMap extends Component {
       // console.log(periodRooms);
       // console.log(this.state.selectedPeriod);
       // console.log(progressChartData.data);
-      const chartConfigProgress = {
-        backgroundGradientFrom: "#fff",
-        backgroundGradientFromOpacity: 0,
-        backgroundGradientTo: "#fff",
-        backgroundGradientToOpacity: 0.5,
-        color: (opacity = 1) => color(periodSum).replace(')', `, ${opacity})`).replace('rgb', 'rgba'),
-        strokeWidth: 2, // optional, default 3
-        barPercentage: 0.5,
-      };
-      const progressChartData = {
-        labels: ['Room I', "Room II", "Room III"], // optional
-        data: [periodRooms[0], periodRooms[1], periodRooms[2]]
-      }
-
-      // const pieChartData = [
-      //   {
-      //     name: 'Room I',
-      //     power: periodRooms[0],
-      //     color: color(periodRooms[0]),
-      //     legendFontColor: '#7F7F7F',
-      //     legendFontSize: 15,
-      //   },
-      //   {
-      //     name: 'Room II',
-      //     power: periodRooms[1],
-      //     color: color(periodRooms[1]),
-      //     legendFontColor: '#7F7F7F',
-      //     legendFontSize: 15,
-      //   },
-      //   {
-      //     name: 'Room III',
-      //     power: periodRooms[2],
-      //     color: color(periodRooms[2]),
-      //     legendFontColor: '#7F7F7F',
-      //     legendFontSize: 15,
-      //   },
-      // ]
-      // const chartConfigPie = {
-      //   backgroundColor: '#fff',
-      //   decimalPlaces: 2,
-      //   color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-      //   style: {
-      //     borderRadius: 16,
-      //   },
+      // const chartConfigProgress = {
+      //   backgroundGradientFrom: "#fff",
+      //   backgroundGradientFromOpacity: 0,
+      //   backgroundGradientTo: "#fff",
+      //   backgroundGradientToOpacity: 0.5,
+      //   color: (opacity = 1) => color(periodSum).replace(')', `, ${opacity})`).replace('rgb', 'rgba'),
+      //   strokeWidth: 2, // optional, default 3
+      //   barPercentage: 0.5,
+      // };
+      // const progressChartData = {
+      //   labels: ['Room I', "Room II", "Room III"], // optional
+      //   data: [periodRooms[0], periodRooms[1], periodRooms[2]]
       // }
+
+      const pieChartData = [
+        {
+          name: 'Room I',
+          power: periodRooms[0],
+          color: color(periodRooms[0]),
+          legendFontColor: '#7F7F7F',
+          legendFontSize: 15,
+        },
+        {
+          name: 'Room II',
+          power: periodRooms[1],
+          color: color(periodRooms[1]),
+          legendFontColor: '#7F7F7F',
+          legendFontSize: 15,
+        },
+        {
+          name: 'Room III',
+          power: periodRooms[2],
+          color: color(periodRooms[2]),
+          legendFontColor: '#7F7F7F',
+          legendFontSize: 15,
+        },
+      ]
+      const chartConfigPie = {
+        backgroundColor: '#fff',
+        decimalPlaces: 2,
+        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+        style: {
+          borderRadius: 16,
+        },
+      }
 
       return (
         <ScrollView horizontal={false}
@@ -357,14 +357,14 @@ class HeatMap extends Component {
               {`Total Consumption: ${periodSum} W`}
             </Text>
           </Svg>
-          <ProgressChart
+          {/* <ProgressChart
             data={progressChartData}
             width={screenWidth - 50}
             height={220}
             chartConfig={chartConfigProgress}
             hideLegend={false}
-          />
-          {/* <PieChart
+          /> */}
+          <PieChart
             data={pieChartData}
             width={screenWidth}
             height={220}
@@ -376,7 +376,7 @@ class HeatMap extends Component {
             accessor="power"
             backgroundColor="transparent"
             paddingLeft="15"
-          /> */}
+          />
         </ScrollView>
       );
     }

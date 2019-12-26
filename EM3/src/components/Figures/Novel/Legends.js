@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
+import { rgb, radialLine } from 'd3';
 class Legends extends React.Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
@@ -40,17 +41,22 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 5,
     top: 5,
+
   },
   legendItem: {
     flex: 1,
     flexDirection: 'row',
     padding: 3,
+    backgroundColor: rgb(255, 255, 255, 0.7)
+
   },
   symbol: {
     width: 10,
     backgroundColor: 'red',
     padding: 5,
     margin: 5,
+    borderWidth: 0.4,
+    borderColor: "#000"
   },
 });
 

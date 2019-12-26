@@ -37,8 +37,8 @@ class FiguresScreen extends Component {
       };
     else
       figures = {
-        pie: <Pie />,
-        // stackedArea: <StackedArea />,
+        // pie: <Pie />,
+        stackedArea: <StackedArea />,
         bar: <Bar />,
         line: <Line />,
       };
