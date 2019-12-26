@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Dimensions, ScrollView, View, StyleSheet } from 'react-native';
 import { Svg, G, Rect, Text, Circle, Line } from 'react-native-svg';
 import { PieChart } from 'react-native-svg-charts';
-// import { PieChart } from 'react-native-chart-kit';
-import { ProgressChart } from 'react-native-chart-kit';
 import * as d3 from 'd3';
 import { franceDataSet } from '../../../../res/18-12-2006';
 import PieChartLegends from './PieChartLegends';
@@ -216,6 +214,38 @@ class HeatMap extends Component {
           })
       })
 
+
+      const pieChartData = [
+        {
+          name: 'Room I',
+          power: periodRooms[0],
+          color: color(periodRooms[0]),
+          legendFontColor: '#7F7F7F',
+          legendFontSize: 15,
+        },
+        {
+          name: 'Room II',
+          power: periodRooms[1],
+          color: color(periodRooms[1]),
+          legendFontColor: '#7F7F7F',
+          legendFontSize: 15,
+        },
+        {
+          name: 'Room III',
+          power: periodRooms[2],
+          color: color(periodRooms[2]),
+          legendFontColor: '#7F7F7F',
+          legendFontSize: 15,
+        },
+      ]
+      const chartConfigPie = {
+        backgroundColor: '#fff',
+        decimalPlaces: 2,
+        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+        style: {
+          borderRadius: 16,
+        },
+      }
 
       return (
         <ScrollView horizontal={false}
