@@ -90,7 +90,9 @@ class HeatMap extends Component {
 
     if (this.state.selectedPeriod === -1)
       return (
-        <ScrollView horizontal={false}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          horizontal={false}
           ref={ref => this.scrollView = ref}
           onContentSizeChange={() => {
             this.scrollView.scrollTo({ x: 0, animated: true });
@@ -213,42 +215,10 @@ class HeatMap extends Component {
             // arc: { outerRadius: '100%', cornerRadius: 2, }
           })
       })
-
-
-      const pieChartData = [
-        {
-          name: 'Room I',
-          power: periodRooms[0],
-          color: color(periodRooms[0]),
-          legendFontColor: '#7F7F7F',
-          legendFontSize: 15,
-        },
-        {
-          name: 'Room II',
-          power: periodRooms[1],
-          color: color(periodRooms[1]),
-          legendFontColor: '#7F7F7F',
-          legendFontSize: 15,
-        },
-        {
-          name: 'Room III',
-          power: periodRooms[2],
-          color: color(periodRooms[2]),
-          legendFontColor: '#7F7F7F',
-          legendFontSize: 15,
-        },
-      ]
-      const chartConfigPie = {
-        backgroundColor: '#fff',
-        decimalPlaces: 2,
-        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-        style: {
-          borderRadius: 16,
-        },
-      }
-
       return (
-        <ScrollView horizontal={false}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          horizontal={false}
           ref={ref => this.scrollView = ref}
           onContentSizeChange={() => {
             this.scrollView.scrollToEnd({ animated: true });
@@ -357,7 +327,7 @@ class HeatMap extends Component {
               {`Total Consumption: ${periodSum} W`}
             </Text>
           </Svg>
-          <View style={styles.piechartContainer}>
+          <View style={[styles.piechartContainer, {height: periodSum == 0? 0: '100%'}]}>
             <PieChart
               style={[{ height: 200, width: screenWidth / 2, }, styles.pieContainer]}
               outerRadius={'90%'}
@@ -365,7 +335,7 @@ class HeatMap extends Component {
               data={data}
             />
             <View style={styles.legendsContainer}>
-              <PieChartLegends data={data} />
+              {periodSum > 0? <PieChartLegends data={data} />: <></>}
             </View>
           </View>
         </ScrollView>
@@ -378,7 +348,7 @@ const styles = StyleSheet.create({
   piechartContainer: {
     flex: 1,
     flexDirection: 'row',
-    alignItems:'center',
+    alignItems: 'center',
   },
   pieContainer: {
     flex: 1,
@@ -388,7 +358,7 @@ const styles = StyleSheet.create({
   legendsContainer: {
     fontSize: 50,
     flex: 1,
-    alignItems: 'center', 
+    alignItems: 'center',
     height: 100,
   },
 })

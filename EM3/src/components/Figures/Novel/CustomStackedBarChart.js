@@ -15,11 +15,11 @@ import {
   YellowBox
 } from 'react-native';
 import ListItem from './ListItem';
-import {Text} from 'react-native-svg';
+import { Text } from 'react-native-svg';
 import * as scale from 'd3-scale';
-import {Icon} from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import * as data from '../../../../res/EnergyData';
-import StackedBarLegends from './StackedBarLegends';
+import Legends from './Legends';
 
 // TODO needs to be removed later
 YellowBox.ignoreWarnings(['VirtualizedLists should never be nested inside plain ScrollViews with the same orientation']);
@@ -27,10 +27,10 @@ YellowBox.ignoreWarnings(['VirtualizedLists should never be nested inside plain 
 
 const spacingInner = 0.5;
 const spacingOuter = 0.5;
-const contentInset = {top: 20};
+const contentInset = { top: 20 };
 
 const Labels = props => {
-  const {x, y, data} = props;
+  const { x, y, data } = props;
   return data.map((value, index) => {
     let sum = 0;
     for (var key in value) {
@@ -66,7 +66,7 @@ class CustomStackedBarChart extends React.Component {
       appliance: data[id],
       selectedApplianceId: id,
     });
-    this.scrollViewRef.scrollTo({x: 0, animated: false});
+    this.scrollViewRef.scrollTo({ x: 0, animated: false });
   };
 
   DATA = [
@@ -139,7 +139,7 @@ class CustomStackedBarChart extends React.Component {
             style={styles.appliancesList}
             data={this.DATA}
             keyExtractor={item => item.id}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <ListItem
                 style={styles.listItem}
                 id={item.id}
@@ -187,12 +187,12 @@ class CustomStackedBarChart extends React.Component {
               <Labels />
             </StackedBarChart>
             <YAxis
-              style={{position: 'absolute', left: -10, top: 0, bottom: 0}}
+              style={{ position: 'absolute', left: -10, top: 0, bottom: 0 }}
               data={StackedAreaChart.extractDataPoints(
                 this.state.appliance.expenseData,
                 this.state.appliance.keys,
               )}
-              contentInset={{top: 10, bottom: 10}}
+              contentInset={{ top: 10, bottom: 10 }}
               svg={{
                 fontSize: 10,
                 fill: 'black',
@@ -221,7 +221,7 @@ class CustomStackedBarChart extends React.Component {
               }}
             />
             <XAxis
-              style={{width: 100 * this.state.appliance.expenseData.length}}
+              style={{ width: 100 * this.state.appliance.expenseData.length }}
               data={this.state.appliance.expenseData}
               formatLabel={(value, index) =>
                 this.state.appliance.expenseData[index].date.format('D/M')
@@ -238,7 +238,7 @@ class CustomStackedBarChart extends React.Component {
           </View>
         </ScrollView>
         <View styles={styles.legendsContainer}>
-        <StackedBarLegends data={data[this.state.selectedApplianceId]} />
+          <Legends data={data[this.state.selectedApplianceId]} />
         </View>
       </View>
     );
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
     marginBottom: 10,
-    height:'95%',
+    height: '95%',
     //   borderColor: '#000',
     //   borderWidth: 0.5,
   },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
-import { rgb, radialLine } from 'd3';
+import { rgb } from 'd3';
 class Legends extends React.Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 3,
     backgroundColor: rgb(255, 255, 255, 0.7)
-
   },
   symbol: {
     width: 10,
@@ -61,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StackedBarLegends;
+export default Legends;

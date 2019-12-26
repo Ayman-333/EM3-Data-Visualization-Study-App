@@ -72,8 +72,6 @@ class Questionnaire extends React.Component {
     answersAsObj['endTime'] = Math.floor(Date.now() / 1000);
 
     global.surveyAnswers[part] = answersAsObj;
-    // this.props.firestoreRef.update(cloudObj);
-    console.log(global.surveyAnswers)
 
     if (this.props.nextDestination !== '') {
       const resetAction = StackActions.reset({

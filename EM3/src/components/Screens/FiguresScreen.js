@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
+
 import Heatmap from '../Figures/Novel/HeatMap';
 import Spiral from '../Figures/Novel/Spiral';
 import CustomStackedBarChart from '../Figures/Novel/CustomStackedBarChart';
 
 import Bar from '../Figures/Conventional/Bar';
 import Line from '../Figures/Conventional/Line';
-import Pie from '../Figures/Conventional/Pie';
 import StackedArea from '../Figures/Conventional/StackedArea';
+
 import Questionnaire from '../Questionnaire';
 import SurveyHeader from '../SurveyHeader';
 import { figsQs } from '../../../res/surveyInfo';
-// import { ScrollView } from 'react-native-gesture-handler';
 
 class FiguresScreen extends Component {
   static navigationOptions = {
@@ -37,7 +37,6 @@ class FiguresScreen extends Component {
       };
     else
       figures = {
-        // pie: <Pie />,
         stackedArea: <StackedArea />,
         bar: <Bar />,
         line: <Line />,
@@ -67,7 +66,7 @@ class FiguresScreen extends Component {
                     this.scrollView.scrollToEnd({ animated: true });
                   }}>
           <View style={styles.container}>{figures[figuresNames[this.state.chartNumber]]}</View>
-          <View style={styles.surveyContainer}>
+          <View style={[styles.surveyContainer, { height: !isNovel? 380: 'auto' }]}>
             {surveys[this.state.chartNumber]}
           </View>
         </ScrollView>
@@ -97,7 +96,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 350,
   },
 });
 

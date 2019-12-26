@@ -1,10 +1,6 @@
 module.exports = {
   personalQs: [
     {
-      questionType: 'Info',
-      questionText: 'Part 1 Questions:',
-    },
-    {
       questionType: 'SelectionGroup',
       questionText: 'Please state your gender',
       questionId: 'gender',
@@ -90,10 +86,6 @@ module.exports = {
     },
   ],
   figsQs: [
-    {
-      questionType: 'Info',
-      questionText: 'Part 2 Questions:',
-    },
     {
       questionType: 'SelectionGroup',
       questionText:

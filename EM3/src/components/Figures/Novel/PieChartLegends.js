@@ -8,7 +8,6 @@ class PieChartLegends extends React.Component {
 
   render() {
     let legendData = [];
-    // means I am getting called from piechart figure.
     for (let i = 0; i < this.props.data.length; i++) {
       legendData[i] = {
         key: this.props.data[i].key + `  ${(Math.round(this.props.data[i].value * 1000)/10).toString()}%`,
