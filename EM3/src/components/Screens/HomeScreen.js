@@ -7,7 +7,7 @@ import firestore from '@react-native-firebase/firestore';
 import DeviceInfo from 'react-native-device-info';
 import NetInfo from '@react-native-community/netinfo';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import publicIP from 'react-native-public-ip';
 
 class HomeScreen extends Component {
   constructor() {
@@ -21,6 +21,7 @@ class HomeScreen extends Component {
   state = {
     startTime: Math.floor(Date.now() / 1000), // Unix timestamp.
   };
+
   render() {
     NetInfo.addEventListener(state => {
       // Works on both Android and iOS
@@ -35,37 +36,63 @@ class HomeScreen extends Component {
       .collection('completed-surveys')
       .doc(DeviceInfo.getUniqueId());
     global.surveysDBRef.get().then(snapshot => {
-      if(snapshot.exists == false) {
+      if (snapshot.exists == false) {
         global.isNovel = Math.random() >= 0.5;
-        global.surveysDBRef.set({ completions: [], Novel: global.isNovel })
+        publicIP()
+          .then(ip => {
+            const url = `http://api.ipstack.com/${ip}?access_key=3b8ae0d37217c4fcbf551b5be1394a7e&format=1`;
+            fetch(url)
+              .then((response) => response.json())
+              .then((responseJson) => {
+                // console.log(responseJson);
+                // console.log(responseJson.continent_name)
+                // console.log(responseJson.country_name)
+                global.surveysDBRef
+                  .set({
+                    completions: [],
+                    Novel: global.isNovel,
+                    continent_name: responseJson.continent_name,
+                    country_name: responseJson.country_name
+                  });
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+
+          })
+          .catch(error => {
+            console.log(error);
+            // 'Unable to get IP address.'
+          });
       } else
         global.isNovel = snapshot.data().Novel
     });
+
     return (
       <>
         <SurveyHeader style={styles.SurveyHeader} />
         <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.container}>
+          <View style={styles.container}>
             <Image
               style={styles.logo}
               source={require('../../../res/complete_logo.jpeg')}
             />
-          <Text style={styles.greetingTextHeader}>
-            Welcome to EM3 Data Visualization Study
+            <Text style={styles.greetingTextHeader}>
+              Welcome to EM3 Data Visualization Study
           </Text>
-          <Text style={styles.greetingTextHeader2}>
-            We aim to find the best visulizations for demonstrating energy consumption at homes. Your input is appreciated through this interactive questionnaire. {'\n\n'}
-            To start, please introduce yourself by answering the following questions. Following, we will present three different visualizations for your rating. Your responses will be treated anonymously.
+            <Text style={styles.greetingTextHeader2}>
+              We aim to find the best visulizations for demonstrating energy consumption at homes. Your input is appreciated through this interactive questionnaire. {'\n\n'}
+              To start, please introduce yourself by answering the following questions. Following, we will present three different visualizations for your rating. Your responses will be treated anonymously.
           </Text>
-        </View>
-        <View style={styles.surveyContainer}>
-          <Questionnaire
-            surveyQs={personalQs}
-            nextDestination={'Figures'}
-            navigation={this.props.navigation}
-            startTime={this.state.startTime}
-          />
-        </View>
+          </View>
+          <View style={styles.surveyContainer}>
+            <Questionnaire
+              surveyQs={personalQs}
+              nextDestination={'Figures'}
+              navigation={this.props.navigation}
+              startTime={this.state.startTime}
+            />
+          </View>
         </ScrollView>
       </>
     );
@@ -77,7 +104,7 @@ const styles = StyleSheet.create({
     flex: 0.2,
   },
   container: {
-    flex: Platform.OS === 'ios'? 1 : 1.3,
+    flex: Platform.OS === 'ios' ? 1 : 1.3,
     marginLeft: 22,
     marginRight: 25,
     fontFamily: 'Helvetica',
@@ -85,7 +112,7 @@ const styles = StyleSheet.create({
   },
   greetingTextHeader: {
     marginBottom: 20,
-    marginLeft: Platform.OS === 'ios'? -65.5: 0,
+    marginLeft: Platform.OS === 'ios' ? -65.5 : 0,
     fontSize: 25,
   },
   greetingTextHeader2: {

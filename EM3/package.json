@@ -26,6 +26,7 @@
     "react-native-device-info": "^5.4.0",
     "react-native-elements": "^1.2.3",
     "react-native-gesture-handler": "^1.5.2",
+    "react-native-public-ip": "^1.0.2",
     "react-native-screens": "^2.0.0-alpha.19",
     "react-native-simple-survey": "^1.2.0",
     "react-native-svg": "^9.9.9",
