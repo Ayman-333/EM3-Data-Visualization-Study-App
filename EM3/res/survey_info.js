@@ -48,20 +48,20 @@ module.exports = {
       questionId: 'profession',
       options: [
         {
-          optionText: 'Researcher',
-          value: 'researcher',
+          optionText: 'Student',
+          value: 'student',
         },
         {
-          optionText: 'Professor',
-          value: 'professor',
+          optionText: 'Researcher',
+          value: 'researcher',
         },
         {
           optionText: 'Lecturer',
           value: 'lecturer',
         },
         {
-          optionText: 'Student',
-          value: 'student',
+          optionText: 'Professor',
+          value: 'professor',
         },
         {
           optionText: 'Other',
