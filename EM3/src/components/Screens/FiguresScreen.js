@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text,  View, StyleSheet, ScrollView } from 'react-native';
+import { Text,  View, StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native';
 
 import Heatmap from '../Figures/Novel/HeatMap';
 import Spiral from '../Figures/Novel/Spiral';
@@ -74,9 +74,9 @@ class FiguresScreen extends Component {
           <Text style={styles.tip}>
             Tip: {descriptions[figuresNames[this.state.chartNumber]]}
           </Text>
-          <View style={[styles.surveyContainer, { height: !isNovel ? 380 : 'auto' }]}>
+          <KeyboardAvoidingView style={[styles.surveyContainer, { height: !isNovel ? 380 : 'auto' }]}>
             {surveys[this.state.chartNumber]}
-          </View>
+          </KeyboardAvoidingView>
         </ScrollView>
       </>
     );
