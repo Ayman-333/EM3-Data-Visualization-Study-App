@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   greetingTextHeader: {
     marginBottom: 20,
-    marginLeft: Platform.OS === 'ios' ? -65.5 : 0,
+    marginLeft: 0,
     fontSize: 25,
   },
   greetingTextHeader2: {
