@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Dimensions} from 'react-native';
 import WebView from 'react-native-webview';
 
 class Spiral extends Component {
@@ -17,7 +17,7 @@ class Spiral extends Component {
 const styles = StyleSheet.create({
   container: {
     textAlign: 'center',
-    width: 700,
+    width: Dimensions.get('window').width,
     height: 400,
     flex: 1,
     justifyContent: "center",
