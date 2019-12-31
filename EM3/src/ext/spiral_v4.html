@@ -60,8 +60,8 @@
   <body>
 	<div id="chart"></div>
     <script type="text/javascript">
-      var width = 600,
-      height = 600,
+      var width = window.innerWidth,
+      height = window.innerHeight,
       start = 0,
       end = 2.25,
       numSpirals = 3,
@@ -78,17 +78,19 @@
       var color = d3.scaleOrdinal(defaultColors);
       console.log(color);
 
-      var r = d3.min([width, height]) / 2 - 40;
+      var r = d3.min([width, height]) / 2;
 
       var radius = d3.scaleLinear()
       .domain([start, end])
       .range([40, r]);
 
       var svg = d3.select("#chart").append("svg")
-      .attr("width", width + margin.right + margin.left)
-      .attr("height", height + margin.left + margin.right)
+      .attr("width", width - 50)
+      .attr("height", height - 50)
       .append("g")
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+      .attr("transform", "translate(" + (width) / 2 + "," + (height)/ 2 + ")")
+      // .attr("width", width - 100)
+      // .attr("height", height);
 
       var points = d3.range(start, end + 0.001, (end - start) / 1000);
 
@@ -245,7 +247,7 @@
         .on('mouseover', function(d) {
 
           tooltip.select('.date').html("Date: <b>" + d.date.toDateString() + "</b>");
-          tooltip.select('.value').html("Value: <b>" + Math.round(d.value*100)/100 + "<b>");
+          tooltip.select('.value').html("Value: <b>" + Math.round(d.value*100)/100 + " kWh<b>");
 
           d3.select(this)
           .style("fill","#FFFFFF")
