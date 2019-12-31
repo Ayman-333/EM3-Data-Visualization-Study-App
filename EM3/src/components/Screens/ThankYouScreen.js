@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, Button, View, StyleSheet, Image } from 'react-native';
+import { Text, Button, View, StyleSheet, Image, ScrollView } from 'react-native';
+import { StackActions, NavigationActions } from 'react-navigation';
 import SurveyHeader from '../SurveyHeader';
 import firestore from '@react-native-firebase/firestore';
-import { StackActions, NavigationActions } from 'react-navigation';
+import { credits } from '../../../res/credits';
 
 class ThankYouScreen extends Component {
   static navigationOptions = {
@@ -14,18 +15,17 @@ class ThankYouScreen extends Component {
     });
     return (
       <View>
-        <SurveyHeader style={styles.SurveyHeader} />
-        <View style={styles.container}>
-            <Image
-              style={styles.logo}
-              source={require('../../../res/complete_logo.jpeg')}
-            />
+        <SurveyHeader style={styles.SurveyHeader} horizontal={false} />
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
+          <Image
+            style={styles.logo}
+            source={require('../../../res/complete_logo.jpeg')}
+          />
           <Text style={styles.greetingTextHeader}>
-            Thank you for completing the survey, please let someone else do it!
+            Thank you for completing the survey, please share it with others.
           </Text>
           <Text style={styles.greetingTextHeader2}>
-            Let us know through the following emails if you have any cool ideas or if you faced any bugs during the survey: {'\n\n'}
-            a.alsalemi@qu.edu.qa -> Abdullah Alsalemi {'\n'}
+            Let us know through the following email if you have any cool ideas or if you faced any bugs during the survey: {'\n\n'}
             aa1405810@qu.edu.qa -> Ayman Al-Kababji {'\n'}
           </Text>
           <View style={styles.button}>
@@ -39,7 +39,15 @@ class ThankYouScreen extends Component {
               this.props.navigation.dispatch(resetAction);
             }} />
           </View>
-        </View>
+          <Text style={styles.creditsTitle}>
+            CREDITS
+          </Text>
+          <View style={styles.credits}>
+            <Text>
+              {credits}
+            </Text>
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -50,7 +58,6 @@ const styles = StyleSheet.create({
     flex: 0.2,
   },
   container: {
-    flex: Platform.OS === 'ios' ? 1 : 1.3,
     flexDirection: 'column',
     marginLeft: 22,
     marginRight: 25,
@@ -59,8 +66,7 @@ const styles = StyleSheet.create({
   },
   greetingTextHeader: {
     marginBottom: 20,
-    marginLeft: Platform.OS === 'ios' ? -65.5 : 0,
-
+    marginLeft: 0,
     fontSize: 25,
   },
   greetingTextHeader2: {
@@ -75,8 +81,19 @@ const styles = StyleSheet.create({
     height: 90,
   },
   button: {
-    margin: 75,
-    height: 100,
+    // marginTop: 30,
+    marginLeft: 75,
+    marginRight: 75,
+    height: 75,
   },
+  creditsTitle: {
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  credits: {
+    fontSize: 15,
+    paddingVertical: 10,
+    height: 350,
+  }
 });
 export default ThankYouScreen;
