@@ -29,8 +29,6 @@ class FiguresScreen extends Component {
     });
   };
   render() {
-    console.log(descriptions);
-
     let figures;
     if (global.isNovel)
       figures = {
@@ -63,11 +61,7 @@ class FiguresScreen extends Component {
     return (
       <>
         <SurveyHeader style={styles.header} />
-        <ScrollView showsVerticalScrollIndicator={false}
-          ref={ref => this.scrollView = ref}
-          onContentSizeChange={() => {
-            this.scrollView.scrollToEnd({ animated: true });
-          }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.container}>
             {figures[figuresNames[this.state.chartNumber]]}
           </View>
@@ -106,8 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tip: {
-    fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 12,
     marginLeft: 20,
     marginRight: 15,
   }

@@ -12,14 +12,15 @@ class Line extends Component {
           horizontal={true}>
           <Svg
             key={'ylabelTitle'}
-            height={(250) / 2}
-            width={'20'}>
+            height={150}
+            width={24}>
             <G y={(250) / 2} rotation={-90}>
               <Text
                 fill="black"
                 stroke="black"
                 fontSize="15"
-                x={0}
+                fontWeight="lighter"
+                x={-20}
                 y={20}
                 textAnchor="start">
                 {"Energy (kWh)"}

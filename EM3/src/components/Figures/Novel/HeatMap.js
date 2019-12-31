@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, ScrollView, View, StyleSheet } from 'react-native';
-import { Svg, G, Rect, Text, Circle, Line } from 'react-native-svg';
+import { Svg, G, Rect, Text } from 'react-native-svg';
 import { PieChart } from 'react-native-svg-charts';
 import * as d3 from 'd3';
 import { franceDataSet } from '../../../../res/18-12-2006';
@@ -324,7 +324,7 @@ class HeatMap extends Component {
               x={180}
               y={20}
               textAnchor="middle">
-              {`Total Consumption: ${periodSum} W`}
+              {`Total Consumption: ${periodSum} Wh`}
             </Text>
           </Svg>
           <View style={[styles.piechartContainer, {height: periodSum == 0? 0: '100%'}]}>

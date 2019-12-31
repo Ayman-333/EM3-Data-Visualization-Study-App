@@ -42,21 +42,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 5,
     top: 5,
-
+    backgroundColor: rgb(255, 255, 255, 0.7)
   },
   legendItem: {
     flex: 1,
     flexDirection: 'row',
     padding: 3,
-    backgroundColor: rgb(255, 255, 255, 0.7)
   },
   symbol: {
     width: 10,
     backgroundColor: 'red',
     padding: 5,
     margin: 5,
-    borderWidth: 0.4,
-    borderColor: "#000"
   },
 });
 
