@@ -49,7 +49,7 @@ const Labels = props => {
         fill="red"
         alignmentBaseline={'middle'}
         textAnchor={'middle'}>
-        {sum.toString() + 'Wh'}
+        {sum.toString() + 'W'}
       </Text>
     );
   });
