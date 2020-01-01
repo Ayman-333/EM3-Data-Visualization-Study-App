@@ -7,13 +7,13 @@ import firestore from '@react-native-firebase/firestore';
 import DeviceInfo from 'react-native-device-info';
 import NetInfo from '@react-native-community/netinfo';
 import { ScrollView } from 'react-native-gesture-handler';
-import publicIP from 'react-native-public-ip';
 
 class HomeScreen extends Component {
   constructor() {
     super();
     global.surveyAnswers = {};
     global.isNovel;
+    global.isFirstTime = false; 
   }
   static navigationOptions = {
     header: null,
@@ -37,33 +37,13 @@ class HomeScreen extends Component {
       .doc(DeviceInfo.getUniqueId());
     global.surveysDBRef.get().then(snapshot => {
       if (snapshot.exists == false) {
+        global.isFirstTime = true;
         global.isNovel = Math.random() >= 0.5;
-        publicIP()
-          .then(ip => {
-            const url = `http://api.ipstack.com/${ip}?access_key=3b8ae0d37217c4fcbf551b5be1394a7e&format=1`;
-            fetch(url)
-              .then((response) => response.json())
-              .then((responseJson) => {
-                // console.log(responseJson);
-                // console.log(responseJson.continent_name)
-                // console.log(responseJson.country_name)
-                global.surveysDBRef
-                  .set({
-                    completions: [],
-                    Novel: global.isNovel,
-                    continent_name: responseJson.continent_name,
-                    country_name: responseJson.country_name
-                  });
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-
-          })
-          .catch(error => {
-            console.log(error);
-            // 'Unable to get IP address.'
-          });
+        global.surveysDBRef
+        .set({
+          completions: [],
+          Novel: global.isNovel 
+        }).then(msg => console.log(msg));
       } else
         global.isNovel = snapshot.data().Novel
     });
@@ -75,15 +55,18 @@ class HomeScreen extends Component {
           <View style={styles.container}>
             <Image
               style={styles.logo}
-              source={require('../../../res/complete_logo.jpeg')}
+              source={require('../../../res/complete_logo.png')}
             />
             <Text style={styles.greetingTextHeader}>
               Welcome to EM3 Data Visualization Study
           </Text>
             <Text style={styles.greetingTextHeader2}>
               We aim to find the best visulizations for demonstrating energy consumption at homes. Your input is appreciated through this interactive questionnaire. {'\n\n'}
-              To start, please introduce yourself by answering the following questions. Following, we will present three different visualizations for your rating. Your responses will be treated anonymously.
-          </Text>
+              To start, please introduce yourself by answering the following questions. Following, we will present three different visualizations for you to rate. Your responses will be treated anonymously.
+            <Text style={{ fontWeight: 'bold' }}>
+                {'\n\n'}Note: the collected information (collected at the end of the survey) is strictly your responses and the name of the country you are currently in. Therefore, if you feel uncomfortable sharing the aforementioned information please refrain from answering.
+            </Text>
+            </Text>
           </View>
           <View style={styles.surveyContainer}>
             <Questionnaire
