@@ -1,5 +1,5 @@
 export const credits = 
-'- EM3 logo by Ahmed Abouzour -> AhmadAbouZour Email \n' +
+'- EM3 logo by Ahmed Majed -> Ahmed-Majed@live.com\n' +
 '- Air condition by Shastry from the Noun Project\n' +
 '- Computer by Shastry from the Noun Project\n' +
 '- Dishwasher by Shastry from the Noun Project\n' +
