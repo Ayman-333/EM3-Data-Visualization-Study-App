@@ -43,7 +43,7 @@ class HomeScreen extends Component {
         .set({
           completions: [],
           Novel: global.isNovel 
-        }).then(msg => console.log(msg));
+        });
       } else
         global.isNovel = snapshot.data().Novel
     });
