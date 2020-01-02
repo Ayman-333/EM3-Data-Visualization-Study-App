@@ -13,7 +13,7 @@ class HomeScreen extends Component {
     super();
     global.surveyAnswers = {};
     global.isNovel;
-    global.isFirstTime = false; 
+    global.isFirstTime = false;
   }
   static navigationOptions = {
     header: null,
@@ -35,17 +35,25 @@ class HomeScreen extends Component {
     global.surveysDBRef = firestore()
       .collection('completed-surveys')
       .doc(DeviceInfo.getUniqueId());
+
     global.surveysDBRef.get().then(snapshot => {
+      console.log(snapshot);
+      console.log(snapshot.data());
+
       if (snapshot.exists == false) {
         global.isFirstTime = true;
         global.isNovel = Math.random() >= 0.5;
         global.surveysDBRef
-        .set({
-          completions: [],
-          Novel: global.isNovel 
-        });
-      } else
+          .set({
+            completions: [],
+            Novel: global.isNovel
+          });
+      } else {
+        // because user might open the application and not do the survey, and do it later. This will catch such behaviour so that we still can get the country name
+        if (snapshot.data().country_name == undefined)
+          global.isFirstTime = true;
         global.isNovel = snapshot.data().Novel
+      }
     });
 
     return (
@@ -64,7 +72,7 @@ class HomeScreen extends Component {
               We aim to find the best visulizations for demonstrating energy consumption at homes. Your input is appreciated through this interactive questionnaire. {'\n\n'}
               To start, please introduce yourself by answering the following questions. Following, we will present three different visualizations for you to rate. Your responses will be treated anonymously.
             <Text style={{ fontWeight: 'bold' }}>
-                {'\n\n'}Note: the collected information (collected at the end of the survey) is strictly your responses and the name of the country you are currently in. Therefore, if you feel uncomfortable sharing the aforementioned information please refrain from answering.
+                {'\n\n'}Note: the information (collected at the end of the survey) is strictly your responses and the name of the country you are currently in. Therefore, if you feel uncomfortable sharing the aforementioned information please refrain from answering.
             </Text>
             </Text>
           </View>
