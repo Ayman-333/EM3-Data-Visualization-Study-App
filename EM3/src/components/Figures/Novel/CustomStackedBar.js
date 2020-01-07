@@ -11,7 +11,8 @@ import {
   StyleSheet,
   FlatList,
   ScrollView,
-  YellowBox
+  YellowBox,
+  Dimensions,
 } from 'react-native';
 import ListItem from './ListItem';
 import { Text, Svg } from 'react-native-svg';
@@ -75,6 +76,12 @@ class CustomStackedBar extends React.Component {
       imageName: 'lamp',
     },
     {
+      id: 'boiler',
+      onPressAction: this.onPress,
+      title: 'Boiler',
+      imageName: 'boiler',
+    },
+    {
       id: 'television',
       onPressAction: this.onPress,
       title: 'Television',
@@ -97,12 +104,6 @@ class CustomStackedBar extends React.Component {
       onPressAction: this.onPress,
       title: 'Oven',
       imageName: 'oven',
-    },
-    {
-      id: 'boiler',
-      onPressAction: this.onPress,
-      title: 'Boiler',
-      imageName: 'boiler',
     },
     {
       id: 'computer',
@@ -246,13 +247,13 @@ class CustomStackedBar extends React.Component {
         <Svg
           key={'xlabelTitle'}
           height={25}
-          width={100 * this.state.appliance.expenseData.length}>
+          width={Dimensions.get('window').width}>
           <Text
             fill="black"
             stroke="black"
             fontSize="15"
             fontWeight="lighter"
-            x={425}
+            x={Dimensions.get('window').width/1.7}
             y={20}
             textAnchor="middle">
             {this.state.appliance.expenseData[0].date.format('MMM Do YYYY')}

@@ -15,7 +15,7 @@ class ThankYouScreen extends Component {
       publicIP()
         .then(ip => {
           const url = `http://api.ipstack.com/${ip}?access_key=3b8ae0d37217c4fcbf551b5be1394a7e&format=1`;
-          console.log(url)
+          // console.log(url)
           fetch(url)
             .then(response => response.json())
             .then(responseJson => {
