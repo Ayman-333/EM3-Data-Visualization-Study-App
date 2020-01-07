@@ -4,7 +4,6 @@ import {
   StackedAreaChart,
   YAxis,
   XAxis,
-  Grid,
 } from 'react-native-svg-charts';
 import {
   View,
@@ -15,7 +14,7 @@ import {
   YellowBox
 } from 'react-native';
 import ListItem from './ListItem';
-import { Text } from 'react-native-svg';
+import { Text, Svg } from 'react-native-svg';
 import * as scale from 'd3-scale';
 import { Icon } from 'react-native-elements';
 import * as data from '../../../../res/energy_data';
@@ -24,9 +23,8 @@ import Legends from './Legends';
 // TODO needs to be removed later
 YellowBox.ignoreWarnings(['VirtualizedLists should never be nested inside plain ScrollViews with the same orientation']);
 
-
 const spacingInner = 0.5;
-const spacingOuter = 0.5;
+const spacingOuter = 0.6;
 const contentInset = { top: 20 };
 
 const Labels = props => {
@@ -116,111 +114,114 @@ class CustomStackedBar extends React.Component {
 
   render() {
     return (
-      <View style={styles.stackedBarChartContainer}>
-        <View style={styles.list}>
-          <TouchableOpacity style={styles.caret}>
-            <Icon
-              name="caret-up"
-              type="font-awesome"
-              color="#000"
-              size={15}
-              onPress={() =>
-                this.flatListRef.scrollToIndex({
-                  index: 0,
-                  animated: true,
-                })
-              }
-            />
-          </TouchableOpacity>
-          <FlatList
-            ref={ref => {
-              this.flatListRef = ref;
-            }}
-            style={styles.appliancesList}
-            data={this.DATA}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <ListItem
-                style={styles.listItem}
-                id={item.id}
-                title={item.title}
-                type={item.type}
-                imageName={item.imageName}
-                selectedKey={this.state.selectedApplianceId}
-                onPressAction={item.onPressAction}
+      <>
+        <View style={styles.stackedBarChartContainer}>
+          <View style={styles.list}>
+            <TouchableOpacity style={styles.caret}>
+              <Icon
+                name="caret-up"
+                type="font-awesome"
+                color="#000"
+                size={15}
+                onPress={() =>
+                  this.flatListRef.scrollToIndex({
+                    index: 0,
+                    animated: true,
+                  })
+                }
               />
-            )}
-          />
-          <TouchableOpacity style={styles.caret}>
-            <Icon
-              name="caret-down"
-              type="font-awesome"
-              color="#000"
-              size={15}
-              onPress={() =>
-                this.flatListRef.scrollToIndex({
-                  index: this.DATA.length - 1,
-                  animated: true,
-                })
-              }
-            />
-          </TouchableOpacity>
-        </View>
-        <ScrollView
-          persistentScrollbar={true}
-          horizontal={true}
-          ref={ref => {
-            this.scrollViewRef = ref;
-          }}>
-          <View style={styles.chart}>
-            <StackedBarChart
-              style={{
-                flex: 1,
-                width: 100 * this.state.appliance.expenseData.length,
+            </TouchableOpacity>
+            <FlatList
+              ref={ref => {
+                this.flatListRef = ref;
               }}
-              keys={this.state.appliance.keys}
-              colors={this.state.appliance.colors}
-              data={this.state.appliance.expenseData}
-              spacingInner={spacingInner}
-              spacingOuter={spacingOuter}
-              contentInset={contentInset}>
-              <Labels />
-            </StackedBarChart>
-            <YAxis
-              style={{ position: 'absolute', left: -10, top: 0, bottom: 0 }}
-              data={StackedAreaChart.extractDataPoints(
-                this.state.appliance.expenseData,
-                this.state.appliance.keys,
+              style={styles.appliancesList}
+              data={this.DATA}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
+                <ListItem
+                  style={styles.listItem}
+                  id={item.id}
+                  title={item.title}
+                  type={item.type}
+                  imageName={item.imageName}
+                  selectedKey={this.state.selectedApplianceId}
+                  onPressAction={item.onPressAction}
+                />
               )}
-              contentInset={{ top: 10, bottom: 10 }}
-              svg={{
-                fontSize: 10,
-                fill: 'black',
-                stroke: 'black',
-                strokeWidth: 0.1,
-                alignmentBaseline: 'baseline',
-                baselineShift: '3',
-              }}
             />
-            <XAxis
-              style={{
-                marginTop: 10,
-                width: 100 * this.state.appliance.expenseData.length,
-              }}
-              data={this.state.appliance.expenseData}
-              formatLabel={(value, index) =>
-                this.state.appliance.expenseData[index].date.format('HH:mm')
-              }
-              scale={scale.scaleBand}
-              spacingInner={spacingInner}
-              spacingOuter={spacingOuter}
-              contentInset={contentInset}
-              svg={{
-                fontSize: 13,
-                fill: 'black',
-              }}
-            />
-            <XAxis
+            <TouchableOpacity style={styles.caret}>
+              <Icon
+                name="caret-down"
+                type="font-awesome"
+                color="#000"
+                size={15}
+                onPress={() =>
+                  this.flatListRef.scrollToIndex({
+                    index: this.DATA.length - 1,
+                    animated: true,
+                  })
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          <ScrollView
+            persistentScrollbar={true}
+            horizontal={true}
+            ref={ref => {
+              this.scrollViewRef = ref;
+            }}>
+            <View style={styles.chart}>
+              <StackedBarChart
+                style={{
+                  flex: 1,
+                  width: 100 * this.state.appliance.expenseData.length,
+                }}
+                keys={this.state.appliance.keys}
+                colors={this.state.appliance.colors}
+                data={this.state.appliance.expenseData}
+                spacingInner={spacingInner}
+                spacingOuter={spacingOuter}
+                contentInset={contentInset}>
+                <Labels />
+              </StackedBarChart>
+              <YAxis
+                style={{ position: 'absolute', left: -10, top: 0, bottom: 0 }}
+                data={StackedAreaChart.extractDataPoints(
+                  this.state.appliance.expenseData,
+                  this.state.appliance.keys,
+                )}
+                contentInset={{ top: 20, bottom: 15 }}
+                spacingInner={spacingInner}
+                spacingOuter={spacingOuter}
+                svg={{
+                  fontSize: 10,
+                  fill: 'black',
+                  stroke: 'black',
+                  strokeWidth: 0.1,
+                  alignmentBaseline: 'baseline',
+                  baselineShift: '3',
+                }}
+              />
+              <XAxis
+                style={{
+                  marginTop: 3,
+                  width: 100 * this.state.appliance.expenseData.length,
+                }}
+                data={this.state.appliance.expenseData}
+                formatLabel={(value, index) =>
+                  this.state.appliance.expenseData[index].date.format('HH:mm')
+                }
+                scale={scale.scaleBand}
+                spacingInner={spacingInner}
+                spacingOuter={spacingOuter}
+                contentInset={contentInset}
+                svg={{
+                  fontSize: 13,
+                  fill: 'black',
+                }}
+              />
+              {/* <XAxis
               style={{ width: 100 * this.state.appliance.expenseData.length }}
               data={this.state.appliance.expenseData}
               formatLabel={(value, index) =>
@@ -234,13 +235,30 @@ class CustomStackedBar extends React.Component {
                 fontSize: 13,
                 fill: 'black',
               }}
-            />
+            /> */}
+              {/* XAxis Label */}
+            </View>
+          </ScrollView>
+          <View styles={styles.legendsContainer}>
+            <Legends data={data[this.state.selectedApplianceId]} />
           </View>
-        </ScrollView>
-        <View styles={styles.legendsContainer}>
-          <Legends data={data[this.state.selectedApplianceId]} />
         </View>
-      </View>
+        <Svg
+          key={'xlabelTitle'}
+          height={25}
+          width={100 * this.state.appliance.expenseData.length}>
+          <Text
+            fill="black"
+            stroke="black"
+            fontSize="15"
+            fontWeight="lighter"
+            x={425}
+            y={20}
+            textAnchor="middle">
+            {this.state.appliance.expenseData[0].date.format('MMM Do YYYY')}
+          </Text>
+        </Svg>
+      </>
     );
   }
 }
@@ -249,7 +267,7 @@ const styles = StyleSheet.create({
   stackedBarChartContainer: {
     flex: 1,
     flexDirection: 'row',
-    height: 400,
+    height: 350,
   },
   caret: {
     height: 14,
