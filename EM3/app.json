@@ -1,4 +1,14 @@
 {
   "name": "EM3",
-  "displayName": "EM3"
+  "displayName": "EM3",
+  "expo": {
+    "name": "EM3",
+    "slug": "em3-app",
+    "sdkVersion": "35.0.0",
+    "version": "0.0.1",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  }
 }
