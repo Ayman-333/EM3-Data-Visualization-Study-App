@@ -43,7 +43,8 @@ class HeatMap extends Component {
       (60 / cols); // To divide the hour into 6 cols.
     const rows = Math.ceil(time / cols),
       xAxisLabels = Array.from(Array(cols).keys()),
-      yAxisLabels = Array.from(Array(rows).keys());
+      yAxisLabels = Array.from(Array(rows).keys()),
+      rotationThreshold = 2;
 
     const heatmapColor = d3
       .scaleLinear()
@@ -52,7 +53,7 @@ class HeatMap extends Component {
       .range(['rgba(26,152,80,1)', 'rgba(255,242,0,1)', 'rgba(215,48,39,1)']);
     //                 Green              Yellow              Red
     const screenWidth = Dimensions.get('window').width;
-
+    
     let rects = [];
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < (i <= time / cols - 1 ? cols : time % cols); j++) {
@@ -101,14 +102,14 @@ class HeatMap extends Component {
             {/* YAxis Label */}
             <Svg
               key={'ylabelTitle'}
-              height={((rectHeight + innerPadding) * rows) / 2}
-              width={'20'}>
-              <G y={((rectHeight + innerPadding) * rows) / 2} rotation={-90}>
+              height={((rectHeight + innerPadding) * rows)}
+              width={rows >= rotationThreshold? 20: 50}>
+              <G y={((rectHeight + innerPadding) * rows) / 2} rotation={rows >= rotationThreshold? -90: 0}>
                 <Text
                   fill="black"
                   stroke="black"
                   fontSize="15"
-                  x={10}
+                  x={rows >= rotationThreshold? -15: 10}
                   y={10}
                   textAnchor="start">
                   {yLabelTitle}
