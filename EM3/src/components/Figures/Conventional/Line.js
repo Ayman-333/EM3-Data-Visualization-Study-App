@@ -44,6 +44,8 @@ class Line extends Component {
               datasets: [
                 {// FrenchDataset 2007 energy consumption calculated and put as raw values
                   data: [465.285, 382.462, 455.892, 269.998, 377.317, 318.462, 253.6, 311.404, 354.493, 387.212, 424.179, 519.444]
+                  // data: [436.847, 352.756, 422.057, 413.629, 402.611, 422.28, 318.957, 105.802, 381.248, 383.208, 394.569, 391.912] this is 2008
+
                 }
               ]
             }}
