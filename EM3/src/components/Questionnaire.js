@@ -73,6 +73,10 @@ class Questionnaire extends React.Component {
 
     global.surveyAnswers[part] = answersAsObj;
 
+    if(global.isNovel == undefined) {
+      this.props.navigation.navigate('Empty');
+    }
+
     if (this.props.nextDestination !== '') {
       const resetAction = StackActions.reset({
         index: 0,

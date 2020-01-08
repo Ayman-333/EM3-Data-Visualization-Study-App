@@ -12,8 +12,13 @@ class EmptyScreen extends Component {
       <>
         <SurveyHeader />
         <View style={styles.container}>
-          <Text style={styles.greetingText}>
-            Warning: For the application to work properly, internet connection is required{'\n\n'}Kindly turn your internet connection back on to continue the survey
+          <Text style={styles.warningText}>
+            Warning: For the application to work properly, internet connection is required{'\n\n'}
+            Kindly turn your internet connection back on to continue the survey
+          </Text>
+          <Text style={styles.noteText}>
+            Note: If you are connected to the internet and you are still here, try re-starting the application.{'\n'}
+            if problem persists, contact developers at aa1405810@qu.edu.qa
           </Text>
         </View>
       </>
@@ -29,10 +34,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 'auto',
   },
-  greetingText: {
+  warningText: {
     textAlign: 'center',
     fontSize: 18,
     fontWeight: 'bold',
+    margin: 30,
+  },
+  noteText: {
+    textAlign: 'center',
+    fontSize: 13,
     margin: 40,
   },
 });
