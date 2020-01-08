@@ -36,9 +36,11 @@ class HomeScreen extends Component {
       .collection('completed-surveys')
       .doc(DeviceInfo.getUniqueId());
 
-    global.surveysDBRef.get().then(snapshot => {
-      console.log(snapshot);
-      console.log(snapshot.data());
+    global.surveysDBRef
+    .get()
+    .then(snapshot => {
+      // console.log(snapshot);
+      // console.log(snapshot.data());
 
       if (snapshot.exists == false) {
         global.isFirstTime = true;
@@ -53,7 +55,13 @@ class HomeScreen extends Component {
         if (snapshot.data().country_name == undefined)
           global.isFirstTime = true;
         global.isNovel = snapshot.data().Novel
+        // console.log(global.isNovel);
+        // console.log(DeviceInfo.getUniqueId());
       }
+    })
+    .catch(error => {
+      console.log(error);
+      this.props.navigation.navigate('Empty')
     });
 
     return (

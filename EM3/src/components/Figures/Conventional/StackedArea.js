@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Svg, G, Text } from 'react-native-svg';
-import { StackedAreaChart, Grid, YAxis, XAxis } from 'react-native-svg-charts';
+import { StackedAreaChart, YAxis, XAxis } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
 import * as scale from 'd3-scale';
 import Legends from '../Novel/Legends';
@@ -46,13 +46,13 @@ class StackedArea extends Component {
               data={data.expenseData}
               keys={data.keys}
               colors={data.colors}
-              curve={shape.curveCardinal} >
-              <Grid />
+              curve={shape.curveNatural} >
+              {/* <Grid /> */}
             </StackedAreaChart>
             <YAxis
               style={{ position: 'absolute', top: 0, bottom: 0 }}
               data={StackedAreaChart.extractDataPoints(data.expenseData, data.keys)}
-              contentInset={{ top: 10, bottom: 10 }}
+              contentInset={{ top: 10, bottom: 25 }}
               svg={{
                 fontSize: 12,
                 fill: '#000',
@@ -98,7 +98,7 @@ class StackedArea extends Component {
         {/* XAxis Label */}
         <Svg
           key={'xlabelTitle'}
-          height={15}
+          height={20}
           width={350}>
           <Text
             fill="black"
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     marginHorizontal: 15,
     flexDirection: "row",
-    height: 220,
+    height: 300,
   },
 });
 
