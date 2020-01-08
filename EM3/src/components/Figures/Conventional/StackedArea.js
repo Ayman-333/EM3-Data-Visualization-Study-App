@@ -46,7 +46,7 @@ class StackedArea extends Component {
               data={data.expenseData}
               keys={data.keys}
               colors={data.colors}
-              curve={shape.curveCardinal} >
+              curve={shape.curveNatural} >
               {/* <Grid /> */}
             </StackedAreaChart>
             <YAxis
