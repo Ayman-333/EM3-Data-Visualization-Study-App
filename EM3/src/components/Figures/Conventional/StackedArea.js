@@ -16,7 +16,7 @@ class StackedArea extends Component {
     const spacingInner = 0.5;
     const spacingOuter = 0.5;
     const contentInset = { top: 10, bottom: 10, left: -50 };
-    console.log(data.expenseData[0].date.format('MMM Do'));
+    // console.log(data.expenseData[0].date.format('MMM Do'));
     return (
       <>
         <View style={{ flexDirection: 'row' }}>
