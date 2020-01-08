@@ -4,7 +4,7 @@ module.exports = {
     spiral: 'Shows the total daily energy consumption (in kWh) for the whole year for a house. Tapping on a bar shows a stooltip with more information.',
     stackedBar: 'Shows power ratings (in W) for each appliance (and their different brands) throughout the day (5 hours max. for the moment). An appliance can be chosen from the scrollable list',
     stackedArea: 'Shows energy consumption (in kWh) for multiple hours throughtout the day.',
-    bar: 'Shows energy consumption (in kWh) for the whole month as bars.',
-    line: 'Shows energy consumption (in kWh) for the whole month as a continuous line.',
+    bar: 'Shows energy consumption (in kWh) for a house per month as bars.',
+    line: 'Shows energy consumption (in kWh) for a house per month as a continuous line.',
   },
 };
