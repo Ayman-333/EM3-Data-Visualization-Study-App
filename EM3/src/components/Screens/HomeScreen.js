@@ -77,7 +77,7 @@ class HomeScreen extends Component {
               Welcome to EM3 Data Visualization Study
           </Text>
             <Text style={styles.greetingTextHeader2}>
-              We aim to find the best visulizations for demonstrating energy consumption at homes. Your input is appreciated through this interactive questionnaire. {'\n\n'}
+              We aim to find the best visualizations for demonstrating energy consumption at homes. Your input is appreciated through this interactive questionnaire. {'\n\n'}
               To start, please introduce yourself by answering the following questions. Following, we will present three different visualizations for you to rate. Your responses will be treated anonymously.
             <Text style={{ fontWeight: 'bold' }}>
                 {'\n\n'}Note: the information (collected at the end of the survey) is strictly your responses and the name of the country you are currently in. Therefore, if you feel uncomfortable sharing the aforementioned information please refrain from answering.
