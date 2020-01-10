@@ -68,7 +68,7 @@ class FiguresScreen extends Component {
           <Text style={styles.tip}>
             Tip: {descriptions[figuresNames[this.state.chartNumber]]}
           </Text>
-          <KeyboardAvoidingView style={[styles.surveyContainer, { height: !isNovel ? 380 : 'auto' }]}>
+          <KeyboardAvoidingView style={styles.surveyContainer}>
             {surveys[this.state.chartNumber]}
           </KeyboardAvoidingView>
         </ScrollView>
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    height: 400,
   },
   tip: {
     fontSize: 12,

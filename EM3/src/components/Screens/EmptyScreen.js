@@ -17,8 +17,9 @@ class EmptyScreen extends Component {
             Kindly turn your internet connection back on to continue the survey
           </Text>
           <Text style={styles.noteText}>
-            Note: If you are connected to the internet and you are still here, try re-starting the application.{'\n'}
-            if problem persists, contact developers at aa1405810@qu.edu.qa
+            Note: If you are connected to the internet and you are still here, try clearing application data by going to:{'\n'} 
+            Settings -> Apps -> EM3 -> Storage -> Clear data {'\n'}
+            If problem persists, contact developers at aa1405810@qu.edu.qa
           </Text>
         </View>
       </>
