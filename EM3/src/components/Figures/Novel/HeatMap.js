@@ -3,7 +3,7 @@ import { Dimensions, ScrollView, View, StyleSheet } from 'react-native';
 import { Svg, G, Rect, Text } from 'react-native-svg';
 import { PieChart } from 'react-native-svg-charts';
 import * as d3 from 'd3';
-import { franceDataSet } from '../../../../res/18-12-2006';
+import { franceDataSet } from '../../../../res/1-4-2007';
 import PieChartLegends from './PieChartLegends';
 
 class HeatMap extends Component {
@@ -62,7 +62,7 @@ class HeatMap extends Component {
             key={cols * i + j}
             // 2 was added so strocks will not look erased at the first column
             x={(rectWidth + innerPadding) * j + 2}
-            y={(rectHeight + innerPadding) * i}
+            y={(rectHeight + innerPadding) * i + 2}
             height={rectHeight}
             width={rectWidth}
             strokeWidth={4}
