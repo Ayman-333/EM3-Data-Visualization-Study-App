@@ -22,9 +22,9 @@ class StackedArea extends Component {
         <View style={{ flexDirection: 'row' }}>
           <Svg
             key={'ylabelTitle'}
-            height={200}
+            height={300}
             width={25}>
-            <G y={170} rotation={-90}>
+            <G y={200} rotation={-90}>
               <Text
                 fill="black"
                 stroke="black"
@@ -33,7 +33,7 @@ class StackedArea extends Component {
                 x={10}
                 y={22}
                 textAnchor="start">
-                {"Energy (kWh)"}
+                {"Power (W)"}
               </Text>
             </G>
           </Svg>
