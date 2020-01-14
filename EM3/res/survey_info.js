@@ -269,7 +269,7 @@ module.exports = {
         },
         {
           optionText: 'At 11 am and 1 pm',
-          value: '11am_and_1 pm',
+          value: '11am_and_1pm',
         },
       ],
     },
@@ -366,19 +366,19 @@ module.exports = {
       options: [
         {
           optionText: '353 kWh',
-          value: '353 kWh',
+          value: '353kWh',
         },
         {
           optionText: '301 kWh',
-          value: '301 kWh',
+          value: '301kWh',
         },
         {
           optionText: '253 kWh',
-          value: '253 kWh',
+          value: '253kWh',
         },
         {
           optionText: '400 kWh',
-          value: '400 kWh',
+          value: '400kWh',
         },
       ],
     },
@@ -473,7 +473,7 @@ module.exports = {
         },
         {
           optionText: 'None of the above',
-          value: 'N/A',
+          value: 'none',
         },
       ],
     },
@@ -595,8 +595,8 @@ module.exports = {
           value: '10.32',
         },
         {
-          optionText: '27.85 kWh',
-          value: '27.85',
+          optionText: '27.86 kWh',
+          value: '27.86',
         },
         {
           optionText: '4.23 kWh',

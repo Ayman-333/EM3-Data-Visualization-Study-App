@@ -41,7 +41,8 @@ class HeatMap extends Component {
       (currentTime.getHours() * 60 + // to make them minutes
         Math.floor(currentTime.getMinutes() / (60 / cols)) * (60 / cols)) / // to round numbers (e.g. 44 -> 40)
       (60 / cols); // To divide the hour into 6 cols.
-    const rows = Math.ceil(time / cols),
+    // const rows = Math.ceil(time / cols),
+    const rows = 24,
       xAxisLabels = Array.from(Array(cols).keys()),
       yAxisLabels = Array.from(Array(rows).keys()),
       rotationThreshold = 2;
@@ -56,7 +57,8 @@ class HeatMap extends Component {
     
     let rects = [];
     for (let i = 0; i < rows; i++) {
-      for (let j = 0; j < (i <= time / cols - 1 ? cols : time % cols); j++) {
+      // for (let j = 0; j < (i <= time / cols - 1 ? cols : time % cols); j++) {
+      for (let j = 0; j < cols; j++) {
         rects.push(
           <Rect
             key={cols * i + j}
