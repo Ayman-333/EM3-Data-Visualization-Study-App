@@ -1,13 +1,15 @@
 import React from 'react';
 import {
   StyleSheet,
-  Button,
+  // Button,
   Text,
   TextInput,
   View,
   Animated,
   SafeAreaView,
 } from 'react-native';
+import { Button } from 'react-native-elements';
+
 import { SimpleSurvey } from 'react-native-simple-survey';
 import PropTypes from 'prop-types';
 import { StackActions, NavigationActions } from 'react-navigation';
@@ -128,10 +130,9 @@ class Questionnaire extends React.Component {
       <View
         style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
         <Button
-          color={GREEN}
+          buttonStyle={{backgroundColor: GREEN}}
           onPress={onPress}
           disabled={!enabled}
-          backgroundColor={GREEN}
           title={'Previous'}
         />
       </View>
@@ -163,10 +164,9 @@ class Questionnaire extends React.Component {
       <View
         style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
         <Button
-          color={GREEN}
+          buttonStyle={{backgroundColor: GREEN}}
           onPress={onPress}
           disabled={!enabled}
-          backgroundColor={GREEN}
           title={'Next'}
         />
       </View>
@@ -195,12 +195,12 @@ class Questionnaire extends React.Component {
     onPress = onPress.bind(this);
     return (
       <View
-        style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
+        style={{ flexGrow: 1, maxWidth: 150, marginTop: 10, marginBottom: 10 }}>
         <Button
-          title={'finished'}
+          title={this.props.nextDestination? (this.props.nextDestination == 'Figures'? 'Go To Plots': 'Finish'): 'Next Plot'}
           onPress={onPress}
           disabled={!enabled}
-          color={GREEN}
+          buttonStyle={{backgroundColor: GREEN}}
         />
       </View>
     );
@@ -220,7 +220,7 @@ class Questionnaire extends React.Component {
         <Button
           title={data.optionText}
           onPress={onPress}
-          color={isSelected ? GREEN : SKYBLUE}
+          buttonStyle={{backgroundColor: isSelected ? GREEN : SKYBLUE}}
           key={`button_${index}`}
         />
       </View>
