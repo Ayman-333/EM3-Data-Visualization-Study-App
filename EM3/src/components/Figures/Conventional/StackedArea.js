@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { Svg, G, Text } from 'react-native-svg';
 import { StackedAreaChart, YAxis, XAxis } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
@@ -10,6 +10,8 @@ import Legends from '../Novel/Legends';
 import * as dataAll from '../../../../res/energy_data';
 
 class StackedArea extends Component {
+  screenWidth = Dimensions.get('window').width;
+
   render() {
     const data = dataAll['computer']
 
@@ -17,6 +19,7 @@ class StackedArea extends Component {
     const spacingOuter = 0.5;
     const contentInset = { top: 10, bottom: 10, left: -50 };
     // console.log(data.expenseData[0].date.format('MMM Do'));
+
     return (
       <>
         <View style={{ flexDirection: 'row' }}>
@@ -126,6 +129,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     flexDirection: "row",
     height: 300,
+    width: this.screenWidth,
   },
 });
 

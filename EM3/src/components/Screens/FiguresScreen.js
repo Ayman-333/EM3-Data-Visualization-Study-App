@@ -11,7 +11,7 @@ import StackedArea from '../Figures/Conventional/StackedArea';
 
 import Questionnaire from '../Questionnaire';
 import SurveyHeader from '../SurveyHeader';
-import { figsQs } from '../../../res/survey_info';
+import questionnaireQuestions from '../../../res/survey_info';
 import { descriptions } from '../../../res/figures_description';
 
 class FiguresScreen extends Component {
@@ -49,7 +49,7 @@ class FiguresScreen extends Component {
         <Questionnaire
           key={s}
           chartName={figuresNames[s]}
-          surveyQs={figsQs}
+          surveyQs={[...questionnaireQuestions.figsQs, ...questionnaireQuestions[figuresNames[s] + 'Qs']]}
           nextDestination={s == figuresNames.length - 1 ? 'Thanks' : ''}
           navigation={s == figuresNames.length - 1 ? this.props.navigation : {}}
           chartNumber={this.state.chartNumber}
