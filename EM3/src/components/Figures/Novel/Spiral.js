@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Dimensions, Animated } from 'react-native';
 import WebView from 'react-native-webview';
-import Legends from './Legends';
+import SpiralLegends from './SpiralLegends';
 
 class Spiral extends Component {
   state = {
@@ -24,13 +24,13 @@ class Spiral extends Component {
     colors: [`#228B22`, `#DC143C`, `#FF8C00`, `#1E90FF`] }
   render() {
     return (
-      <View style={styles.plotBody}>
+      <View>
         <WebView style={styles.container}
           source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/survey-274da.appspot.com/o/plots%2Fspiral_v5.html?alt=media&token=900fb5b8-97fb-4996-ac5f-2e798cfe9bb1' }} />
         <Animated.View style={[styles.loading, { opacity: this.state.fadeAnim }]}>
           <Text>Loading...</Text>
         </Animated.View>
-        <Legends data={this.legendsComponents} />
+        <SpiralLegends data={this.legendsComponents} />
       </View>
     );
   }
@@ -40,10 +40,10 @@ const styles = StyleSheet.create({
   container: {
     textAlign: 'center',
     width: Dimensions.get('window').width,
-    height: 320,
-    flex: 1,
+    height: Dimensions.get('window').height*0.5,
     justifyContent: "center",
     alignSelf: "center",
+    marginBottom: 40,
   },
   loading: {
     position: 'absolute',

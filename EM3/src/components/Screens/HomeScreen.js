@@ -23,6 +23,7 @@ class HomeScreen extends Component {
   };
 
   render() {
+    console.log(DeviceInfo.getUniqueId())
     NetInfo.addEventListener(state => {
       // Works on both Android and iOS
       if (state.isConnected != true)
