@@ -213,7 +213,6 @@ class Questionnaire extends React.Component {
         style={{
           marginLeft: 15,
           marginRight: 15,
-          marginTop: 5,
           marginBottom: 5,
           justifyContent: 'flex-start',
         }}>

@@ -67,7 +67,7 @@ class ThankYouScreen extends Component {
             CREDITS
           </Text>
           <View style={styles.credits}>
-            <Text>
+            <Text style={styles.credits}>
               {credits}
             </Text>
           </View>
@@ -116,8 +116,8 @@ const styles = StyleSheet.create({
   },
   credits: {
     fontSize: 15,
-    paddingVertical: 10,
-    height: 350,
+    marginBottom: 20,
+    height: 'auto',
   }
 });
 export default ThankYouScreen;
