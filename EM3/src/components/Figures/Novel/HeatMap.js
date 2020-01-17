@@ -29,11 +29,16 @@ class HeatMap extends Component {
         minEnergy = periodSum
       seperateRoomsPeriodsConsumption.push(sum_rooms);
     }
+    const screenWidth = Dimensions.get('window').width;
 
-    const innerPadding = 6,
-      rectHeight = 30,
-      rectWidth = 50,
-      borderRadius = 10,
+    // const innerPadding = 6,
+    //   rectHeight = 30,
+    //   rectWidth = 50,
+    const innerPadding = screenWidth/60,
+      rectHeight = screenWidth/15,
+      rectWidth = screenWidth/8.5,
+      borderRadius = screenWidth/50,
+      strokeWidth = screenWidth/90,
       xLabelTitle = 'Minutes',
       yLabelTitle = 'Hours';
     const currentTime = new Date();
@@ -53,8 +58,7 @@ class HeatMap extends Component {
       .interpolate(d3.interpolateHcl)
       .range(['rgba(26,152,80,1)', 'rgba(255,242,0,1)', 'rgba(215,48,39,1)']);
     //                 Green              Yellow              Red
-    const screenWidth = Dimensions.get('window').width;
-    
+
     let rects = [];
     for (let i = 0; i < rows; i++) {
       // for (let j = 0; j < (i <= time / cols - 1 ? cols : time % cols); j++) {
@@ -67,7 +71,7 @@ class HeatMap extends Component {
             y={(rectHeight + innerPadding) * i + 2}
             height={rectHeight}
             width={rectWidth}
-            strokeWidth={4}
+            strokeWidth={strokeWidth}
             stroke={this.state.selectedPeriod === cols * i + j ? 'black' : ''}
             fill={heatmapColor(seperateRoomsPeriodsConsumption[cols * i + j].reduce((pre, curr) => pre + curr))}
             // fill={color(
@@ -90,114 +94,11 @@ class HeatMap extends Component {
         );
       }
     }
-
-    if (this.state.selectedPeriod === -1)
-      return (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          horizontal={false}
-          ref={ref => this.scrollView = ref}
-          onContentSizeChange={() => {
-            this.scrollView.scrollTo({ x: 0, animated: true });
-          }}>
-          <View style={{ flex: 1, flexDirection: 'row' }}>
-            {/* YAxis Label */}
-            <Svg
-              key={'ylabelTitle'}
-              height={((rectHeight + innerPadding) * rows)}
-              width={rows >= rotationThreshold? 20: 50}>
-              <G y={((rectHeight + innerPadding) * rows) / 2} rotation={rows >= rotationThreshold? -90: 0}>
-                <Text
-                  fill="black"
-                  stroke="black"
-                  fontSize="15"
-                  x={rows >= rotationThreshold? -15: 10}
-                  y={10}
-                  textAnchor="start">
-                  {yLabelTitle}
-                </Text>
-              </G>
-            </Svg>
-            {/* YAxis Numbers Generation */}
-            <Svg
-              width={20}
-              height={(rectHeight + innerPadding) * rows}
-              style={{ flex: 1, flexDirection: 'column' }}>
-              {yAxisLabels.map(num => {
-                return (
-                  <Svg
-                    key={'label' + num.toString()}
-                    // height={rectWidth + innerPadding}
-                    height={(rectWidth + innerPadding) * rows}
-                    width={20}>
-                    <Text
-                      fill="black"
-                      stroke="black"
-                      fontSize="15"
-                      x={8}
-                      y={(rectHeight + innerPadding) * num + rectHeight * 0.65}
-                      textAnchor="middle">
-                      {num}
-                    </Text>
-                  </Svg>
-                );
-              })}
-            </Svg>
-            <View>
-              {/* HeatMap Rect Components */}
-              <Svg
-                height={(rectHeight + innerPadding) * rows}
-                width={(rectWidth + innerPadding) * cols}>
-                {rects}
-              </Svg>
-              {/* XAxis Numbers Generation */}
-              <Svg style={{ flex: 1, flexDirection: 'row' }}
-                width={(rectWidth + innerPadding) * cols}
-                height={20}>
-                {xAxisLabels.map(num => {
-                  return (
-                    <Svg
-                      key={num + 1}
-                      height={20}
-                      // width={rectWidth + innerPadding}>
-                      width={(rectWidth + innerPadding) * cols}>
-                      <Text
-                        fill="black"
-                        stroke="black"
-                        fontSize="15"
-                        x={(rectWidth + innerPadding) * num + rectWidth / 2}
-                        y={12}
-                        textAnchor="middle">
-                        {((num + 1) * 60) / cols}
-                      </Text>
-                    </Svg>
-                  );
-                })}
-              </Svg>
-              {/* XAxis Label */}
-              <Svg
-                key={'xlabelTitle'}
-                height={25}
-                width={(rectWidth + innerPadding) * cols}>
-                <Text
-                  fill="black"
-                  stroke="black"
-                  fontSize="15"
-                  x={((rectWidth + innerPadding) * cols) / 2}
-                  y={15}
-                  textAnchor="middle">
-                  {xLabelTitle}
-                </Text>
-              </Svg>
-            </View>
-          </View>
-        </ScrollView>
-      );
-
+    let data;
+    let periodSum;
     if (this.state.selectedPeriod >= 0) {
-
       const periodRooms = seperateRoomsPeriodsConsumption[this.state.selectedPeriod];
-      const periodSum = periodRooms.reduce((pre, curr) => pre + curr);
+      periodSum = periodRooms.reduce((pre, curr) => pre + curr);
       for (let i = 0; i < periodRooms.length && periodSum != 0; i++)
         periodRooms[i] /= periodSum;
 
@@ -209,7 +110,7 @@ class HeatMap extends Component {
         .domain([minPeriodEnergy, (minPeriodEnergy + maxPeriodEnergy) / 2, maxPeriodEnergy])
         .interpolate(d3.interpolateHcl)
         .range(['rgba(26,152,80,1)', 'rgba(255,242,0,1)', 'rgba(215,48,39,1)']);
-      const data = periodRooms.map((value, index) => {
+      data = periodRooms.map((value, index) => {
         return (
           {
             key: `Room ${index + 1}`,
@@ -218,132 +119,142 @@ class HeatMap extends Component {
             // arc: { outerRadius: '100%', cornerRadius: 2, }
           })
       })
-      return (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          horizontal={false}
-          ref={ref => this.scrollView = ref}
-          onContentSizeChange={() => {
+    }
+
+    return (
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        horizontal={false}
+        ref={ref => this.scrollView = ref}
+        onContentSizeChange={() => {
+          this.state.selectedPeriod === -1 ?
+            this.scrollView.scrollTo({ x: 0, animated: true })
+            :
             this.scrollView.scrollToEnd({ animated: true });
-          }}>
-          <View style={{ flex: 1, flexDirection: 'row', }}>
-            {/* YAxis Label */}
+        }}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          {/* YAxis Label */}
+          <Svg
+            key={'ylabelTitle'}
+            height={((rectHeight + innerPadding) * rows)}
+            width={rows >= rotationThreshold ? 30 : 50}>
+            <G y={((rectHeight + innerPadding) * rows) / 2} rotation={rows >= rotationThreshold ? -90 : 0}>
+              <Text
+                fill="black"
+                stroke="black"
+                fontSize="15"
+                x={rows >= rotationThreshold ? -15 : 10}
+                y={20}
+                textAnchor="start">
+                {yLabelTitle}
+              </Text>
+            </G>
+          </Svg>
+          {/* YAxis Numbers Generation */}
+          <Svg
+            width={20}
+            height={(rectHeight + innerPadding) * rows}
+            style={{ flex: 1, flexDirection: 'column' }}>
+            {yAxisLabels.map(num => {
+              return (
+                <Svg
+                  key={'label' + num.toString()}
+                  // height={rectWidth + innerPadding}
+                  height={(rectWidth + innerPadding) * rows}
+                  width={20}>
+                  <Text
+                    fill="black"
+                    stroke="black"
+                    fontSize="15"
+                    x={8}
+                    y={(rectHeight + innerPadding) * num + rectHeight * 0.8}
+                    textAnchor="middle">
+                    {num}
+                  </Text>
+                </Svg>
+              );
+            })}
+          </Svg>
+          <View>
+            {/* HeatMap Rect Components */}
             <Svg
-              key={'ylabelTitle'}
-              height={((rectHeight + innerPadding) * rows) / 2}
-              width={'20'}>
-              <G y={((rectHeight + innerPadding) * rows) / 2} rotation={-90}>
-                <Text
-                  fill="black"
-                  stroke="black"
-                  fontSize="15"
-                  x={10}
-                  y={10}
-                  textAnchor="start">
-                  {yLabelTitle}
-                </Text>
-              </G>
-            </Svg>
-            {/* YAxis Numbers Generation */}
-            <Svg
-              width={20}
               height={(rectHeight + innerPadding) * rows}
-              style={{ flex: 1, flexDirection: 'column' }}>
-              {yAxisLabels.map(num => {
+              width={(rectWidth + innerPadding) * cols}>
+              {rects}
+            </Svg>
+            {/* XAxis Numbers Generation */}
+            <Svg style={{ flex: 1, flexDirection: 'row' }}
+              width={(rectWidth + innerPadding) * cols}
+              height={20}>
+              {xAxisLabels.map(num => {
                 return (
                   <Svg
-                    key={'label' + num.toString()}
-                    // height={rectWidth + innerPadding}
-                    height={(rectWidth + innerPadding) * rows}
-                    width={20}>
+                    key={num + 1}
+                    height={20}
+                    // width={rectWidth + innerPadding}>
+                    width={(rectWidth + innerPadding) * cols}>
                     <Text
                       fill="black"
                       stroke="black"
                       fontSize="15"
-                      x={8}
-                      y={(rectHeight + innerPadding) * num + rectHeight * 0.65}
+                      x={(rectWidth + innerPadding) * num + rectWidth / 1.85}
+                      y={12}
                       textAnchor="middle">
-                      {num}
+                      {((num + 1) * 60) / cols}
                     </Text>
                   </Svg>
                 );
               })}
             </Svg>
-            <View>
-              {/* HeatMap Rect Components */}
-              <Svg
-                height={(rectHeight + innerPadding) * rows}
-                width={(rectWidth + innerPadding) * cols}>
-                {rects}
-              </Svg>
-              {/* XAxis Numbers Generation */}
-              <Svg style={{ flex: 1, flexDirection: 'row' }}
-                width={(rectWidth + innerPadding) * cols}
-                height={20}>
-                {xAxisLabels.map(num => {
-                  return (
-                    <Svg
-                      key={num + 1}
-                      height={20}
-                      // width={rectWidth + innerPadding}>
-                      width={(rectWidth + innerPadding) * cols}>
-                      <Text
-                        fill="black"
-                        stroke="black"
-                        fontSize="15"
-                        x={(rectWidth + innerPadding) * num + rectWidth / 2}
-                        y={12}
-                        textAnchor="middle">
-                        {((num + 1) * 60) / cols}
-                      </Text>
-                    </Svg>
-                  );
-                })}
-              </Svg>
-              {/* XAxis Label */}
-              <Svg
-                key={'xlabelTitle'}
-                height={25}
-                width={(rectWidth + innerPadding) * cols}>
-                <Text
-                  fill="black"
-                  stroke="black"
-                  fontSize="15"
-                  x={((rectWidth + innerPadding) * cols) / 2}
-                  y={15}
-                  textAnchor="middle">
-                  {xLabelTitle}
-                </Text>
-              </Svg>
-            </View>
+            {/* XAxis Label */}
+            <Svg
+              key={'xlabelTitle'}
+              height={25}
+              width={(rectWidth + innerPadding) * cols}>
+              <Text
+                fill="black"
+                stroke="black"
+                fontSize="15"
+                x={((rectWidth + innerPadding) * cols) / 2}
+                y={15}
+                textAnchor="middle">
+                {xLabelTitle}
+              </Text>
+            </Svg>
           </View>
-          <Svg key={'total'}
-            height={40}
-            width={screenWidth - 40}>
-            <Text
-              fill="black"
-              stroke="black"
-              fontSize="20"
-              x={180}
-              y={20}
-              textAnchor="middle">
-              {`Total Consumption: ${periodSum} Wh`}
-            </Text>
-          </Svg>
-          <View style={[styles.piechartContainer, {height: periodSum == 0? 0: '100%'}]}>
-            <PieChart
-              style={[{ height: 200, width: screenWidth / 2, }, styles.pieContainer]}
-              outerRadius={'90%'}
-              innerRadius={5}
-              data={data}
-            />
-            <View style={styles.legendsContainer}>
-              {periodSum > 0? <PieChartLegends data={data} />: <></>}
+        </View>
+        {this.state.selectedPeriod >= 0 ?
+          (<>
+            <Svg key={'total'}
+              height={40}
+              width={screenWidth}>
+              <Text
+                fill="black"
+                stroke="black"
+                fontSize="20"
+                x={screenWidth / 2}
+                y={20}
+                textAnchor="middle">
+                {`Total Consumption: ${periodSum} Wh`}
+              </Text>
+            </Svg>
+            <View style={[styles.piechartContainer, { height: periodSum == 0 ? 0 : '100%' }]}>
+              <PieChart
+                style={[{ height: 180, width: screenWidth / 3, }, styles.pieContainer]}
+                outerRadius={'90%'}
+                innerRadius={5}
+                data={data}
+              />
+              <View style={styles.legendsContainer}>
+                {periodSum > 0 ? <PieChartLegends data={data} /> : <></>}
+              </View>
             </View>
-          </View>
-        </ScrollView>
-      );
-    }
+          </>
+          ) :
+          <></>}
+
+      </ScrollView>
+    );
   }
 }
 
@@ -355,7 +266,7 @@ const styles = StyleSheet.create({
   },
   pieContainer: {
     flex: 1,
-    marginLeft: 50,
+    marginLeft: 25,
     padding: 0,
   },
   legendsContainer: {
