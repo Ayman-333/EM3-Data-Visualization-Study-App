@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     textAlign: 'center',
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height*0.5,
+    height: Dimensions.get('window').height*0.4,
     justifyContent: "center",
     alignSelf: "center",
     marginBottom: 40,
