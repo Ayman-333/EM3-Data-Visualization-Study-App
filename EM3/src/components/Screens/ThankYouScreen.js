@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   credits: {
     fontSize: 15,
-    marginBottom: 20,
+    marginBottom: 50,
     height: 'auto',
   }
 });

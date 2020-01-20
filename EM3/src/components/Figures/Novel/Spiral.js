@@ -26,7 +26,7 @@ class Spiral extends Component {
     return (
       <View>
         <WebView style={styles.container}
-          source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/survey-274da.appspot.com/o/plots%2Fspiral_v5.html?alt=media&token=900fb5b8-97fb-4996-ac5f-2e798cfe9bb1' }} />
+          source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/survey-274da.appspot.com/o/plots%2Fspiral_v5.html?alt=media&token=c7c3988d-04c9-481c-9438-1832fb5ac986' }} />
         <Animated.View style={[styles.loading, { opacity: this.state.fadeAnim }]}>
           <Text>Loading...</Text>
         </Animated.View>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     textAlign: 'center',
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height*0.4,
+    height: Dimensions.get('window').width/1.3,
     justifyContent: "center",
     alignSelf: "center",
     marginBottom: 40,
