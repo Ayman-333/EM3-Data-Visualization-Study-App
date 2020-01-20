@@ -3,7 +3,9 @@ import { Text, View, StyleSheet, Image, Platform } from 'react-native';
 import SurveyHeader from '../SurveyHeader';
 import Questionnaire from '../Questionnaire';
 import { personalQs } from '../../../res/survey_info';
+
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 import DeviceInfo from 'react-native-device-info';
 import NetInfo from '@react-native-community/netinfo';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -20,9 +22,65 @@ class HomeScreen extends Component {
   };
   state = {
     startTime: Math.floor(Date.now() / 1000), // Unix timestamp.
+    userSignedIn: false,
   };
 
+  async componentDidMount() {
+    try {
+      const user = await auth().signInAnonymously();
+      console.log(user);
+      this.setState
+        ({
+          userSignedIn: user.user.uid? true: false,
+        });
+      // console.log('Great seems like I am in')
+    } catch (e) {
+      switch (e.code) {
+        case 'auth/operation-not-allowed':
+          console.log('Enable anonymous in your firebase console.');
+          break;
+        default:
+          console.error(e);
+          break;
+      }
+    }
+    // Creating a document with device's id and setting up the array of users and the type of figures he/she will be seeing.
+    global.surveysDBRef = firestore()
+      .collection('completed-surveys')
+      .doc(DeviceInfo.getUniqueId());
+
+    global.surveysDBRef
+      .get()
+      .then(snapshot => {
+        // console.log(snapshot);
+        // console.log(snapshot.data());
+
+        if (snapshot.exists == false) {
+          global.isFirstTime = true;
+          global.isNovel = Math.random() >= 0.5;
+          global.surveysDBRef
+            .set({
+              completions: [],
+              Novel: global.isNovel
+            });
+        } else {
+          // because user might open the application and not do the survey, and do it later. This will catch such behaviour so that we still can get the country name
+          if (snapshot.data().country_name == undefined)
+            global.isFirstTime = true;
+          global.isNovel = snapshot.data().Novel
+          // console.log(global.isNovel);
+          // console.log(DeviceInfo.getUniqueId());
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        this.props.navigation.navigate('Empty')
+      });
+
+  }
   render() {
+    console.log(this.state.userSignedIn);
+
     console.log(DeviceInfo.getUniqueId())
     NetInfo.addEventListener(state => {
       // Works on both Android and iOS
@@ -31,38 +89,6 @@ class HomeScreen extends Component {
       else {
         this.props.navigation.pop();
       }
-    });
-    // Creating a document with device's id and setting up the array of users and the type of figures he/she will be seeing.
-    global.surveysDBRef = firestore()
-      .collection('completed-surveys')
-      .doc(DeviceInfo.getUniqueId());
-
-    global.surveysDBRef
-    .get()
-    .then(snapshot => {
-      // console.log(snapshot);
-      // console.log(snapshot.data());
-
-      if (snapshot.exists == false) {
-        global.isFirstTime = true;
-        global.isNovel = Math.random() >= 0.5;
-        global.surveysDBRef
-          .set({
-            completions: [],
-            Novel: global.isNovel
-          });
-      } else {
-        // because user might open the application and not do the survey, and do it later. This will catch such behaviour so that we still can get the country name
-        if (snapshot.data().country_name == undefined)
-          global.isFirstTime = true;
-        global.isNovel = snapshot.data().Novel
-        // console.log(global.isNovel);
-        // console.log(DeviceInfo.getUniqueId());
-      }
-    })
-    .catch(error => {
-      console.log(error);
-      this.props.navigation.navigate('Empty')
     });
 
     return (

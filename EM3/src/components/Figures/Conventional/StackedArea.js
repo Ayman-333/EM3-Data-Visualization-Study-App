@@ -112,7 +112,7 @@ class StackedArea extends Component {
             stroke="black"
             fontSize="15"
             fontWeight="lighter"
-            x={Dimensions.get('window').width / 2}
+            x={Dimensions.get('window').width / 2.3}
             y={15}
             textAnchor="middle">
             {data.expenseData[0].date.format('MMM Do YYYY')}

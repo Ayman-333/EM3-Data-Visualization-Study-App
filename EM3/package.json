@@ -13,6 +13,7 @@
   "dependencies": {
     "@react-native-community/netinfo": "^5.0.1",
     "@react-native-firebase/app": "^6.2.0",
+    "@react-native-firebase/auth": "^6.2.0",
     "@react-native-firebase/firestore": "^6.2.0",
     "art": "^0.10.3",
     "d3": "^5.14.2",

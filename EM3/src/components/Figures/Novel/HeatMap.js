@@ -270,7 +270,6 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   legendsContainer: {
-    fontSize: 50,
     flex: 1,
     alignItems: 'center',
     height: 100,

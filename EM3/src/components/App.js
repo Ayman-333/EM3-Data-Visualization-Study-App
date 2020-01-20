@@ -40,7 +40,12 @@ export default class App extends Component {
         Home: HomeScreen,
         Figures: FiguresScreen,
         Thanks: ThankYouScreen,
-        Empty: EmptyScreen,
+        Empty: {
+          screen: EmptyScreen,
+          navigationOptions: {
+            gesturesEnabled: false,
+          },
+        },
       },
       {
         initialRouteName: 'Home',

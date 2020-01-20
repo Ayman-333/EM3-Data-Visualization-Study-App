@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1.2,
-    alignItems: 'center',
     justifyContent: 'space-around',
     backgroundColor: 'white',
     marginTop: 15,
