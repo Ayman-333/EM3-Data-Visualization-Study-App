@@ -28,7 +28,7 @@ class HomeScreen extends Component {
   async componentDidMount() {
     try {
       const user = await auth().signInAnonymously();
-      console.log(user);
+      // console.log(user);
       this.setState
         ({
           userSignedIn: user.user.uid? true: false,

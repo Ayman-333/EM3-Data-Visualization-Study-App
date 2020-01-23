@@ -105,17 +105,19 @@ class HeatMap extends Component {
       const minPeriodEnergy = Math.min(...periodRooms);
       const maxPeriodEnergy = Math.max(...periodRooms);
 
-      const piechartColor = d3
-        .scaleLinear()
-        .domain([minPeriodEnergy, (minPeriodEnergy + maxPeriodEnergy) / 2, maxPeriodEnergy])
-        .interpolate(d3.interpolateHcl)
-        .range(['rgba(26,152,80,1)', 'rgba(255,242,0,1)', 'rgba(215,48,39,1)']);
+      // const piechartColor = d3
+      //   .scaleLinear()
+      //   .domain([minPeriodEnergy, (minPeriodEnergy + maxPeriodEnergy) / 2, maxPeriodEnergy])
+      //   .interpolate(d3.interpolateHcl)
+      //   .range(['rgba(26,152,80,1)', 'rgba(255,242,0,1)', 'rgba(215,48,39,1)']);
+      const piechartColor = ['#FFD700', '#DC143C', '#00BFFF'];
       data = periodRooms.map((value, index) => {
         return (
           {
             key: `Room ${index + 1}`,
             value: value,
-            svg: { fill: piechartColor(periodRooms[index]) }
+            svg: { fill: piechartColor[index] }
+            // svg: { fill: piechartColor(periodRooms[index]) }
             // arc: { outerRadius: '100%', cornerRadius: 2, }
           })
       })
