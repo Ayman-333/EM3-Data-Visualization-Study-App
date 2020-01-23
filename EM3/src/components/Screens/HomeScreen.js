@@ -79,7 +79,7 @@ class HomeScreen extends Component {
 
   }
   render() {
-    console.log(this.state.userSignedIn);
+    // console.log(this.state.userSignedIn);
 
     console.log(DeviceInfo.getUniqueId())
     NetInfo.addEventListener(state => {
