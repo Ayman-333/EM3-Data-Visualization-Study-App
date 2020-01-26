@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text,  View, StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native';
 
 import Heatmap from '../Figures/Novel/HeatMap';
 import Spiral from '../Figures/Novel/Spiral';
@@ -29,19 +29,23 @@ class FiguresScreen extends Component {
     });
   };
   render() {
-    let figures;
-    if (global.isNovel)
+    // console.log(this.props.navigation)
+    let figures = {};
+    if (global.isNovel == true)
       figures = {
         heatmap: <Heatmap />,
         spiral: <Spiral />,
         stackedBar: <CustomStackedBar />,
       };
-    else
+    else if (global.isNovel == false)
       figures = {
         stackedArea: <StackedArea />,
         bar: <Bar />,
         line: <Line />,
       };
+    else
+      this.props.navigation.navigate('Empty');
+
     const figuresNames = Object.keys(figures);
     const surveys = [];
     for (let s = 0; s < figuresNames.length; s++) {

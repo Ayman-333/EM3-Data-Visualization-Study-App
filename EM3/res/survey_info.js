@@ -56,12 +56,12 @@ module.exports = {
           value: 'researcher',
         },
         {
-          optionText: 'Lecturer',
-          value: 'lecturer',
+          optionText: 'Academic Faculty',
+          value: 'academic_faculty',
         },
         {
-          optionText: 'Professor',
-          value: 'professor',
+          optionText: 'Industrial-Related',
+          value: 'industrial_related',
         },
         {
           optionText: 'Other',
@@ -117,7 +117,7 @@ module.exports = {
     {
       questionType: 'SelectionGroup',
       questionText:
-        'How easy to understand is the provided visualization in portraying power consumption information?',
+        'How easy is it to understand the provided visualization in portraying power consumption information?',
       questionId: 'understandability',
       options: [
         {
@@ -172,34 +172,6 @@ module.exports = {
     {
       questionType: 'SelectionGroup',
       questionText:
-        'How is the use of animations has helped in understanding the information portrayed by the figure?',
-      questionId: 'animationsHelpfulness',
-      options: [
-        {
-          optionText: '1 not helpful at all',
-          value: '1',
-        },
-        {
-          optionText: '2',
-          value: '2',
-        },
-        {
-          optionText: '3',
-          value: '3',
-        },
-        {
-          optionText: '4',
-          value: '4',
-        },
-        {
-          optionText: '5 very helpful',
-          value: '5',
-        },
-      ],
-    },
-    {
-      questionType: 'SelectionGroup',
-      questionText:
         'In terms of quantity, how do you describe the amount of data presented?',
       questionId: 'amountOfData',
       options: [
@@ -216,13 +188,6 @@ module.exports = {
           value: 'excessive',
         },
       ],
-    },
-    {
-      questionType: 'TextInput',
-      questionText:
-        'How can this visualization be improved in terms of clarity?',
-      questionId: 'suggestion',
-      placeholderText: 'Tell us so we can become better!',
     },
   ],
   stackedAreaQs: [
@@ -630,6 +595,146 @@ module.exports = {
           value: 'winter',
         },
       ],
+    },
+  ],
+  optionalQs: [
+    {
+      questionType: 'SelectionGroup',
+      questionText:
+        'How effective is the provided visualization in portraying power consumption information?',
+      questionId: 'effectiveness',
+      options: [
+        {
+          optionText: '1 not effective at all',
+          value: '1',
+        },
+        {
+          optionText: '2',
+          value: '2',
+        },
+        {
+          optionText: '3',
+          value: '3',
+        },
+        {
+          optionText: '4',
+          value: '4',
+        },
+        {
+          optionText: '5 very effective',
+          value: '5',
+        },
+      ],
+    },
+    {
+      questionType: 'SelectionGroup',
+      questionText:
+        'How easy to understand is the provided visualization in portraying power consumption information?',
+      questionId: 'understandability',
+      options: [
+        {
+          optionText: '1 not easy at all',
+          value: '1',
+        },
+        {
+          optionText: '2',
+          value: '2',
+        },
+        {
+          optionText: '3',
+          value: '3',
+        },
+        {
+          optionText: '4',
+          value: '4',
+        },
+        {
+          optionText: '5 very easy',
+          value: '5',
+        },
+      ],
+    },
+    {
+      questionType: 'SelectionGroup',
+      questionText: 'How visually pleasing is the provided visualization?',
+      questionId: 'pleasantness',
+      options: [
+        {
+          optionText: '1 not visually pleasing at all',
+          value: '1',
+        },
+        {
+          optionText: '2',
+          value: '2',
+        },
+        {
+          optionText: '3',
+          value: '3',
+        },
+        {
+          optionText: '4',
+          value: '4',
+        },
+        {
+          optionText: '5 very visually pleasing',
+          value: '5',
+        },
+      ],
+    },
+    {
+      questionType: 'SelectionGroup',
+      questionText:
+        'How is the use of animations has helped in understanding the information portrayed by the figure?',
+      questionId: 'animationsHelpfulness',
+      options: [
+        {
+          optionText: '1 not helpful at all',
+          value: '1',
+        },
+        {
+          optionText: '2',
+          value: '2',
+        },
+        {
+          optionText: '3',
+          value: '3',
+        },
+        {
+          optionText: '4',
+          value: '4',
+        },
+        {
+          optionText: '5 very helpful',
+          value: '5',
+        },
+      ],
+    },
+    {
+      questionType: 'SelectionGroup',
+      questionText:
+        'In terms of quantity, how do you describe the amount of data presented?',
+      questionId: 'amountOfData',
+      options: [
+        {
+          optionText: 'Sparse (not enough)',
+          value: 'sparse',
+        },
+        {
+          optionText: 'Adequate (just right)',
+          value: 'adequate',
+        },
+        {
+          optionText: 'Excessive (very complex)',
+          value: 'excessive',
+        },
+      ],
+    },
+    {
+      questionType: 'TextInput',
+      questionText:
+        'How can this visualization be improved in terms of clarity?',
+      questionId: 'suggestion',
+      placeholderText: 'Tell us so we can become better!',
     },
   ],
 };
