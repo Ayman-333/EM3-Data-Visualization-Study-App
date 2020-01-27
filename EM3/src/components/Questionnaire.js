@@ -70,12 +70,13 @@ class Questionnaire extends React.Component {
         elem.questionId !== 'suggestion' ? elem.value.value : elem.value;
     }
     // Adding Timestamps for each part of the questionnaire.
-    answersAsObj['startTime'] = this.props.startTime;
-    answersAsObj['endTime'] = Math.floor(Date.now() / 1000);
-
+    if (!this.props.onOptionalSurveySubmission) {
+      answersAsObj['startTime'] = this.props.startTime;
+      answersAsObj['endTime'] = Math.floor(Date.now() / 1000);
+    }
     global.surveyAnswers[part] = answersAsObj;
 
-    if(this.props.onOptionalSurveySubmission) {
+    if (this.props.onOptionalSurveySubmission) {
       this.props.onOptionalSurveySubmission(answersAsObj)
     } else if (this.props.nextDestination !== '') {
       const resetAction = StackActions.reset({
@@ -128,7 +129,7 @@ class Questionnaire extends React.Component {
       <View
         style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
         <Button
-          buttonStyle={{backgroundColor: GREEN}}
+          buttonStyle={{ backgroundColor: GREEN }}
           onPress={onPress}
           disabled={!enabled}
           title={'Previous'}
@@ -162,9 +163,9 @@ class Questionnaire extends React.Component {
       <View
         style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
         <Button
-          buttonStyle={{backgroundColor: GREEN}}
+          buttonStyle={{ backgroundColor: GREEN }}
           onPress={onPress}
-          disabled={this.props.onOptionalSurveySubmission? false: !enabled}
+          disabled={this.props.onOptionalSurveySubmission ? false : !enabled}
           title={'Next'}
         />
       </View>
@@ -196,11 +197,11 @@ class Questionnaire extends React.Component {
         style={{ flexGrow: 1, maxWidth: 150, marginTop: 10, marginBottom: 10 }}>
         <Button
           title={this.props.nextDestination
-            ? (this.props.nextDestination == 'Figures'? 'Go To Plots': 'Finish')
-            : (this.props.onOptionalSurveySubmission? 'Finish': 'Next Plot')}
+            ? (this.props.nextDestination == 'Figures' ? 'Go To Plots' : 'Finish')
+            : (this.props.onOptionalSurveySubmission ? 'Finish' : 'Next Plot')}
           onPress={onPress}
-          disabled={this.props.onOptionalSurveySubmission? false: !enabled}
-          buttonStyle={{backgroundColor: GREEN}}
+          disabled={this.props.onOptionalSurveySubmission ? false : !enabled}
+          buttonStyle={{ backgroundColor: GREEN }}
         />
       </View>
     );
@@ -219,7 +220,7 @@ class Questionnaire extends React.Component {
         <Button
           title={data.optionText}
           onPress={onPress}
-          buttonStyle={{backgroundColor: isSelected ? GREEN : SKYBLUE}}
+          buttonStyle={{ backgroundColor: isSelected ? GREEN : SKYBLUE }}
           key={`button_${index}`}
         />
       </View>
