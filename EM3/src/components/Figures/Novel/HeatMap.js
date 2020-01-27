@@ -110,7 +110,7 @@ class HeatMap extends Component {
       //   .domain([minPeriodEnergy, (minPeriodEnergy + maxPeriodEnergy) / 2, maxPeriodEnergy])
       //   .interpolate(d3.interpolateHcl)
       //   .range(['rgba(26,152,80,1)', 'rgba(255,242,0,1)', 'rgba(215,48,39,1)']);
-      const piechartColor = ['#FFD700', '#DC143C', '#00BFFF'];
+      const piechartColor = ['#0496FF', '#E8AB3C', '#B71970']; //['#FFD700', '#DC143C', '#00BFFF'];
       data = periodRooms.map((value, index) => {
         return (
           {
