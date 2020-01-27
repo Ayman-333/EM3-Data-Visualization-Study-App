@@ -193,8 +193,7 @@ module.exports = {
   stackedAreaQs: [
     {
       questionType: 'SelectionGroup',
-      questionText:
-        'When was the total power consumption the lowest?',
+      questionText: 'When was the total power consumption the lowest?',
       questionId: '1stUnderstandingQuestion',
       options: [
         {
@@ -240,7 +239,8 @@ module.exports = {
     },
     {
       questionType: 'SelectionGroup',
-      questionText: 'Which brand had the most power consumption fluctuations? (Note: these numbers do not reflect real energy consumption for each brand)',
+      questionText:
+        'Which brand had the most power consumption fluctuations? (Note: these numbers do not reflect real energy consumption for each brand)',
       questionId: '3rdUnderstandingQuestion',
       options: [
         {
@@ -349,7 +349,8 @@ module.exports = {
     },
     {
       questionType: 'SelectionGroup',
-      questionText: 'What was the general trend in energy consumption from January until July?',
+      questionText:
+        'What was the general trend in energy consumption from January until July?',
       questionId: '2ndUnderstandingQuestion',
       options: [
         {
@@ -372,7 +373,8 @@ module.exports = {
     },
     {
       questionType: 'SelectionGroup',
-      questionText: 'What was the general trend in energy consumption from July until December?',
+      questionText:
+        'What was the general trend in energy consumption from July until December?',
       questionId: '3rdUnderstandingQuestion',
       options: [
         {
@@ -402,15 +404,18 @@ module.exports = {
       questionId: '1stUnderstandingQuestion',
       options: [
         {
-          optionText: 'Green -> Yellow -> Red represent lowest to highest energy consumption',
+          optionText:
+            'Green -> Yellow -> Red represent lowest to highest energy consumption',
           value: 'gyr_(low-to-high)',
         },
         {
-          optionText: 'Green -> Yellow -> Red represent highest to lowest energy consumption',
+          optionText:
+            'Green -> Yellow -> Red represent highest to lowest energy consumption',
           value: 'gyr_(high-to-low)',
         },
         {
-          optionText: 'Red -> Yellow -> Green represent lowest to highest energy consumption',
+          optionText:
+            'Red -> Yellow -> Green represent lowest to highest energy consumption',
           value: 'ryg_(low-to-high)',
         },
         {
@@ -421,7 +426,8 @@ module.exports = {
     },
     {
       questionType: 'SelectionGroup',
-      questionText: 'At the period 1:30 – 1:40 am, how much did Room 2 contribute to the total energy consumption?',
+      questionText:
+        'At the period 1:30 – 1:40 am, how much did Room 2 contribute to the total energy consumption?',
       questionId: '2ndUnderstandingQuestion',
       options: [
         {
@@ -444,7 +450,8 @@ module.exports = {
     },
     {
       questionType: 'SelectionGroup',
-      questionText: 'At the period 00:10 – 00:20 am, which room had the lowest energy consumption?',
+      questionText:
+        'At the period 00:10 – 00:20 am, which room had the lowest energy consumption?',
       questionId: '3rdUnderstandingQuestion',
       options: [
         {
@@ -469,8 +476,7 @@ module.exports = {
   stackedBarQs: [
     {
       questionType: 'SelectionGroup',
-      questionText:
-        'Are vacuum cleaners available on the appliances list?',
+      questionText: 'Are vacuum cleaners available on the appliances list?',
       questionId: '1stUnderstandingQuestion',
       options: [
         {
@@ -508,7 +514,8 @@ module.exports = {
     },
     {
       questionType: 'SelectionGroup',
-      questionText: 'At 1 pm, what television brand was turned on (Note: these numbers do not reflect real energy consumption for each brand)',
+      questionText:
+        'At 1 pm, what television brand was turned on (Note: these numbers do not reflect real energy consumption for each brand)',
       questionId: '3rdUnderstandingQuestion',
       options: [
         {
@@ -529,7 +536,8 @@ module.exports = {
   spiralQs: [
     {
       questionType: 'SelectionGroup',
-      questionText: 'From the plot above, can you know what is the starting and ending date of summer?',
+      questionText:
+        'From the plot above, can you know what is the starting and ending date of summer?',
       questionId: '1stUnderstandingQuestion',
       options: [
         {
@@ -600,12 +608,11 @@ module.exports = {
   optionalQs: [
     {
       questionType: 'SelectionGroup',
-      questionText:
-        'How effective is the provided visualization in portraying power consumption information?',
-      questionId: 'effectiveness',
+      questionText: 'How easy to use was this app?',
+      questionId: 'app-easy',
       options: [
         {
-          optionText: '1 not effective at all',
+          optionText: '1 not easy to use at all',
           value: '1',
         },
         {
@@ -621,7 +628,7 @@ module.exports = {
           value: '4',
         },
         {
-          optionText: '5 very effective',
+          optionText: '5 very easy to use',
           value: '5',
         },
       ],
@@ -629,11 +636,11 @@ module.exports = {
     {
       questionType: 'SelectionGroup',
       questionText:
-        'How easy to understand is the provided visualization in portraying power consumption information?',
-      questionId: 'understandability',
+        'How smooth was using this app, according to you experience?',
+      questionId: 'app-smooth',
       options: [
         {
-          optionText: '1 not easy at all',
+          optionText: '1 slow and laggy',
           value: '1',
         },
         {
@@ -649,18 +656,34 @@ module.exports = {
           value: '4',
         },
         {
-          optionText: '5 very easy',
+          optionText: '5 very smooth',
           value: '5',
         },
       ],
     },
     {
       questionType: 'SelectionGroup',
-      questionText: 'How visually pleasing is the provided visualization?',
-      questionId: 'pleasantness',
+      questionText: 'Would you be recommend this app to your friends/colleagues?',
+      questionId: 'app-recommend',
       options: [
         {
-          optionText: '1 not visually pleasing at all',
+          optionText: 'Yes',
+          value: '1',
+        },
+        {
+          optionText: 'No',
+          value: '0',
+        },
+      ],
+    },
+    {
+      questionType: 'SelectionGroup',
+      questionText:
+        'Please rate the time you spent on completing the questionnaire?',
+      questionId: 'app-duration',
+      options: [
+        {
+          optionText: '1 very long',
           value: '1',
         },
         {
@@ -668,7 +691,7 @@ module.exports = {
           value: '2',
         },
         {
-          optionText: '3',
+          optionText: '3 adequate',
           value: '3',
         },
         {
@@ -676,65 +699,17 @@ module.exports = {
           value: '4',
         },
         {
-          optionText: '5 very visually pleasing',
+          optionText: '5 to the point',
           value: '5',
-        },
-      ],
-    },
-    {
-      questionType: 'SelectionGroup',
-      questionText:
-        'How is the use of animations has helped in understanding the information portrayed by the figure?',
-      questionId: 'animationsHelpfulness',
-      options: [
-        {
-          optionText: '1 not helpful at all',
-          value: '1',
-        },
-        {
-          optionText: '2',
-          value: '2',
-        },
-        {
-          optionText: '3',
-          value: '3',
-        },
-        {
-          optionText: '4',
-          value: '4',
-        },
-        {
-          optionText: '5 very helpful',
-          value: '5',
-        },
-      ],
-    },
-    {
-      questionType: 'SelectionGroup',
-      questionText:
-        'In terms of quantity, how do you describe the amount of data presented?',
-      questionId: 'amountOfData',
-      options: [
-        {
-          optionText: 'Sparse (not enough)',
-          value: 'sparse',
-        },
-        {
-          optionText: 'Adequate (just right)',
-          value: 'adequate',
-        },
-        {
-          optionText: 'Excessive (very complex)',
-          value: 'excessive',
         },
       ],
     },
     {
       questionType: 'TextInput',
       questionText:
-        'How can this visualization be improved in terms of clarity?',
-      questionId: 'suggestion',
-      placeholderText: 'Tell us so we can become better!',
+        'Did you face any technical difficulties using the app? How could we improve your experience?',
+      questionId: 'app-general-feedback',
+      placeholderText: 'Found bugs? General feedback?',
     },
   ],
 };
