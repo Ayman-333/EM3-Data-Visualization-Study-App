@@ -56,12 +56,12 @@ module.exports = {
           value: 'researcher',
         },
         {
-          optionText: 'Academic Faculty',
-          value: 'academic_faculty',
+          optionText: 'Academic Staff',
+          value: 'academic_staff',
         },
         {
-          optionText: 'Industrial-Related',
-          value: 'industrial_related',
+          optionText: 'Industry',
+          value: 'industry',
         },
         {
           optionText: 'Other',

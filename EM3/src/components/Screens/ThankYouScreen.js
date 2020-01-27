@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { Text, Button, View, StyleSheet, Image, ScrollView } from 'react-native';
+import { Text, Button, View, StyleSheet, Image, ScrollView, KeyboardAvoidingView, Dimensions } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
-import publicIP from 'react-native-public-ip';
 import firestore from '@react-native-firebase/firestore';
-import SurveyHeader from '../SurveyHeader';
+import publicIP from 'react-native-public-ip';
+
+import { optionalQs } from '../../../res/survey_info';
 import { credits } from '../../../res/credits';
+import Questionnaire from '../Questionnaire';
+import SurveyHeader from '../SurveyHeader';
 
 class ThankYouScreen extends Component {
   static navigationOptions = {
     header: null,
   };
+  state = {
+    completedOptionaSurvey: false,
+  }
   render() {
     if (global.isFirstTime)
       publicIP()
@@ -37,6 +43,17 @@ class ThankYouScreen extends Component {
     global.surveysDBRef.update({
       completions: firestore.FieldValue.arrayUnion(global.surveyAnswers),
     });
+
+    const handleOptionalSurveySubmission = (dataObj) => {
+      global.surveysDBRef.update({
+        evaluations: firestore.FieldValue.arrayUnion(dataObj),
+      });
+      this.setState
+      ({
+        completedOptionaSurvey: true,
+      });
+    }
+    
     return (
       <View>
         <SurveyHeader style={styles.SurveyHeader} horizontal={false} />
@@ -46,13 +63,26 @@ class ThankYouScreen extends Component {
             source={require('../../../res/complete_logo.png')}
           />
           <Text style={styles.greetingTextHeader}>
-            Thank you for completing the survey, we have saved your responses. 
+            Thank you for completing the survey, we have saved your responses.
             Feel free to delete the application, or better, please let others answer it or send them the URL.
           </Text>
           <Text style={styles.greetingTextHeader2}>
             Let us know through the following email if you have any cool ideas or if you faced any bugs during the survey (a screenshot will be appreciated): {'\n\n'}
             aa1405810@qu.edu.qa -> Ayman Al-Kababji {'\n'}
           </Text>
+          <Text style={styles.greetingTextHeader2}>
+            The questionnaire below is optional and very short! your response is highly appreciated.  
+          </Text>
+          <KeyboardAvoidingView style={styles.surveyContainer}>
+            {!this.state.completedOptionaSurvey? <Questionnaire
+              surveyQs={optionalQs}
+              nextDestination={''}
+              navigation={this.props.navigation}
+              onOptionalSurveySubmission={handleOptionalSurveySubmission}
+          />
+          :
+            <Text style={styles.thanks}>Thank You</Text>} 
+          </KeyboardAvoidingView>
           <View style={styles.button}>
             <Button title="Do it again?" onPress={() => {
               const resetAction = StackActions.reset({
@@ -84,26 +114,36 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'column',
-    marginLeft: 22,
-    marginRight: 25,
     textAlign: 'left',
     fontFamily: 'Helvetica',
   },
   greetingTextHeader: {
     marginBottom: 20,
-    marginLeft: 0,
+    marginLeft: 22,
+    marginRight: 25,
     fontSize: 25,
   },
   greetingTextHeader2: {
-    marginBottom: 15,
+    marginBottom: 5,
+    marginLeft: 22,
+    marginRight: 25,
     fontSize: 15,
   },
   logo: {
     marginTop: 20,
-    marginLeft: 7,
+    marginLeft: 22,
+    marginRight: 25,
     marginBottom: 20,
     width: 190,
     height: 90,
+  },
+  surveyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    height: 370,
+    width: Dimensions.get("window").width,
   },
   button: {
     // marginTop: 30,
@@ -114,11 +154,19 @@ const styles = StyleSheet.create({
   creditsTitle: {
     fontSize: 30,
     fontWeight: 'bold',
+    marginLeft: 22,
+    marginRight: 25,
   },
   credits: {
     fontSize: 15,
     marginBottom: 50,
     height: 'auto',
+    marginLeft: 11,
+    marginRight: 12.5,
+  },
+  thanks: {
+    fontSize: 30,
+    textAlign: 'center',
   }
 });
 export default ThankYouScreen;

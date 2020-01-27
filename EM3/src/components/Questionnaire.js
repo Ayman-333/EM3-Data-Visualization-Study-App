@@ -22,7 +22,7 @@ class Questionnaire extends React.Component {
     surveyQs: PropTypes.array.isRequired,
     nextDestination: PropTypes.string.isRequired,
     navigation: PropTypes.object.isRequired,
-    startTime: PropTypes.number.isRequired,
+    // startTime: PropTypes.number.isRequired,
   };
 
   state = {
@@ -75,7 +75,9 @@ class Questionnaire extends React.Component {
 
     global.surveyAnswers[part] = answersAsObj;
 
-    if (this.props.nextDestination !== '') {
+    if(this.props.onOptionalSurveySubmission) {
+      this.props.onOptionalSurveySubmission(answersAsObj)
+    } else if (this.props.nextDestination !== '') {
       const resetAction = StackActions.reset({
         index: 0,
         actions: [
@@ -162,7 +164,7 @@ class Questionnaire extends React.Component {
         <Button
           buttonStyle={{backgroundColor: GREEN}}
           onPress={onPress}
-          disabled={!enabled}
+          disabled={this.props.onOptionalSurveySubmission? false: !enabled}
           title={'Next'}
         />
       </View>
@@ -193,9 +195,11 @@ class Questionnaire extends React.Component {
       <View
         style={{ flexGrow: 1, maxWidth: 150, marginTop: 10, marginBottom: 10 }}>
         <Button
-          title={this.props.nextDestination? (this.props.nextDestination == 'Figures'? 'Go To Plots': 'Finish'): 'Next Plot'}
+          title={this.props.nextDestination
+            ? (this.props.nextDestination == 'Figures'? 'Go To Plots': 'Finish')
+            : (this.props.onOptionalSurveySubmission? 'Finish': 'Next Plot')}
           onPress={onPress}
-          disabled={!enabled}
+          disabled={this.props.onOptionalSurveySubmission? false: !enabled}
           buttonStyle={{backgroundColor: GREEN}}
         />
       </View>
