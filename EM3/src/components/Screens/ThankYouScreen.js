@@ -16,9 +16,10 @@ class ThankYouScreen extends Component {
   state = {
     completedOptionaSurvey: false,
   }
-  render() {
+
+  async componentDidMount() {
     if (global.isFirstTime)
-      publicIP()
+      await publicIP()
         .then(ip => {
           const url = `http://api.ipstack.com/${ip}?access_key=3b8ae0d37217c4fcbf551b5be1394a7e&format=1`;
           // console.log(url)
@@ -40,20 +41,22 @@ class ThankYouScreen extends Component {
           // 'Unable to get IP address.'
         });
 
-    global.surveysDBRef.update({
+    await global.surveysDBRef.update({
       completions: firestore.FieldValue.arrayUnion(global.surveyAnswers),
     });
+  }
+  render() {
 
     const handleOptionalSurveySubmission = (dataObj) => {
       global.surveysDBRef.update({
         evaluations: firestore.FieldValue.arrayUnion(dataObj),
       });
       this.setState
-      ({
-        completedOptionaSurvey: true,
-      });
+        ({
+          completedOptionaSurvey: true,
+        });
     }
-    
+
     return (
       <View>
         <SurveyHeader style={styles.SurveyHeader} horizontal={false} />
@@ -71,17 +74,17 @@ class ThankYouScreen extends Component {
             aa1405810@qu.edu.qa -> Ayman Al-Kababji {'\n'}
           </Text>
           <Text style={styles.greetingTextHeader2}>
-            The questionnaire below is optional and very short! your response is highly appreciated.  
+            The questionnaire below is optional and very short! your response is highly appreciated.
           </Text>
           <KeyboardAvoidingView style={styles.surveyContainer}>
-            {!this.state.completedOptionaSurvey? <Questionnaire
+            {!this.state.completedOptionaSurvey ? <Questionnaire
               surveyQs={optionalQs}
               nextDestination={''}
               navigation={this.props.navigation}
               onOptionalSurveySubmission={handleOptionalSurveySubmission}
-          />
-          :
-            <Text style={styles.thanks}>Thank You</Text>} 
+            />
+              :
+              <Text style={styles.thanks}>Thank You</Text>}
           </KeyboardAvoidingView>
           <View style={styles.button}>
             <Button title="Do it again?" onPress={() => {

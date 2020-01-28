@@ -76,11 +76,11 @@ module.exports = {
       options: [
         {
           optionText: 'Yes',
-          value: 'y',
+          value: '1',
         },
         {
           optionText: 'No',
-          value: 'n',
+          value: '0',
         },
       ],
     },
@@ -267,11 +267,11 @@ module.exports = {
       options: [
         {
           optionText: 'Yes',
-          value: 'yes',
+          value: '1',
         },
         {
           optionText: 'No',
-          value: 'no',
+          value: '0',
         },
       ],
     },
@@ -481,11 +481,11 @@ module.exports = {
       options: [
         {
           optionText: 'Yes',
-          value: 'yes',
+          value: '1',
         },
         {
           optionText: 'No',
-          value: 'no',
+          value: '0',
         },
       ],
     },
@@ -608,7 +608,7 @@ module.exports = {
   optionalQs: [
     {
       questionType: 'SelectionGroup',
-      questionText: 'How easy to use was this app?',
+      questionText: 'Was it easy to use this app?',
       questionId: 'app-easy',
       options: [
         {
@@ -636,7 +636,7 @@ module.exports = {
     {
       questionType: 'SelectionGroup',
       questionText:
-        'How smooth was using this app, according to you experience?',
+        'How smooth was using this app, according to your experience?',
       questionId: 'app-smooth',
       options: [
         {
