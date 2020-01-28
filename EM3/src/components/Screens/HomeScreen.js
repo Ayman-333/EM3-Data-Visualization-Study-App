@@ -62,7 +62,7 @@ class HomeScreen extends Component {
           console.log(error);
           this.props.navigation.navigate('Empty')
         });
-        this.setState
+      this.setState
         ({
           userSignedIn: user.user.uid ? true : false,
         });
@@ -95,67 +95,42 @@ class HomeScreen extends Component {
       }
     });
 
-    if (global.isNovel != undefined)
-      return (
-        <>
-          <SurveyHeader style={styles.SurveyHeader} />
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.container}>
-              <Image
-                style={styles.logo}
-                source={require('../../../res/complete_logo.png')}
-              />
-              <Text style={styles.greetingTextHeader}>
-                Welcome to EM3 Data Visualization Study
+    return (
+      <>
+        <SurveyHeader style={styles.SurveyHeader} />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.container}>
+            <Image
+              style={styles.logo}
+              source={require('../../../res/complete_logo.png')}
+            />
+            <Text style={styles.greetingTextHeader}>
+              Welcome to EM3 Data Visualization Study
           </Text>
-              <Text style={styles.greetingTextHeader2}>
-                We aim to find the best visualizations for demonstrating energy consumption at homes. Your input is appreciated through this interactive questionnaire. {'\n\n'}
-                To start, please introduce yourself by answering the following questions. Following, we will present three different visualizations for you to rate. Your responses will be treated anonymously.
+            <Text style={styles.greetingTextHeader2}>
+              We aim to find the best visualizations for demonstrating energy consumption at homes. Your input is appreciated through this interactive questionnaire. {'\n\n'}
+              To start, please introduce yourself by answering the following questions. Following, we will present three different visualizations for you to rate. Your responses will be treated anonymously.
             <Text style={{ fontWeight: 'bold' }}>
-                  {'\n\n'}Note: the information (collected at the end of the survey) is strictly your responses and the name of the country you are currently in. Therefore, if you feel uncomfortable sharing the aforementioned information please refrain from answering.
+                {'\n\n'}Note: the information (collected at the end of the survey) is strictly your responses and the name of the country you are currently in. Therefore, if you feel uncomfortable sharing the aforementioned information please refrain from answering.
             </Text>
-              </Text>
-            </View>
-            <View style={styles.surveyContainer}>
+            </Text>
+          </View>
+          <View style={styles.surveyContainer}>
+            {global.isNovel != undefined ?
               <Questionnaire
                 surveyQs={personalQs}
                 nextDestination={'Figures'}
                 navigation={this.props.navigation}
                 startTime={this.state.startTime}
-              />
-            </View>
-          </ScrollView>
-        </>
-      );
-    else
-      return (
-        <>
-          <SurveyHeader style={styles.SurveyHeader} />
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.container}>
-              <Image
-                style={styles.logo}
-                source={require('../../../res/complete_logo.png')}
-              />
-              <Text style={styles.greetingTextHeader}>
-                Welcome to EM3 Data Visualization Study
-          </Text>
-              <Text style={styles.greetingTextHeader2}>
-                We aim to find the best visualizations for demonstrating energy consumption at homes. Your input is appreciated through this interactive questionnaire. {'\n\n'}
-                To start, please introduce yourself by answering the following questions. Following, we will present three different visualizations for you to rate. Your responses will be treated anonymously.
-            <Text style={{ fontWeight: 'bold' }}>
-                  {'\n\n'}Note: the information (collected at the end of the survey) is strictly your responses and the name of the country you are currently in. Therefore, if you feel uncomfortable sharing the aforementioned information please refrain from answering.
-            </Text>
-              </Text>
-            </View>
-            <View style={styles.surveyContainer}>
-              <Text style={styles.loading}>
+              /> :
+              (<Text style={styles.loading}>
                 Loading...
-              </Text>
-            </View>
-          </ScrollView>
-        </>
-      );
+              </Text>)
+            }
+          </View>
+        </ScrollView>
+      </>
+    );
   }
 }
 
