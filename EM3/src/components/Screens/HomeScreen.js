@@ -95,7 +95,7 @@ class HomeScreen extends Component {
       }
     });
 
-    if (global.isNovel)
+    if (global.isNovel != undefined)
       return (
         <>
           <SurveyHeader style={styles.SurveyHeader} />
