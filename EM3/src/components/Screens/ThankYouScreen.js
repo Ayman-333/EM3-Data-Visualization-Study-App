@@ -67,7 +67,7 @@ class ThankYouScreen extends Component {
           />
           <Text style={styles.greetingTextHeader}>
             Thank you for completing the survey, we have saved your responses.
-            Feel free to delete the application, or better, please let others answer it or send them the URL.
+            Feel free to share the application link with others.
           </Text>
           <Text style={styles.greetingTextHeader2}>
             Let us know through the following email if you have any cool ideas or if you faced any bugs during the survey (a screenshot will be appreciated): {'\n\n'}
