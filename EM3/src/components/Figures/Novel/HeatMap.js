@@ -34,11 +34,11 @@ class HeatMap extends Component {
     // const innerPadding = 6,
     //   rectHeight = 30,
     //   rectWidth = 50,
-    const innerPadding = screenWidth/60,
-      rectHeight = screenWidth/15,
-      rectWidth = screenWidth/8.5,
-      borderRadius = screenWidth/50,
-      strokeWidth = screenWidth/90,
+    const innerPadding = screenWidth / 60,
+      rectHeight = screenWidth / 15,
+      rectWidth = screenWidth / 8.5,
+      borderRadius = screenWidth / 50,
+      strokeWidth = screenWidth / 90,
       xLabelTitle = 'Minutes',
       yLabelTitle = 'Hours';
     const currentTime = new Date();
@@ -48,7 +48,7 @@ class HeatMap extends Component {
       (60 / cols); // To divide the hour into 6 cols.
     // const rows = Math.ceil(time / cols),
     const rows = 24,
-      xAxisLabels = Array.from(Array(cols).keys()),
+      xAxisLabels = Array.from(Array(cols + 1).keys()),
       yAxisLabels = Array.from(Array(rows).keys()),
       rotationThreshold = 2;
 
@@ -102,9 +102,8 @@ class HeatMap extends Component {
       for (let i = 0; i < periodRooms.length && periodSum != 0; i++)
         periodRooms[i] /= periodSum;
 
-      const minPeriodEnergy = Math.min(...periodRooms);
-      const maxPeriodEnergy = Math.max(...periodRooms);
-
+      // const minPeriodEnergy = Math.min(...periodRooms);
+      // const maxPeriodEnergy = Math.max(...periodRooms);
       // const piechartColor = d3
       //   .scaleLinear()
       //   .domain([minPeriodEnergy, (minPeriodEnergy + maxPeriodEnergy) / 2, maxPeriodEnergy])
@@ -147,7 +146,7 @@ class HeatMap extends Component {
                 fontSize="15"
                 x={rows >= rotationThreshold ? -15 : 10}
                 y={20}
-                textAnchor="start">
+                textAnchor="middle">
                 {yLabelTitle}
               </Text>
             </G>
@@ -169,7 +168,7 @@ class HeatMap extends Component {
                     stroke="black"
                     fontSize="15"
                     x={8}
-                    y={(rectHeight + innerPadding) * num + rectHeight * 0.8}
+                    y={(rectHeight + innerPadding) * num + rectHeight}
                     textAnchor="middle">
                     {num}
                   </Text>
@@ -177,7 +176,7 @@ class HeatMap extends Component {
               );
             })}
           </Svg>
-          <View>
+          <View style={{ flex: 1, paddingTop: 5, }}>
             {/* HeatMap Rect Components */}
             <Svg
               height={(rectHeight + innerPadding) * rows}
@@ -186,12 +185,12 @@ class HeatMap extends Component {
             </Svg>
             {/* XAxis Numbers Generation */}
             <Svg style={{ flex: 1, flexDirection: 'row' }}
-              width={(rectWidth + innerPadding) * cols}
+              width={(rectWidth + innerPadding) * (cols + 1)}
               height={20}>
               {xAxisLabels.map(num => {
                 return (
                   <Svg
-                    key={num + 1}
+                    key={num}
                     height={20}
                     // width={rectWidth + innerPadding}>
                     width={(rectWidth + innerPadding) * cols}>
@@ -199,10 +198,10 @@ class HeatMap extends Component {
                       fill="black"
                       stroke="black"
                       fontSize="15"
-                      x={(rectWidth + innerPadding) * num + rectWidth / 1.85}
+                      x={(rectWidth + innerPadding * 0.9) * num + (num == 0 ? innerPadding * 0.8 : 0)}
                       y={12}
                       textAnchor="middle">
-                      {((num + 1) * 60) / cols}
+                      {(num * 60) / cols}
                     </Text>
                   </Svg>
                 );
