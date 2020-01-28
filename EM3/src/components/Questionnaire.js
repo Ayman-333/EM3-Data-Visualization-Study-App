@@ -67,7 +67,7 @@ class Questionnaire extends React.Component {
         : 'personalInfo';
     for (const elem of infoQuestionsRemoved) {
       answersAsObj[elem.questionId] =
-        elem.questionId !== 'suggestion' ? elem.value.value : elem.value;
+        elem.value instanceof Object ? elem.value.value : elem.value;
     }
     // Adding Timestamps for each part of the questionnaire.
     if (!this.props.onOptionalSurveySubmission) {
