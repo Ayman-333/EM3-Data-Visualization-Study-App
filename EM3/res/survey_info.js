@@ -71,7 +71,7 @@ module.exports = {
     },
     {
       questionType: 'SelectionGroup',
-      questionText: 'Do you have experience with data visualization plots?',
+      questionText: 'Do you have a working experience in data visualization plots or have you dealt with them a lot?',
       questionId: 'plotsExperience',
       options: [
         {
