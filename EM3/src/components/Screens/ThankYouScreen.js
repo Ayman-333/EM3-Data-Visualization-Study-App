@@ -71,13 +71,14 @@ class ThankYouScreen extends Component {
           </Text>
           <Text style={styles.greetingTextHeader2}>
             Let us know through the following email if you have any cool ideas or if you faced any bugs during the survey (a screenshot will be appreciated): {'\n\n'}
-            aa1405810@qu.edu.qa -> Ayman Al-Kababji {'\n'}
+            aa1405810@qu.edu.qa -> Ayman Al-Kababji & Abdullah Alsalemi {'\n'}
           </Text>
           <Text style={styles.greetingTextHeader2}>
             The questionnaire below is optional and very short! your response is highly appreciated.
           </Text>
           <KeyboardAvoidingView style={styles.surveyContainer}>
-            {!this.state.completedOptionaSurvey ? <Questionnaire
+            {!this.state.completedOptionaSurvey ? 
+            <Questionnaire
               surveyQs={optionalQs}
               nextDestination={''}
               navigation={this.props.navigation}
