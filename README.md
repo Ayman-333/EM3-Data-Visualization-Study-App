@@ -8,3 +8,5 @@ To the best of the our knowledge, this is the first framework, to date, that use
 A set of novel smart energy usage visualizations are created/introduced, including heatmap chart, stacked bar chart, and spiral chart, which provide more options to present energy consumption data than conventional visualizations, which include line graph, bar chart, and stacked area chart. Once the participant completes the questionnaire, his/her response is stored on Firebase online NoSQL database, namely Firestore.
 
 This work was made possible by National Priorities Research Program (NPRP) grant No. 10-0130-170288 from the Qatar National Research Fund (a member of Qatar Foundation). The statements made herein are solely the responsibility of the authors.
+
+You can view screenshots of the app in the Screenshot folder.
