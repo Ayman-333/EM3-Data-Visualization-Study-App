@@ -9,4 +9,4 @@ A set of novel smart energy usage visualizations are created/introduced, includi
 
 This work was made possible by National Priorities Research Program (NPRP) grant No. 10-0130-170288 from the Qatar National Research Fund (a member of Qatar Foundation). The statements made herein are solely the responsibility of the authors.
 
-You can view screenshots of the app in the Screenshots folder.
+You can view screenshots of the app in Screenshots.zip.
